@@ -1,0 +1,16 @@
+* * * * * /usr/bin/php /var/www/idosell.samba.win/public_html/yii xml-generator/generate-countries >/dev/null 2>&1
+
+1 23 * * * /usr/bin/php /var/www/idosell.samba.win/public_html/yii xml-generator/prepare-queue >/dev/null 2>&1
+
+* * * * * /bin/bash /var/www/idosell.samba.win/public_html/integration-bash.sh >/dev/null 2>&1
+* * * * * /bin/bash /var/www/idosell.samba.win/public_html/integration-bash-orders.sh >/dev/null 2>&1
+*/10 * * * * /bin/bash /var/www/idosell.samba.win/public_html/integration-bash-ordersparalel.sh >/dev/null 2>&1
+*/10 * * * * /bin/bash /var/www/idosell.samba.win/public_html/integration-bash-customers.sh >/dev/null 2>&1
+*/10 * * * * /bin/bash /var/www/idosell.samba.win/public_html/integration-bash-customersparalel.sh >/dev/null 2>&1
+* * * * * /bin/bash /var/www/idosell.samba.win/public_html/integration-bash-products.sh >/dev/null 2>&1
+* * * * * /bin/bash /var/www/idosell.samba.win/public_html/integration-bash-productsparalel.sh >/dev/null 2>&1
+*/10 * * * * /bin/bash /var/www/idosell.samba.win/public_html/integration-bash-subscribers.sh >/dev/null 2>&1
+*/10 * * * * /bin/bash /var/www/idosell.samba.win/public_html/integration-bash-subscribersparalel.sh >/dev/null 2>&1
+*/10 * * * * /bin/bash /var/www/idosell.samba.win/public_html/integration-bash-phonesubscribers.sh >/dev/null 2>&1
+*/10 * * * * /bin/bash /var/www/idosell.samba.win/public_html/integration-bash-phonesubscribersparalel.sh >/dev/null 2>&1
+10 * * * * /usr/bin/php /var/www/idosell.samba.win/public_html/yii xml-generator/subscriber-sync >/dev/null 2>&1

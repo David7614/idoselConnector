@@ -1,0 +1,835 @@
+JOBS start 
+URL FIXER
+****************
+idiosell
+COUNTRY Użytek Trwały 2011 Kośno-pastwiskowa uniwersalna bez koniczyny 25 kg
+https://dobryfarmer.pl/product-pol-29-COUNTRY-Uzytek-Trwaly-2011-Kosno-pastwiskowa-uniwersalna-bez-koniczyny-25-kg.html
+***
+200 
+PROPER URL:
+https://dobryfarmer.pl/product-pol-29-COUNTRY-Uzytek-Trwaly-2011-Kosno-pastwiskowa-uniwersalna-bez-koniczyny-25-kg.html
+****************
+idiosell
+COUNTRY G 2013 Kośno-pastwiskowa na stanowiska suche 20kg
+https://dobryfarmer.pl/product-pol-30-COUNTRY-G-2013-Kosno-pastwiskowa-na-stanowiska-suche-20kg.html
+***
+200 
+PROPER URL:
+https://dobryfarmer.pl/product-pol-30-COUNTRY-G-2013-Kosno-pastwiskowa-na-stanowiska-suche-20kg.html
+****************
+idiosell
+COUNTRY Użytek Trwały 2014 Na stanowiska trudne 25 kg
+https://dobryfarmer.pl/product-pol-31-COUNTRY-Uzytek-Trwaly-2014-Na-stanowiska-trudne-25-kg.html
+***
+200 
+PROPER URL:
+https://dobryfarmer.pl/product-pol-31-COUNTRY-Uzytek-Trwaly-2014-Na-stanowiska-trudne-25-kg.html
+****************
+idiosell
+COUNTRY G 2015 Łąka trwała ekstensywna 25 kg
+https://dobryfarmer.pl/product-pol-32-COUNTRY-G-2015-Laka-trwala-ekstensywna-25-kg.html
+***
+200 
+PROPER URL:
+https://dobryfarmer.pl/product-pol-32-COUNTRY-G-2015-Laka-trwala-ekstensywna-25-kg.html
+****************
+idiosell
+COUNTRY Energy 2027 Mleczny Indeks 25 kg
+https://dobryfarmer.pl/product-pol-33-COUNTRY-Energy-2027-Mleczny-Indeks-25-kg.html
+***
+200 
+PROPER URL:
+https://dobryfarmer.pl/product-pol-33-COUNTRY-Energy-2027-Mleczny-Indeks-25-kg.html
+****************
+idiosell
+COUNTRY F Użytek Polowy 2050 Roczna 25 kg
+https://dobryfarmer.pl/product-pol-34-COUNTRY-F-Uzytek-Polowy-2050-Roczna-25-kg.html
+***
+200 
+PROPER URL:
+https://dobryfarmer.pl/product-pol-34-COUNTRY-F-Uzytek-Polowy-2050-Roczna-25-kg.html
+****************
+idiosell
+COUNTRY Użytek Polowy 2051 Roczna do dwuletniej 25 kg
+https://dobryfarmer.pl/product-pol-35-COUNTRY-Uzytek-Polowy-2051-Roczna-do-dwuletniej-25-kg.html
+***
+200 
+PROPER URL:
+https://dobryfarmer.pl/product-pol-35-COUNTRY-Uzytek-Polowy-2051-Roczna-do-dwuletniej-25-kg.html
+****************
+idiosell
+COUNTRY Użytek Polowy 2052 Trzy-, czteroletnia 25 kg
+https://dobryfarmer.pl/pl/products/country-uzytek-polowy-2052-trzy--czteroletnia-25-kg-36.html
+***
+301 https://dobryfarmer.pl/product-pol-36-COUNTRY-Uzytek-Polowy-2052-Trzy-czteroletnia-25-kg.html
+307 https://dobryfarmer.pl/cat-pol-1214553909-Mieszanki-Country.html
+DONE
+PROPER URL:
+https://dobryfarmer.pl/cat-pol-1214553909-Mieszanki-Country.html
+NON ACTIVE
+****************
+idiosell
+COUNTRY Użytek Polowy 2056 Lucerna z trawami 25 kg
+https://dobryfarmer.pl/product-pol-38-COUNTRY-Uzytek-Polowy-2056-Lucerna-z-trawami-25-kg.html
+***
+200 
+PROPER URL:
+https://dobryfarmer.pl/product-pol-38-COUNTRY-Uzytek-Polowy-2056-Lucerna-z-trawami-25-kg.html
+****************
+idiosell
+COUNTRY F 2057 25 kg
+https://dobryfarmer.pl/product-pol-39-COUNTRY-F-2057-25-kg.html
+***
+200 
+PROPER URL:
+https://dobryfarmer.pl/product-pol-39-COUNTRY-F-2057-25-kg.html
+URL FIXER
+****************
+idiosell
+COUNTRY F 2058 Użytek Polowy Wieloletnia na stanowiska suche 25 kg
+https://dobryfarmer.pl/product-pol-40-COUNTRY-F-2058-Uzytek-Polowy-Wieloletnia-na-stanowiska-suche-25-kg.html
+***
+200 
+PROPER URL:
+https://dobryfarmer.pl/product-pol-40-COUNTRY-F-2058-Uzytek-Polowy-Wieloletnia-na-stanowiska-suche-25-kg.html
+****************
+idiosell
+Futtertrio mieszanka poplonowa traw 25 kg
+https://dobryfarmer.pl/product-pol-41-Futtertrio-mieszanka-poplonowa-traw-25-kg.html
+***
+200 
+PROPER URL:
+https://dobryfarmer.pl/product-pol-41-Futtertrio-mieszanka-poplonowa-traw-25-kg.html
+****************
+idiosell
+FELICIA Lucerna siewna
+https://dobryfarmer.pl/pl/products/felicia-lucerna-siewna-42.html
+***
+301 https://dobryfarmer.pl/product-pol-42-FELICIA-Lucerna-siewna.html
+307 https://dobryfarmer.pl/cat-pol-1214553910-Mieszanki-drobnonasienne.html
+DONE
+PROPER URL:
+https://dobryfarmer.pl/cat-pol-1214553910-Mieszanki-drobnonasienne.html
+NON ACTIVE
+****************
+idiosell
+PLANET Lucerna siewna 10 kg
+https://dobryfarmer.pl/pl/products/planet-lucerna-siewna-10-kg-43.html
+***
+301 https://dobryfarmer.pl/product-pol-43-PLANET-Lucerna-siewna-10-kg.html
+307 https://dobryfarmer.pl/cat-pol-1214553910-Mieszanki-drobnonasienne.html
+DONE
+PROPER URL:
+https://dobryfarmer.pl/cat-pol-1214553910-Mieszanki-drobnonasienne.html
+NON ACTIVE
+****************
+idiosell
+FRAVER Lucerna siewna 10 kg
+https://dobryfarmer.pl/pl/products/fraver-lucerna-siewna-10-kg-44.html
+***
+301 https://dobryfarmer.pl/product-pol-44-FRAVER-Lucerna-siewna-10-kg.html
+307 https://dobryfarmer.pl/cat-pol-1214553910-Mieszanki-drobnonasienne.html
+DONE
+PROPER URL:
+https://dobryfarmer.pl/cat-pol-1214553910-Mieszanki-drobnonasienne.html
+NON ACTIVE
+****************
+idiosell
+COUNTRY F 2055 Trawy z koniczyną czerwoną 20 kg
+https://dobryfarmer.pl/product-pol-45-COUNTRY-F-2055-Trawy-z-koniczyna-czerwona-20-kg.html
+***
+200 
+PROPER URL:
+https://dobryfarmer.pl/product-pol-45-COUNTRY-F-2055-Trawy-z-koniczyna-czerwona-20-kg.html
+****************
+idiosell
+COUNTRY Horse 2117 -10 kg
+https://dobryfarmer.pl/product-pol-46-COUNTRY-Horse-2117-10-kg.html
+***
+200 
+PROPER URL:
+https://dobryfarmer.pl/product-pol-46-COUNTRY-Horse-2117-10-kg.html
+****************
+idiosell
+COUNTRY Horse 2118  - 10 kg
+https://dobryfarmer.pl/product-pol-47-COUNTRY-Horse-2118-10-kg.html
+***
+200 
+PROPER URL:
+https://dobryfarmer.pl/product-pol-47-COUNTRY-Horse-2118-10-kg.html
+****************
+idiosell
+COUNTRY Horse 2119
+https://dobryfarmer.pl/pl/products/country-horse-2119-48.html
+***
+301 https://dobryfarmer.pl/product-pol-48-COUNTRY-Horse-2119.html
+307 https://dobryfarmer.pl/cat-pol-1214553911-Mieszanki-Country-Horse.html
+DONE
+PROPER URL:
+https://dobryfarmer.pl/cat-pol-1214553911-Mieszanki-Country-Horse.html
+NON ACTIVE
+****************
+idiosell
+COUNTRY Horse 2120 - 10 kg
+https://dobryfarmer.pl/product-pol-49-COUNTRY-Horse-2120-10-kg.html
+***
+200 
+PROPER URL:
+https://dobryfarmer.pl/product-pol-49-COUNTRY-Horse-2120-10-kg.html
+URL FIXER
+****************
+idiosell
+COUNTRY Horse 2122 1,5 kg
+https://dobryfarmer.pl/product-pol-50-COUNTRY-Horse-2122-1-5-kg.html
+***
+200 
+PROPER URL:
+https://dobryfarmer.pl/product-pol-50-COUNTRY-Horse-2122-1-5-kg.html
+****************
+idiosell
+DSV 830  Country Horse 10 kg
+https://dobryfarmer.pl/product-pol-51-DSV-830-Country-Horse-10-kg.html
+***
+200 
+PROPER URL:
+https://dobryfarmer.pl/product-pol-51-DSV-830-Country-Horse-10-kg.html
+****************
+idiosell
+DSV 721  Trawniki krajobrazowe 10 kg
+https://dobryfarmer.pl/product-pol-52-DSV-721-Trawniki-krajobrazowe-10-kg.html
+***
+200 
+PROPER URL:
+https://dobryfarmer.pl/product-pol-52-DSV-721-Trawniki-krajobrazowe-10-kg.html
+****************
+idiosell
+DSV 740  Trawniki krajobrazowe
+https://dobryfarmer.pl/product-pol-53-DSV-740-Trawniki-krajobrazowe.html
+***
+200 
+PROPER URL:
+https://dobryfarmer.pl/product-pol-53-DSV-740-Trawniki-krajobrazowe.html
+****************
+idiosell
+DSV 110  Trawniki ozdobne
+https://dobryfarmer.pl/product-pol-54-DSV-110-Trawniki-ozdobne.html
+***
+200 
+PROPER URL:
+https://dobryfarmer.pl/product-pol-54-DSV-110-Trawniki-ozdobne.html
+****************
+idiosell
+DSV 220 Trawniki użytkowe 10 kg
+https://dobryfarmer.pl/product-pol-55-DSV-220-Trawniki-uzytkowe-10-kg.html
+***
+200 
+PROPER URL:
+https://dobryfarmer.pl/product-pol-55-DSV-220-Trawniki-uzytkowe-10-kg.html
+****************
+idiosell
+DSV 230 Trawniki użytkowe 10 kg
+https://dobryfarmer.pl/pl/products/dsv-230-trawniki-uzytkowe-10-kg-56.html
+***
+301 https://dobryfarmer.pl/product-pol-56-DSV-230-Trawniki-uzytkowe-10-kg.html
+200 
+PROPER URL:
+https://dobryfarmer.pl/product-pol-56-DSV-230-Trawniki-uzytkowe-10-kg.html
+****************
+idiosell
+DSV 310 Trawniki użytkowe
+https://dobryfarmer.pl/pl/products/dsv-310-trawniki-uzytkowe-57.html
+***
+301 https://dobryfarmer.pl/product-pol-57-DSV-310-Trawniki-uzytkowe.html
+200 
+PROPER URL:
+https://dobryfarmer.pl/product-pol-57-DSV-310-Trawniki-uzytkowe.html
+****************
+idiosell
+DSV 840 Trawy na lotniska 10 kg
+https://dobryfarmer.pl/pl/products/dsv-840-trawy-na-lotniska-10-kg-59.html
+***
+301 https://dobryfarmer.pl/product-pol-59-DSV-840-Trawy-na-lotniska-10-kg.html
+200 
+PROPER URL:
+https://dobryfarmer.pl/product-pol-59-DSV-840-Trawy-na-lotniska-10-kg.html
+****************
+idiosell
+Terra Biosa ProBios plus do ogrodów i sadów  1l
+https://dobryfarmer.pl/pl/products/terra-biosa-probios-plus-do-ogrodow-i-sadow-1l-60.html
+***
+301 https://dobryfarmer.pl/product-pol-60-Terra-Biosa-ProBios-plus-do-ogrodow-i-sadow-1l.html
+200 
+PROPER URL:
+https://dobryfarmer.pl/product-pol-60-Terra-Biosa-ProBios-plus-do-ogrodow-i-sadow-1l.html
+URL FIXER
+****************
+idiosell
+Biogen Rewital 1l
+https://dobryfarmer.pl/pl/products/biogen-rewital-1l-61.html
+***
+301 https://dobryfarmer.pl/product-pol-61-Biogen-Rewital-1l.html
+200 
+PROPER URL:
+https://dobryfarmer.pl/product-pol-61-Biogen-Rewital-1l.html
+****************
+idiosell
+Biogen Rewital 0,5l
+https://dobryfarmer.pl/pl/products/biogen-rewital-0-5l-62.html
+***
+301 https://dobryfarmer.pl/product-pol-62-Biogen-Rewital-0-5l.html
+200 
+PROPER URL:
+https://dobryfarmer.pl/product-pol-62-Biogen-Rewital-0-5l.html
+****************
+idiosell
+Superplon K 1l
+https://dobryfarmer.pl/pl/products/superplon-k-1l-64.html
+***
+301 https://dobryfarmer.pl/product-pol-64-Superplon-K-1l.html
+200 
+PROPER URL:
+https://dobryfarmer.pl/product-pol-64-Superplon-K-1l.html
+****************
+idiosell
+Superplon K 0,5 l
+https://dobryfarmer.pl/pl/products/superplon-k-0-5-l-65.html
+***
+301 https://dobryfarmer.pl/product-pol-65-Superplon-K-0-5-l.html
+429 
+PROPER URL:
+https://dobryfarmer.pl/product-pol-65-Superplon-K-0-5-l.html
+****************
+idiosell
+Krio-Flor 1l
+https://dobryfarmer.pl/pl/products/krio-flor-1l-67.html
+***
+429 
+PROPER URL:
+https://dobryfarmer.pl/pl/products/krio-flor-1l-67.html
+****************
+idiosell
+Krio-Flor 5
+https://dobryfarmer.pl/pl/products/krio-flor-5-68.html
+***
+429 
+PROPER URL:
+https://dobryfarmer.pl/pl/products/krio-flor-5-68.html
+****************
+idiosell
+Rhizobium Soja (Rhizobium Glycin)  1kg
+https://dobryfarmer.pl/pl/products/rhizobium-soja-(rhizobium-glycin)-1kg-69.html
+***
+429 
+PROPER URL:
+https://dobryfarmer.pl/pl/products/rhizobium-soja-(rhizobium-glycin)-1kg-69.html
+****************
+idiosell
+Probiotyk dla trzody – Doktor Animals  1l
+https://dobryfarmer.pl/pl/products/probiotyk-dla-trzody-–-doktor-animals-1l-70.html
+***
+429 
+PROPER URL:
+https://dobryfarmer.pl/pl/products/probiotyk-dla-trzody-–-doktor-animals-1l-70.html
+****************
+idiosell
+Probiotyk dla trzody – Doktor Animals 2l
+https://dobryfarmer.pl/pl/products/probiotyk-dla-trzody-–-doktor-animals-2l-71.html
+***
+429 
+PROPER URL:
+https://dobryfarmer.pl/pl/products/probiotyk-dla-trzody-–-doktor-animals-2l-71.html
+****************
+idiosell
+Probiotyk dla trzody – Doktor Animals 5l
+https://dobryfarmer.pl/pl/products/probiotyk-dla-trzody-–-doktor-animals-5l-72.html
+***
+429 
+PROPER URL:
+https://dobryfarmer.pl/pl/products/probiotyk-dla-trzody-–-doktor-animals-5l-72.html
+URL FIXER
+****************
+idiosell
+Probiotyk dla trzody – Doktor Animals 10l
+https://dobryfarmer.pl/pl/products/probiotyk-dla-trzody-–-doktor-animals-10l-73.html
+***
+429 
+PROPER URL:
+https://dobryfarmer.pl/pl/products/probiotyk-dla-trzody-–-doktor-animals-10l-73.html
+****************
+idiosell
+Probiotyk dla trzody – Doktor Animals 20 l
+https://dobryfarmer.pl/pl/products/probiotyk-dla-trzody-–-doktor-animals-20-l-74.html
+***
+429 
+PROPER URL:
+https://dobryfarmer.pl/pl/products/probiotyk-dla-trzody-–-doktor-animals-20-l-74.html
+****************
+idiosell
+Probiotyk dla bydła – Doktor Animals 1l
+https://dobryfarmer.pl/pl/products/probiotyk-dla-bydla-–-doktor-animals-1l-75.html
+***
+429 
+PROPER URL:
+https://dobryfarmer.pl/pl/products/probiotyk-dla-bydla-–-doktor-animals-1l-75.html
+****************
+idiosell
+Probiotyk dla bydła – Doktor Animals 2l
+https://dobryfarmer.pl/pl/products/probiotyk-dla-bydla-–-doktor-animals-2l-76.html
+***
+429 
+PROPER URL:
+https://dobryfarmer.pl/pl/products/probiotyk-dla-bydla-–-doktor-animals-2l-76.html
+****************
+idiosell
+Probiotyk dla bydła – Doktor Animals 5l
+https://dobryfarmer.pl/pl/products/probiotyk-dla-bydla-–-doktor-animals-5l-77.html
+***
+429 
+PROPER URL:
+https://dobryfarmer.pl/pl/products/probiotyk-dla-bydla-–-doktor-animals-5l-77.html
+****************
+idiosell
+Probiotyk dla bydła – Doktor Animals 10 l
+https://dobryfarmer.pl/pl/products/probiotyk-dla-bydla-–-doktor-animals-10-l-78.html
+***
+429 
+PROPER URL:
+https://dobryfarmer.pl/pl/products/probiotyk-dla-bydla-–-doktor-animals-10-l-78.html
+****************
+idiosell
+Probiotyk dla bydła Doktor Animals 20l
+https://dobryfarmer.pl/pl/products/probiotyk-dla-bydla-doktor-animals-20l-79.html
+***
+429 
+PROPER URL:
+https://dobryfarmer.pl/pl/products/probiotyk-dla-bydla-doktor-animals-20l-79.html
+****************
+idiosell
+Probiotyk dla drobiu – Doktor Animals 1l
+https://dobryfarmer.pl/pl/products/probiotyk-dla-drobiu-–-doktor-animals-1l-80.html
+***
+429 
+PROPER URL:
+https://dobryfarmer.pl/pl/products/probiotyk-dla-drobiu-–-doktor-animals-1l-80.html
+****************
+idiosell
+Probiotyk dla drobiu – Doktor Animals 2l
+https://dobryfarmer.pl/pl/products/probiotyk-dla-drobiu-–-doktor-animals-2l-81.html
+***
+429 
+PROPER URL:
+https://dobryfarmer.pl/pl/products/probiotyk-dla-drobiu-–-doktor-animals-2l-81.html
+****************
+idiosell
+Probiotyk dla drobiu – Doktor Animals 10l
+https://dobryfarmer.pl/pl/products/probiotyk-dla-drobiu-–-doktor-animals-10l-82.html
+***
+429 
+PROPER URL:
+https://dobryfarmer.pl/pl/products/probiotyk-dla-drobiu-–-doktor-animals-10l-82.html
+URL FIXER
+****************
+idiosell
+Probiotyk dla drobiu – Doktor Animals 5l
+https://dobryfarmer.pl/pl/products/probiotyk-dla-drobiu-–-doktor-animals-5l-83.html
+***
+429 
+PROPER URL:
+https://dobryfarmer.pl/pl/products/probiotyk-dla-drobiu-–-doktor-animals-5l-83.html
+****************
+idiosell
+Probiotyk dla drobiu – Doktor Animals 20l
+https://dobryfarmer.pl/pl/products/probiotyk-dla-drobiu-–-doktor-animals-20l-84.html
+***
+429 
+PROPER URL:
+https://dobryfarmer.pl/pl/products/probiotyk-dla-drobiu-–-doktor-animals-20l-84.html
+****************
+idiosell
+BACILLUS VIP Mikroorganizmy Probiotyczne 5L
+https://dobryfarmer.pl/pl/products/bacillus-vip-mikroorganizmy-probiotyczne-5l-85.html
+***
+429 
+PROPER URL:
+https://dobryfarmer.pl/pl/products/bacillus-vip-mikroorganizmy-probiotyczne-5l-85.html
+****************
+idiosell
+BACILLUS VIP Mikroorganizmy Probiotyczne 20L
+https://dobryfarmer.pl/pl/products/bacillus-vip-mikroorganizmy-probiotyczne-20l-86.html
+***
+429 
+PROPER URL:
+https://dobryfarmer.pl/pl/products/bacillus-vip-mikroorganizmy-probiotyczne-20l-86.html
+****************
+idiosell
+EMBEST SŁOMER Mikroorganizmy Probiotyczne 2 L
+https://dobryfarmer.pl/pl/products/embest-sŁomer-mikroorganizmy-probiotyczne-2-l-87.html
+***
+429 
+PROPER URL:
+https://dobryfarmer.pl/pl/products/embest-sŁomer-mikroorganizmy-probiotyczne-2-l-87.html
+****************
+idiosell
+EMBEST SŁOMER Mikroorganizmy Probiotyczne 20L
+https://dobryfarmer.pl/pl/products/embest-sŁomer-mikroorganizmy-probiotyczne-20l-88.html
+***
+429 
+PROPER URL:
+https://dobryfarmer.pl/pl/products/embest-sŁomer-mikroorganizmy-probiotyczne-20l-88.html
+****************
+idiosell
+Kompostil 20l
+https://dobryfarmer.pl/pl/products/kompostil-20l-89.html
+***
+429 
+PROPER URL:
+https://dobryfarmer.pl/pl/products/kompostil-20l-89.html
+****************
+idiosell
+Kompostil 1000l
+https://dobryfarmer.pl/pl/products/kompostil-1000l-90.html
+***
+429 
+PROPER URL:
+https://dobryfarmer.pl/pl/products/kompostil-1000l-90.html
+****************
+idiosell
+EMBEST OGRÓD Mikroorgaznimy Probiotyczne 1L
+https://dobryfarmer.pl/pl/products/embest-ogrÓd-mikroorgaznimy-probiotyczne-1l-91.html
+***
+429 
+PROPER URL:
+https://dobryfarmer.pl/pl/products/embest-ogrÓd-mikroorgaznimy-probiotyczne-1l-91.html
+****************
+idiosell
+EMBEST OGRÓD Mikroorganzimy Probiotyczne 5L
+https://dobryfarmer.pl/pl/products/embest-ogrÓd-mikroorganzimy-probiotyczne-5l-92.html
+***
+429 
+PROPER URL:
+https://dobryfarmer.pl/pl/products/embest-ogrÓd-mikroorganzimy-probiotyczne-5l-92.html
+URL FIXER
+****************
+idiosell
+OtiorSTOP  100g
+https://dobryfarmer.pl/pl/products/otiorstop-100g-93.html
+***
+429 
+PROPER URL:
+https://dobryfarmer.pl/pl/products/otiorstop-100g-93.html
+****************
+idiosell
+NEMATADO BIOCONTROL  1kg
+https://dobryfarmer.pl/pl/products/nematado-biocontrol-1kg-94.html
+***
+429 
+PROPER URL:
+https://dobryfarmer.pl/pl/products/nematado-biocontrol-1kg-94.html
+****************
+idiosell
+GUARD T 1kg
+https://dobryfarmer.pl/pl/products/guard-t-1kg-95.html
+***
+429 
+PROPER URL:
+https://dobryfarmer.pl/pl/products/guard-t-1kg-95.html
+****************
+idiosell
+Nawóz Organiczny Agrolinija-S 1000L
+https://dobryfarmer.pl/pl/products/nawoz-organiczny-agrolinija-s-1000l-96.html
+***
+429 
+PROPER URL:
+https://dobryfarmer.pl/pl/products/nawoz-organiczny-agrolinija-s-1000l-96.html
+****************
+idiosell
+OtiorSTOP  1kg
+https://dobryfarmer.pl/pl/products/otiorstop-1kg-98.html
+***
+429 
+PROPER URL:
+https://dobryfarmer.pl/pl/products/otiorstop-1kg-98.html
+****************
+idiosell
+Nawóz Organiczny Agrolinija Gran 4kg
+https://dobryfarmer.pl/pl/products/nawoz-organiczny-agrolinija-gran-4kg-99.html
+***
+429 
+PROPER URL:
+https://dobryfarmer.pl/pl/products/nawoz-organiczny-agrolinija-gran-4kg-99.html
+****************
+idiosell
+DELIA STOP  100g
+https://dobryfarmer.pl/pl/products/delia-stop-100g-100.html
+***
+429 
+PROPER URL:
+https://dobryfarmer.pl/pl/products/delia-stop-100g-100.html
+****************
+idiosell
+DELIA STOP 1kg
+https://dobryfarmer.pl/pl/products/delia-stop-1kg-101.html
+***
+429 
+PROPER URL:
+https://dobryfarmer.pl/pl/products/delia-stop-1kg-101.html
+****************
+idiosell
+BIOSAN GS  250,0 g
+https://dobryfarmer.pl/pl/products/biosan-gs-250-0-g-102.html
+***
+429 
+PROPER URL:
+https://dobryfarmer.pl/pl/products/biosan-gs-250-0-g-102.html
+****************
+idiosell
+BIOSAN GS 1kg
+https://dobryfarmer.pl/pl/products/biosan-gs-1kg-103.html
+***
+429 
+PROPER URL:
+https://dobryfarmer.pl/pl/products/biosan-gs-1kg-103.html
+URL FIXER
+****************
+idiosell
+BIOSAN GS 5kg
+https://dobryfarmer.pl/pl/products/biosan-gs-5kg-104.html
+***
+429 
+PROPER URL:
+https://dobryfarmer.pl/pl/products/biosan-gs-5kg-104.html
+****************
+idiosell
+Nawóz Ekologiczny naturalny Agrolinija-S 1,0 L
+https://dobryfarmer.pl/pl/products/nawoz-ekologiczny-naturalny-agrolinija-s-1-0-l-105.html
+***
+429 
+PROPER URL:
+https://dobryfarmer.pl/pl/products/nawoz-ekologiczny-naturalny-agrolinija-s-1-0-l-105.html
+****************
+idiosell
+Biosan KZ 250g
+https://dobryfarmer.pl/pl/products/biosan-kz-250g-106.html
+***
+429 
+PROPER URL:
+https://dobryfarmer.pl/pl/products/biosan-kz-250g-106.html
+****************
+idiosell
+Biosan KZ 1kg
+https://dobryfarmer.pl/pl/products/biosan-kz-1kg-107.html
+***
+429 
+PROPER URL:
+https://dobryfarmer.pl/pl/products/biosan-kz-1kg-107.html
+****************
+idiosell
+Nawóz naturalny Granulowany Agrolinija Gran 25 kg, organiczny
+https://dobryfarmer.pl/pl/products/nawoz-naturalny-granulowany-agrolinija-gran-25-kg-organiczny-108.html
+***
+429 
+PROPER URL:
+https://dobryfarmer.pl/pl/products/nawoz-naturalny-granulowany-agrolinija-gran-25-kg-organiczny-108.html
+****************
+idiosell
+Biosan KZ 5kg
+https://dobryfarmer.pl/pl/products/biosan-kz-5kg-109.html
+***
+429 
+PROPER URL:
+https://dobryfarmer.pl/pl/products/biosan-kz-5kg-109.html
+****************
+idiosell
+Remediant 025,kg
+https://dobryfarmer.pl/pl/products/remediant-025-kg-110.html
+***
+429 
+PROPER URL:
+https://dobryfarmer.pl/pl/products/remediant-025-kg-110.html
+****************
+idiosell
+Remediant 1kg
+https://dobryfarmer.pl/pl/products/remediant-1kg-111.html
+***
+429 
+PROPER URL:
+https://dobryfarmer.pl/pl/products/remediant-1kg-111.html
+****************
+idiosell
+Remediant 5kg
+https://dobryfarmer.pl/pl/products/remediant-5kg-112.html
+***
+429 
+PROPER URL:
+https://dobryfarmer.pl/pl/products/remediant-5kg-112.html
+****************
+idiosell
+Pakiet TRAWNIK
+https://dobryfarmer.pl/pl/products/pakiet-trawnik-113.html
+***
+429 
+PROPER URL:
+https://dobryfarmer.pl/pl/products/pakiet-trawnik-113.html
+URL FIXER
+****************
+idiosell
+Pakiet OGRÓD
+https://dobryfarmer.pl/pl/products/pakiet-ogrÓd-114.html
+***
+429 
+PROPER URL:
+https://dobryfarmer.pl/pl/products/pakiet-ogrÓd-114.html
+****************
+idiosell
+Pakiet OWOCE
+https://dobryfarmer.pl/pl/products/pakiet-owoce-115.html
+***
+429 
+PROPER URL:
+https://dobryfarmer.pl/pl/products/pakiet-owoce-115.html
+****************
+idiosell
+Pakiet WARZYWA
+https://dobryfarmer.pl/pl/products/pakiet-warzywa-116.html
+***
+429 
+PROPER URL:
+https://dobryfarmer.pl/pl/products/pakiet-warzywa-116.html
+****************
+idiosell
+Pakiet KWIATY
+https://dobryfarmer.pl/pl/products/pakiet-kwiaty-117.html
+***
+429 
+PROPER URL:
+https://dobryfarmer.pl/pl/products/pakiet-kwiaty-117.html
+****************
+idiosell
+Pakiet SZKLARNIA
+https://dobryfarmer.pl/pl/products/pakiet-szklarnia-118.html
+***
+429 
+PROPER URL:
+https://dobryfarmer.pl/pl/products/pakiet-szklarnia-118.html
+****************
+idiosell
+Improver+   03,l
+https://dobryfarmer.pl/pl/products/improver+--03-l-119.html
+***
+429 
+PROPER URL:
+https://dobryfarmer.pl/pl/products/improver+--03-l-119.html
+****************
+idiosell
+Improver+  05l
+https://dobryfarmer.pl/pl/products/improver+-05l-120.html
+***
+429 
+PROPER URL:
+https://dobryfarmer.pl/pl/products/improver+-05l-120.html
+****************
+idiosell
+Rewital PRO+ 03,l
+https://dobryfarmer.pl/pl/products/rewital-pro+-03-l-121.html
+***
+429 
+PROPER URL:
+https://dobryfarmer.pl/pl/products/rewital-pro+-03-l-121.html
+****************
+idiosell
+Rewital PRO+  05,l
+https://dobryfarmer.pl/pl/products/rewital-pro+-05-l-122.html
+***
+429 
+PROPER URL:
+https://dobryfarmer.pl/pl/products/rewital-pro+-05-l-122.html
+****************
+idiosell
+GUARD V  0,1 kg
+https://dobryfarmer.pl/pl/products/guard-v-0-1-kg-123.html
+***
+429 
+PROPER URL:
+https://dobryfarmer.pl/pl/products/guard-v-0-1-kg-123.html
+URL FIXER
+****************
+idiosell
+GUARD V   1kg
+https://dobryfarmer.pl/pl/products/guard-v--1kg-124.html
+***
+429 
+PROPER URL:
+https://dobryfarmer.pl/pl/products/guard-v--1kg-124.html
+****************
+idiosell
+GUARD G    100g
+https://dobryfarmer.pl/pl/products/guard-g--100g-125.html
+***
+429 
+PROPER URL:
+https://dobryfarmer.pl/pl/products/guard-g--100g-125.html
+****************
+idiosell
+GUARD G 1kg
+https://dobryfarmer.pl/pl/products/guard-g-1kg-126.html
+***
+429 
+PROPER URL:
+https://dobryfarmer.pl/pl/products/guard-g-1kg-126.html
+****************
+idiosell
+GUARD H  100g
+https://dobryfarmer.pl/pl/products/guard-h-100g-127.html
+***
+429 
+PROPER URL:
+https://dobryfarmer.pl/pl/products/guard-h-100g-127.html
+****************
+idiosell
+GUARD H 1kg
+https://dobryfarmer.pl/pl/products/guard-h-1kg-128.html
+***
+429 
+PROPER URL:
+https://dobryfarmer.pl/pl/products/guard-h-1kg-128.html
+****************
+idiosell
+GUARD T  100g
+https://dobryfarmer.pl/pl/products/guard-t-100g-129.html
+***
+429 
+PROPER URL:
+https://dobryfarmer.pl/pl/products/guard-t-100g-129.html
+****************
+idiosell
+DeliaSTOP 100g
+https://dobryfarmer.pl/pl/products/deliastop-100g-130.html
+***
+429 
+PROPER URL:
+https://dobryfarmer.pl/pl/products/deliastop-100g-130.html
+****************
+idiosell
+ERUCA  100g
+https://dobryfarmer.pl/pl/products/eruca-100g-131.html
+***
+429 
+PROPER URL:
+https://dobryfarmer.pl/pl/products/eruca-100g-131.html
+****************
+idiosell
+OtiorSTOP  100g
+https://dobryfarmer.pl/pl/products/otiorstop-100g-132.html
+***
+429 
+PROPER URL:
+https://dobryfarmer.pl/pl/products/otiorstop-100g-132.html
+****************
+idiosell
+Nematado Biocontrol  100g
+https://dobryfarmer.pl/pl/products/nematado-biocontrol-100g-133.html
+***
+429 
+PROPER URL:
+https://dobryfarmer.pl/pl/products/nematado-biocontrol-100g-133.html
+URL FIXER

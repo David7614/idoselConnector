@@ -1,0 +1,6947 @@
+JOBS start 
+FIND LAST TYPE FOR QUEUE 
+jobs running 
+array(1) {
+  [0]=>
+  object(app\models\Queue)#36 (11) {
+    ["_user":"app\models\Queue":private]=>
+    NULL
+    ["_attributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_oldAttributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_related":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_relationsDependencies":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_errors":"yii\base\Model":private]=>
+    NULL
+    ["_validators":"yii\base\Model":private]=>
+    NULL
+    ["_scenario":"yii\base\Model":private]=>
+    string(7) "default"
+    ["_events":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_eventWildcards":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_behaviors":"yii\base\Component":private]=>
+    array(0) {
+    }
+  }
+}
+- - - Establish Queue - ID: 177618
+RUN with what 
+creating file
+CREATING XML
+ PAGE 10 of 12
+FIND LAST TYPE FOR QUEUE 
+jobs running 
+array(1) {
+  [0]=>
+  object(app\models\Queue)#36 (11) {
+    ["_user":"app\models\Queue":private]=>
+    NULL
+    ["_attributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_oldAttributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_related":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_relationsDependencies":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_errors":"yii\base\Model":private]=>
+    NULL
+    ["_validators":"yii\base\Model":private]=>
+    NULL
+    ["_scenario":"yii\base\Model":private]=>
+    string(7) "default"
+    ["_events":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_eventWildcards":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_behaviors":"yii\base\Component":private]=>
+    array(0) {
+    }
+  }
+}
+- - - Establish Queue - ID: 177618
+RUN with what 
+creating file
+CREATING XML
+ PAGE 11 of 12
+FIND LAST TYPE FOR QUEUE 
+jobs running 
+array(1) {
+  [0]=>
+  object(app\models\Queue)#36 (11) {
+    ["_user":"app\models\Queue":private]=>
+    NULL
+    ["_attributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_oldAttributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_related":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_relationsDependencies":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_errors":"yii\base\Model":private]=>
+    NULL
+    ["_validators":"yii\base\Model":private]=>
+    NULL
+    ["_scenario":"yii\base\Model":private]=>
+    string(7) "default"
+    ["_events":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_eventWildcards":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_behaviors":"yii\base\Component":private]=>
+    array(0) {
+    }
+  }
+}
+- - - Establish Queue - ID: 177618
+RUN with what 
+creating file
+FIND LAST TYPE FOR QUEUE 
+jobs running 
+array(1) {
+  [0]=>
+  object(app\models\Queue)#36 (11) {
+    ["_user":"app\models\Queue":private]=>
+    NULL
+    ["_attributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_oldAttributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_related":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_relationsDependencies":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_errors":"yii\base\Model":private]=>
+    NULL
+    ["_validators":"yii\base\Model":private]=>
+    NULL
+    ["_scenario":"yii\base\Model":private]=>
+    string(7) "default"
+    ["_events":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_eventWildcards":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_behaviors":"yii\base\Component":private]=>
+    array(0) {
+    }
+  }
+}
+- - - Establish Queue - ID: 177620
+RUN with what 
+creating file
+CREATING XML
+ PAGE 0 of 16
+FIND LAST TYPE FOR QUEUE 
+jobs running 
+array(1) {
+  [0]=>
+  object(app\models\Queue)#36 (11) {
+    ["_user":"app\models\Queue":private]=>
+    NULL
+    ["_attributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_oldAttributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_related":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_relationsDependencies":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_errors":"yii\base\Model":private]=>
+    NULL
+    ["_validators":"yii\base\Model":private]=>
+    NULL
+    ["_scenario":"yii\base\Model":private]=>
+    string(7) "default"
+    ["_events":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_eventWildcards":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_behaviors":"yii\base\Component":private]=>
+    array(0) {
+    }
+  }
+}
+- - - Establish Queue - ID: 177620
+RUN with what 
+creating file
+CREATING XML
+ PAGE 1 of 16
+FIND LAST TYPE FOR QUEUE 
+jobs running 
+array(1) {
+  [0]=>
+  object(app\models\Queue)#36 (11) {
+    ["_user":"app\models\Queue":private]=>
+    NULL
+    ["_attributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_oldAttributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_related":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_relationsDependencies":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_errors":"yii\base\Model":private]=>
+    NULL
+    ["_validators":"yii\base\Model":private]=>
+    NULL
+    ["_scenario":"yii\base\Model":private]=>
+    string(7) "default"
+    ["_events":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_eventWildcards":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_behaviors":"yii\base\Component":private]=>
+    array(0) {
+    }
+  }
+}
+- - - Establish Queue - ID: 177620
+RUN with what 
+creating file
+CREATING XML
+ PAGE 2 of 16
+FIND LAST TYPE FOR QUEUE 
+jobs running 
+array(1) {
+  [0]=>
+  object(app\models\Queue)#36 (11) {
+    ["_user":"app\models\Queue":private]=>
+    NULL
+    ["_attributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_oldAttributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_related":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_relationsDependencies":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_errors":"yii\base\Model":private]=>
+    NULL
+    ["_validators":"yii\base\Model":private]=>
+    NULL
+    ["_scenario":"yii\base\Model":private]=>
+    string(7) "default"
+    ["_events":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_eventWildcards":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_behaviors":"yii\base\Component":private]=>
+    array(0) {
+    }
+  }
+}
+- - - Establish Queue - ID: 177620
+RUN with what 
+creating file
+CREATING XML
+ PAGE 3 of 16
+FIND LAST TYPE FOR QUEUE 
+jobs running 
+array(1) {
+  [0]=>
+  object(app\models\Queue)#36 (11) {
+    ["_user":"app\models\Queue":private]=>
+    NULL
+    ["_attributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_oldAttributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_related":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_relationsDependencies":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_errors":"yii\base\Model":private]=>
+    NULL
+    ["_validators":"yii\base\Model":private]=>
+    NULL
+    ["_scenario":"yii\base\Model":private]=>
+    string(7) "default"
+    ["_events":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_eventWildcards":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_behaviors":"yii\base\Component":private]=>
+    array(0) {
+    }
+  }
+}
+- - - Establish Queue - ID: 177620
+RUN with what 
+creating file
+CREATING XML
+ PAGE 4 of 16
+FIND LAST TYPE FOR QUEUE 
+jobs running 
+array(1) {
+  [0]=>
+  object(app\models\Queue)#36 (11) {
+    ["_user":"app\models\Queue":private]=>
+    NULL
+    ["_attributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_oldAttributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_related":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_relationsDependencies":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_errors":"yii\base\Model":private]=>
+    NULL
+    ["_validators":"yii\base\Model":private]=>
+    NULL
+    ["_scenario":"yii\base\Model":private]=>
+    string(7) "default"
+    ["_events":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_eventWildcards":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_behaviors":"yii\base\Component":private]=>
+    array(0) {
+    }
+  }
+}
+- - - Establish Queue - ID: 177620
+RUN with what 
+creating file
+CREATING XML
+ PAGE 5 of 16
+FIND LAST TYPE FOR QUEUE 
+jobs running 
+array(1) {
+  [0]=>
+  object(app\models\Queue)#36 (11) {
+    ["_user":"app\models\Queue":private]=>
+    NULL
+    ["_attributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_oldAttributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_related":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_relationsDependencies":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_errors":"yii\base\Model":private]=>
+    NULL
+    ["_validators":"yii\base\Model":private]=>
+    NULL
+    ["_scenario":"yii\base\Model":private]=>
+    string(7) "default"
+    ["_events":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_eventWildcards":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_behaviors":"yii\base\Component":private]=>
+    array(0) {
+    }
+  }
+}
+- - - Establish Queue - ID: 177620
+RUN with what 
+creating file
+CREATING XML
+ PAGE 6 of 16
+FIND LAST TYPE FOR QUEUE 
+jobs running 
+array(1) {
+  [0]=>
+  object(app\models\Queue)#36 (11) {
+    ["_user":"app\models\Queue":private]=>
+    NULL
+    ["_attributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_oldAttributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_related":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_relationsDependencies":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_errors":"yii\base\Model":private]=>
+    NULL
+    ["_validators":"yii\base\Model":private]=>
+    NULL
+    ["_scenario":"yii\base\Model":private]=>
+    string(7) "default"
+    ["_events":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_eventWildcards":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_behaviors":"yii\base\Component":private]=>
+    array(0) {
+    }
+  }
+}
+- - - Establish Queue - ID: 177620
+RUN with what 
+creating file
+CREATING XML
+ PAGE 7 of 16
+FIND LAST TYPE FOR QUEUE 
+jobs running 
+array(1) {
+  [0]=>
+  object(app\models\Queue)#36 (11) {
+    ["_user":"app\models\Queue":private]=>
+    NULL
+    ["_attributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_oldAttributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_related":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_relationsDependencies":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_errors":"yii\base\Model":private]=>
+    NULL
+    ["_validators":"yii\base\Model":private]=>
+    NULL
+    ["_scenario":"yii\base\Model":private]=>
+    string(7) "default"
+    ["_events":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_eventWildcards":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_behaviors":"yii\base\Component":private]=>
+    array(0) {
+    }
+  }
+}
+- - - Establish Queue - ID: 177620
+RUN with what 
+creating file
+CREATING XML
+ PAGE 8 of 16
+FIND LAST TYPE FOR QUEUE 
+jobs running 
+array(1) {
+  [0]=>
+  object(app\models\Queue)#36 (11) {
+    ["_user":"app\models\Queue":private]=>
+    NULL
+    ["_attributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_oldAttributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_related":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_relationsDependencies":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_errors":"yii\base\Model":private]=>
+    NULL
+    ["_validators":"yii\base\Model":private]=>
+    NULL
+    ["_scenario":"yii\base\Model":private]=>
+    string(7) "default"
+    ["_events":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_eventWildcards":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_behaviors":"yii\base\Component":private]=>
+    array(0) {
+    }
+  }
+}
+- - - Establish Queue - ID: 177620
+RUN with what 
+creating file
+CREATING XML
+ PAGE 9 of 16
+FIND LAST TYPE FOR QUEUE 
+jobs running 
+array(1) {
+  [0]=>
+  object(app\models\Queue)#36 (11) {
+    ["_user":"app\models\Queue":private]=>
+    NULL
+    ["_attributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_oldAttributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_related":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_relationsDependencies":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_errors":"yii\base\Model":private]=>
+    NULL
+    ["_validators":"yii\base\Model":private]=>
+    NULL
+    ["_scenario":"yii\base\Model":private]=>
+    string(7) "default"
+    ["_events":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_eventWildcards":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_behaviors":"yii\base\Component":private]=>
+    array(0) {
+    }
+  }
+}
+- - - Establish Queue - ID: 177620
+RUN with what 
+creating file
+CREATING XML
+ PAGE 10 of 16
+FIND LAST TYPE FOR QUEUE 
+jobs running 
+array(1) {
+  [0]=>
+  object(app\models\Queue)#36 (11) {
+    ["_user":"app\models\Queue":private]=>
+    NULL
+    ["_attributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_oldAttributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_related":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_relationsDependencies":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_errors":"yii\base\Model":private]=>
+    NULL
+    ["_validators":"yii\base\Model":private]=>
+    NULL
+    ["_scenario":"yii\base\Model":private]=>
+    string(7) "default"
+    ["_events":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_eventWildcards":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_behaviors":"yii\base\Component":private]=>
+    array(0) {
+    }
+  }
+}
+- - - Establish Queue - ID: 177620
+RUN with what 
+creating file
+CREATING XML
+ PAGE 11 of 16
+FIND LAST TYPE FOR QUEUE 
+jobs running 
+array(1) {
+  [0]=>
+  object(app\models\Queue)#36 (11) {
+    ["_user":"app\models\Queue":private]=>
+    NULL
+    ["_attributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_oldAttributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_related":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_relationsDependencies":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_errors":"yii\base\Model":private]=>
+    NULL
+    ["_validators":"yii\base\Model":private]=>
+    NULL
+    ["_scenario":"yii\base\Model":private]=>
+    string(7) "default"
+    ["_events":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_eventWildcards":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_behaviors":"yii\base\Component":private]=>
+    array(0) {
+    }
+  }
+}
+- - - Establish Queue - ID: 177620
+RUN with what 
+creating file
+CREATING XML
+ PAGE 12 of 16
+FIND LAST TYPE FOR QUEUE 
+jobs running 
+array(1) {
+  [0]=>
+  object(app\models\Queue)#36 (11) {
+    ["_user":"app\models\Queue":private]=>
+    NULL
+    ["_attributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_oldAttributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_related":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_relationsDependencies":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_errors":"yii\base\Model":private]=>
+    NULL
+    ["_validators":"yii\base\Model":private]=>
+    NULL
+    ["_scenario":"yii\base\Model":private]=>
+    string(7) "default"
+    ["_events":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_eventWildcards":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_behaviors":"yii\base\Component":private]=>
+    array(0) {
+    }
+  }
+}
+- - - Establish Queue - ID: 177620
+RUN with what 
+creating file
+CREATING XML
+ PAGE 13 of 16
+FIND LAST TYPE FOR QUEUE 
+jobs running 
+array(1) {
+  [0]=>
+  object(app\models\Queue)#36 (11) {
+    ["_user":"app\models\Queue":private]=>
+    NULL
+    ["_attributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_oldAttributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_related":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_relationsDependencies":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_errors":"yii\base\Model":private]=>
+    NULL
+    ["_validators":"yii\base\Model":private]=>
+    NULL
+    ["_scenario":"yii\base\Model":private]=>
+    string(7) "default"
+    ["_events":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_eventWildcards":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_behaviors":"yii\base\Component":private]=>
+    array(0) {
+    }
+  }
+}
+- - - Establish Queue - ID: 177620
+RUN with what 
+creating file
+CREATING XML
+ PAGE 14 of 16
+FIND LAST TYPE FOR QUEUE 
+jobs running 
+array(1) {
+  [0]=>
+  object(app\models\Queue)#36 (11) {
+    ["_user":"app\models\Queue":private]=>
+    NULL
+    ["_attributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_oldAttributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_related":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_relationsDependencies":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_errors":"yii\base\Model":private]=>
+    NULL
+    ["_validators":"yii\base\Model":private]=>
+    NULL
+    ["_scenario":"yii\base\Model":private]=>
+    string(7) "default"
+    ["_events":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_eventWildcards":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_behaviors":"yii\base\Component":private]=>
+    array(0) {
+    }
+  }
+}
+- - - Establish Queue - ID: 177620
+RUN with what 
+creating file
+CREATING XML
+ PAGE 15 of 16
+FIND LAST TYPE FOR QUEUE 
+jobs running 
+array(1) {
+  [0]=>
+  object(app\models\Queue)#36 (11) {
+    ["_user":"app\models\Queue":private]=>
+    NULL
+    ["_attributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_oldAttributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_related":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_relationsDependencies":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_errors":"yii\base\Model":private]=>
+    NULL
+    ["_validators":"yii\base\Model":private]=>
+    NULL
+    ["_scenario":"yii\base\Model":private]=>
+    string(7) "default"
+    ["_events":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_eventWildcards":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_behaviors":"yii\base\Component":private]=>
+    array(0) {
+    }
+  }
+}
+- - - Establish Queue - ID: 177620
+RUN with what 
+creating file
+FIND LAST TYPE FOR QUEUE 
+jobs running 
+array(1) {
+  [0]=>
+  object(app\models\Queue)#36 (11) {
+    ["_user":"app\models\Queue":private]=>
+    NULL
+    ["_attributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_oldAttributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_related":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_relationsDependencies":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_errors":"yii\base\Model":private]=>
+    NULL
+    ["_validators":"yii\base\Model":private]=>
+    NULL
+    ["_scenario":"yii\base\Model":private]=>
+    string(7) "default"
+    ["_events":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_eventWildcards":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_behaviors":"yii\base\Component":private]=>
+    array(0) {
+    }
+  }
+}
+- - - Establish Queue - ID: 177622
+RUN with what 
+creating file
+CREATING XML
+ PAGE 0 of 6
+FIND LAST TYPE FOR QUEUE 
+jobs running 
+array(1) {
+  [0]=>
+  object(app\models\Queue)#36 (11) {
+    ["_user":"app\models\Queue":private]=>
+    NULL
+    ["_attributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_oldAttributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_related":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_relationsDependencies":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_errors":"yii\base\Model":private]=>
+    NULL
+    ["_validators":"yii\base\Model":private]=>
+    NULL
+    ["_scenario":"yii\base\Model":private]=>
+    string(7) "default"
+    ["_events":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_eventWildcards":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_behaviors":"yii\base\Component":private]=>
+    array(0) {
+    }
+  }
+}
+- - - Establish Queue - ID: 177622
+RUN with what 
+creating file
+CREATING XML
+ PAGE 1 of 6
+FIND LAST TYPE FOR QUEUE 
+jobs running 
+array(1) {
+  [0]=>
+  object(app\models\Queue)#36 (11) {
+    ["_user":"app\models\Queue":private]=>
+    NULL
+    ["_attributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_oldAttributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_related":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_relationsDependencies":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_errors":"yii\base\Model":private]=>
+    NULL
+    ["_validators":"yii\base\Model":private]=>
+    NULL
+    ["_scenario":"yii\base\Model":private]=>
+    string(7) "default"
+    ["_events":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_eventWildcards":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_behaviors":"yii\base\Component":private]=>
+    array(0) {
+    }
+  }
+}
+- - - Establish Queue - ID: 177622
+RUN with what 
+creating file
+CREATING XML
+ PAGE 2 of 6
+FIND LAST TYPE FOR QUEUE 
+jobs running 
+array(1) {
+  [0]=>
+  object(app\models\Queue)#36 (11) {
+    ["_user":"app\models\Queue":private]=>
+    NULL
+    ["_attributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_oldAttributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_related":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_relationsDependencies":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_errors":"yii\base\Model":private]=>
+    NULL
+    ["_validators":"yii\base\Model":private]=>
+    NULL
+    ["_scenario":"yii\base\Model":private]=>
+    string(7) "default"
+    ["_events":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_eventWildcards":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_behaviors":"yii\base\Component":private]=>
+    array(0) {
+    }
+  }
+}
+- - - Establish Queue - ID: 177622
+RUN with what 
+creating file
+CREATING XML
+ PAGE 3 of 6
+FIND LAST TYPE FOR QUEUE 
+jobs running 
+array(1) {
+  [0]=>
+  object(app\models\Queue)#36 (11) {
+    ["_user":"app\models\Queue":private]=>
+    NULL
+    ["_attributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_oldAttributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_related":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_relationsDependencies":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_errors":"yii\base\Model":private]=>
+    NULL
+    ["_validators":"yii\base\Model":private]=>
+    NULL
+    ["_scenario":"yii\base\Model":private]=>
+    string(7) "default"
+    ["_events":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_eventWildcards":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_behaviors":"yii\base\Component":private]=>
+    array(0) {
+    }
+  }
+}
+- - - Establish Queue - ID: 177622
+RUN with what 
+creating file
+CREATING XML
+ PAGE 4 of 6
+FIND LAST TYPE FOR QUEUE 
+jobs running 
+array(1) {
+  [0]=>
+  object(app\models\Queue)#36 (11) {
+    ["_user":"app\models\Queue":private]=>
+    NULL
+    ["_attributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_oldAttributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_related":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_relationsDependencies":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_errors":"yii\base\Model":private]=>
+    NULL
+    ["_validators":"yii\base\Model":private]=>
+    NULL
+    ["_scenario":"yii\base\Model":private]=>
+    string(7) "default"
+    ["_events":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_eventWildcards":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_behaviors":"yii\base\Component":private]=>
+    array(0) {
+    }
+  }
+}
+- - - Establish Queue - ID: 177622
+RUN with what 
+creating file
+CREATING XML
+ PAGE 5 of 6
+FIND LAST TYPE FOR QUEUE 
+jobs running 
+array(1) {
+  [0]=>
+  object(app\models\Queue)#36 (11) {
+    ["_user":"app\models\Queue":private]=>
+    NULL
+    ["_attributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_oldAttributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_related":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_relationsDependencies":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_errors":"yii\base\Model":private]=>
+    NULL
+    ["_validators":"yii\base\Model":private]=>
+    NULL
+    ["_scenario":"yii\base\Model":private]=>
+    string(7) "default"
+    ["_events":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_eventWildcards":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_behaviors":"yii\base\Component":private]=>
+    array(0) {
+    }
+  }
+}
+- - - Establish Queue - ID: 177622
+RUN with what 
+creating file
+FIND LAST TYPE FOR QUEUE 
+jobs running 
+array(1) {
+  [0]=>
+  object(app\models\Queue)#36 (11) {
+    ["_user":"app\models\Queue":private]=>
+    NULL
+    ["_attributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_oldAttributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_related":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_relationsDependencies":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_errors":"yii\base\Model":private]=>
+    NULL
+    ["_validators":"yii\base\Model":private]=>
+    NULL
+    ["_scenario":"yii\base\Model":private]=>
+    string(7) "default"
+    ["_events":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_eventWildcards":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_behaviors":"yii\base\Component":private]=>
+    array(0) {
+    }
+  }
+}
+- - - Establish Queue - ID: 177624
+RUN with what 
+creating file
+CREATING XML
+ PAGE 0 of 44
+FIND LAST TYPE FOR QUEUE 
+jobs running 
+array(1) {
+  [0]=>
+  object(app\models\Queue)#36 (11) {
+    ["_user":"app\models\Queue":private]=>
+    NULL
+    ["_attributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_oldAttributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_related":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_relationsDependencies":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_errors":"yii\base\Model":private]=>
+    NULL
+    ["_validators":"yii\base\Model":private]=>
+    NULL
+    ["_scenario":"yii\base\Model":private]=>
+    string(7) "default"
+    ["_events":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_eventWildcards":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_behaviors":"yii\base\Component":private]=>
+    array(0) {
+    }
+  }
+}
+- - - Establish Queue - ID: 177624
+RUN with what 
+creating file
+CREATING XML
+ PAGE 1 of 44
+FIND LAST TYPE FOR QUEUE 
+jobs running 
+array(1) {
+  [0]=>
+  object(app\models\Queue)#36 (11) {
+    ["_user":"app\models\Queue":private]=>
+    NULL
+    ["_attributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_oldAttributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_related":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_relationsDependencies":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_errors":"yii\base\Model":private]=>
+    NULL
+    ["_validators":"yii\base\Model":private]=>
+    NULL
+    ["_scenario":"yii\base\Model":private]=>
+    string(7) "default"
+    ["_events":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_eventWildcards":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_behaviors":"yii\base\Component":private]=>
+    array(0) {
+    }
+  }
+}
+- - - Establish Queue - ID: 177624
+RUN with what 
+creating file
+CREATING XML
+ PAGE 2 of 44
+FIND LAST TYPE FOR QUEUE 
+jobs running 
+array(1) {
+  [0]=>
+  object(app\models\Queue)#36 (11) {
+    ["_user":"app\models\Queue":private]=>
+    NULL
+    ["_attributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_oldAttributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_related":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_relationsDependencies":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_errors":"yii\base\Model":private]=>
+    NULL
+    ["_validators":"yii\base\Model":private]=>
+    NULL
+    ["_scenario":"yii\base\Model":private]=>
+    string(7) "default"
+    ["_events":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_eventWildcards":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_behaviors":"yii\base\Component":private]=>
+    array(0) {
+    }
+  }
+}
+- - - Establish Queue - ID: 177624
+RUN with what 
+creating file
+CREATING XML
+ PAGE 3 of 44
+FIND LAST TYPE FOR QUEUE 
+jobs running 
+array(1) {
+  [0]=>
+  object(app\models\Queue)#36 (11) {
+    ["_user":"app\models\Queue":private]=>
+    NULL
+    ["_attributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_oldAttributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_related":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_relationsDependencies":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_errors":"yii\base\Model":private]=>
+    NULL
+    ["_validators":"yii\base\Model":private]=>
+    NULL
+    ["_scenario":"yii\base\Model":private]=>
+    string(7) "default"
+    ["_events":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_eventWildcards":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_behaviors":"yii\base\Component":private]=>
+    array(0) {
+    }
+  }
+}
+- - - Establish Queue - ID: 177624
+RUN with what 
+creating file
+CREATING XML
+ PAGE 4 of 44
+FIND LAST TYPE FOR QUEUE 
+jobs running 
+array(1) {
+  [0]=>
+  object(app\models\Queue)#36 (11) {
+    ["_user":"app\models\Queue":private]=>
+    NULL
+    ["_attributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_oldAttributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_related":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_relationsDependencies":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_errors":"yii\base\Model":private]=>
+    NULL
+    ["_validators":"yii\base\Model":private]=>
+    NULL
+    ["_scenario":"yii\base\Model":private]=>
+    string(7) "default"
+    ["_events":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_eventWildcards":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_behaviors":"yii\base\Component":private]=>
+    array(0) {
+    }
+  }
+}
+- - - Establish Queue - ID: 177624
+RUN with what 
+creating file
+CREATING XML
+ PAGE 5 of 44
+FIND LAST TYPE FOR QUEUE 
+jobs running 
+array(1) {
+  [0]=>
+  object(app\models\Queue)#36 (11) {
+    ["_user":"app\models\Queue":private]=>
+    NULL
+    ["_attributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_oldAttributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_related":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_relationsDependencies":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_errors":"yii\base\Model":private]=>
+    NULL
+    ["_validators":"yii\base\Model":private]=>
+    NULL
+    ["_scenario":"yii\base\Model":private]=>
+    string(7) "default"
+    ["_events":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_eventWildcards":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_behaviors":"yii\base\Component":private]=>
+    array(0) {
+    }
+  }
+}
+- - - Establish Queue - ID: 177624
+RUN with what 
+creating file
+CREATING XML
+ PAGE 6 of 44
+FIND LAST TYPE FOR QUEUE 
+jobs running 
+array(1) {
+  [0]=>
+  object(app\models\Queue)#36 (11) {
+    ["_user":"app\models\Queue":private]=>
+    NULL
+    ["_attributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_oldAttributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_related":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_relationsDependencies":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_errors":"yii\base\Model":private]=>
+    NULL
+    ["_validators":"yii\base\Model":private]=>
+    NULL
+    ["_scenario":"yii\base\Model":private]=>
+    string(7) "default"
+    ["_events":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_eventWildcards":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_behaviors":"yii\base\Component":private]=>
+    array(0) {
+    }
+  }
+}
+- - - Establish Queue - ID: 177624
+RUN with what 
+creating file
+CREATING XML
+ PAGE 7 of 44
+FIND LAST TYPE FOR QUEUE 
+jobs running 
+array(1) {
+  [0]=>
+  object(app\models\Queue)#36 (11) {
+    ["_user":"app\models\Queue":private]=>
+    NULL
+    ["_attributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_oldAttributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_related":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_relationsDependencies":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_errors":"yii\base\Model":private]=>
+    NULL
+    ["_validators":"yii\base\Model":private]=>
+    NULL
+    ["_scenario":"yii\base\Model":private]=>
+    string(7) "default"
+    ["_events":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_eventWildcards":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_behaviors":"yii\base\Component":private]=>
+    array(0) {
+    }
+  }
+}
+- - - Establish Queue - ID: 177624
+RUN with what 
+creating file
+CREATING XML
+ PAGE 8 of 44
+FIND LAST TYPE FOR QUEUE 
+jobs running 
+array(1) {
+  [0]=>
+  object(app\models\Queue)#36 (11) {
+    ["_user":"app\models\Queue":private]=>
+    NULL
+    ["_attributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_oldAttributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_related":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_relationsDependencies":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_errors":"yii\base\Model":private]=>
+    NULL
+    ["_validators":"yii\base\Model":private]=>
+    NULL
+    ["_scenario":"yii\base\Model":private]=>
+    string(7) "default"
+    ["_events":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_eventWildcards":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_behaviors":"yii\base\Component":private]=>
+    array(0) {
+    }
+  }
+}
+- - - Establish Queue - ID: 177624
+RUN with what 
+creating file
+CREATING XML
+ PAGE 9 of 44
+FIND LAST TYPE FOR QUEUE 
+jobs running 
+array(1) {
+  [0]=>
+  object(app\models\Queue)#36 (11) {
+    ["_user":"app\models\Queue":private]=>
+    NULL
+    ["_attributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_oldAttributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_related":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_relationsDependencies":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_errors":"yii\base\Model":private]=>
+    NULL
+    ["_validators":"yii\base\Model":private]=>
+    NULL
+    ["_scenario":"yii\base\Model":private]=>
+    string(7) "default"
+    ["_events":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_eventWildcards":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_behaviors":"yii\base\Component":private]=>
+    array(0) {
+    }
+  }
+}
+- - - Establish Queue - ID: 177624
+RUN with what 
+creating file
+CREATING XML
+ PAGE 10 of 44
+FIND LAST TYPE FOR QUEUE 
+jobs running 
+array(1) {
+  [0]=>
+  object(app\models\Queue)#36 (11) {
+    ["_user":"app\models\Queue":private]=>
+    NULL
+    ["_attributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_oldAttributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_related":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_relationsDependencies":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_errors":"yii\base\Model":private]=>
+    NULL
+    ["_validators":"yii\base\Model":private]=>
+    NULL
+    ["_scenario":"yii\base\Model":private]=>
+    string(7) "default"
+    ["_events":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_eventWildcards":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_behaviors":"yii\base\Component":private]=>
+    array(0) {
+    }
+  }
+}
+- - - Establish Queue - ID: 177624
+RUN with what 
+creating file
+CREATING XML
+ PAGE 11 of 44
+FIND LAST TYPE FOR QUEUE 
+jobs running 
+array(1) {
+  [0]=>
+  object(app\models\Queue)#36 (11) {
+    ["_user":"app\models\Queue":private]=>
+    NULL
+    ["_attributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_oldAttributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_related":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_relationsDependencies":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_errors":"yii\base\Model":private]=>
+    NULL
+    ["_validators":"yii\base\Model":private]=>
+    NULL
+    ["_scenario":"yii\base\Model":private]=>
+    string(7) "default"
+    ["_events":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_eventWildcards":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_behaviors":"yii\base\Component":private]=>
+    array(0) {
+    }
+  }
+}
+- - - Establish Queue - ID: 177624
+RUN with what 
+creating file
+CREATING XML
+ PAGE 12 of 44
+FIND LAST TYPE FOR QUEUE 
+jobs running 
+array(1) {
+  [0]=>
+  object(app\models\Queue)#36 (11) {
+    ["_user":"app\models\Queue":private]=>
+    NULL
+    ["_attributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_oldAttributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_related":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_relationsDependencies":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_errors":"yii\base\Model":private]=>
+    NULL
+    ["_validators":"yii\base\Model":private]=>
+    NULL
+    ["_scenario":"yii\base\Model":private]=>
+    string(7) "default"
+    ["_events":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_eventWildcards":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_behaviors":"yii\base\Component":private]=>
+    array(0) {
+    }
+  }
+}
+- - - Establish Queue - ID: 177624
+RUN with what 
+creating file
+CREATING XML
+ PAGE 13 of 44
+FIND LAST TYPE FOR QUEUE 
+jobs running 
+array(1) {
+  [0]=>
+  object(app\models\Queue)#36 (11) {
+    ["_user":"app\models\Queue":private]=>
+    NULL
+    ["_attributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_oldAttributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_related":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_relationsDependencies":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_errors":"yii\base\Model":private]=>
+    NULL
+    ["_validators":"yii\base\Model":private]=>
+    NULL
+    ["_scenario":"yii\base\Model":private]=>
+    string(7) "default"
+    ["_events":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_eventWildcards":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_behaviors":"yii\base\Component":private]=>
+    array(0) {
+    }
+  }
+}
+- - - Establish Queue - ID: 177624
+RUN with what 
+creating file
+CREATING XML
+ PAGE 14 of 44
+FIND LAST TYPE FOR QUEUE 
+jobs running 
+array(1) {
+  [0]=>
+  object(app\models\Queue)#36 (11) {
+    ["_user":"app\models\Queue":private]=>
+    NULL
+    ["_attributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_oldAttributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_related":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_relationsDependencies":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_errors":"yii\base\Model":private]=>
+    NULL
+    ["_validators":"yii\base\Model":private]=>
+    NULL
+    ["_scenario":"yii\base\Model":private]=>
+    string(7) "default"
+    ["_events":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_eventWildcards":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_behaviors":"yii\base\Component":private]=>
+    array(0) {
+    }
+  }
+}
+- - - Establish Queue - ID: 177624
+RUN with what 
+creating file
+CREATING XML
+ PAGE 15 of 44
+FIND LAST TYPE FOR QUEUE 
+jobs running 
+array(1) {
+  [0]=>
+  object(app\models\Queue)#36 (11) {
+    ["_user":"app\models\Queue":private]=>
+    NULL
+    ["_attributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_oldAttributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_related":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_relationsDependencies":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_errors":"yii\base\Model":private]=>
+    NULL
+    ["_validators":"yii\base\Model":private]=>
+    NULL
+    ["_scenario":"yii\base\Model":private]=>
+    string(7) "default"
+    ["_events":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_eventWildcards":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_behaviors":"yii\base\Component":private]=>
+    array(0) {
+    }
+  }
+}
+- - - Establish Queue - ID: 177624
+RUN with what 
+creating file
+CREATING XML
+ PAGE 16 of 44
+FIND LAST TYPE FOR QUEUE 
+jobs running 
+array(1) {
+  [0]=>
+  object(app\models\Queue)#36 (11) {
+    ["_user":"app\models\Queue":private]=>
+    NULL
+    ["_attributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_oldAttributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_related":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_relationsDependencies":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_errors":"yii\base\Model":private]=>
+    NULL
+    ["_validators":"yii\base\Model":private]=>
+    NULL
+    ["_scenario":"yii\base\Model":private]=>
+    string(7) "default"
+    ["_events":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_eventWildcards":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_behaviors":"yii\base\Component":private]=>
+    array(0) {
+    }
+  }
+}
+- - - Establish Queue - ID: 177624
+RUN with what 
+creating file
+CREATING XML
+ PAGE 17 of 44
+FIND LAST TYPE FOR QUEUE 
+jobs running 
+array(1) {
+  [0]=>
+  object(app\models\Queue)#36 (11) {
+    ["_user":"app\models\Queue":private]=>
+    NULL
+    ["_attributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_oldAttributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_related":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_relationsDependencies":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_errors":"yii\base\Model":private]=>
+    NULL
+    ["_validators":"yii\base\Model":private]=>
+    NULL
+    ["_scenario":"yii\base\Model":private]=>
+    string(7) "default"
+    ["_events":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_eventWildcards":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_behaviors":"yii\base\Component":private]=>
+    array(0) {
+    }
+  }
+}
+- - - Establish Queue - ID: 177624
+RUN with what 
+creating file
+CREATING XML
+ PAGE 18 of 44
+FIND LAST TYPE FOR QUEUE 
+jobs running 
+array(1) {
+  [0]=>
+  object(app\models\Queue)#36 (11) {
+    ["_user":"app\models\Queue":private]=>
+    NULL
+    ["_attributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_oldAttributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_related":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_relationsDependencies":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_errors":"yii\base\Model":private]=>
+    NULL
+    ["_validators":"yii\base\Model":private]=>
+    NULL
+    ["_scenario":"yii\base\Model":private]=>
+    string(7) "default"
+    ["_events":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_eventWildcards":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_behaviors":"yii\base\Component":private]=>
+    array(0) {
+    }
+  }
+}
+- - - Establish Queue - ID: 177624
+RUN with what 
+creating file
+CREATING XML
+ PAGE 19 of 44
+FIND LAST TYPE FOR QUEUE 
+jobs running 
+array(1) {
+  [0]=>
+  object(app\models\Queue)#36 (11) {
+    ["_user":"app\models\Queue":private]=>
+    NULL
+    ["_attributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_oldAttributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_related":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_relationsDependencies":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_errors":"yii\base\Model":private]=>
+    NULL
+    ["_validators":"yii\base\Model":private]=>
+    NULL
+    ["_scenario":"yii\base\Model":private]=>
+    string(7) "default"
+    ["_events":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_eventWildcards":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_behaviors":"yii\base\Component":private]=>
+    array(0) {
+    }
+  }
+}
+- - - Establish Queue - ID: 177624
+RUN with what 
+creating file
+CREATING XML
+ PAGE 20 of 44
+FIND LAST TYPE FOR QUEUE 
+jobs running 
+array(1) {
+  [0]=>
+  object(app\models\Queue)#36 (11) {
+    ["_user":"app\models\Queue":private]=>
+    NULL
+    ["_attributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_oldAttributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_related":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_relationsDependencies":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_errors":"yii\base\Model":private]=>
+    NULL
+    ["_validators":"yii\base\Model":private]=>
+    NULL
+    ["_scenario":"yii\base\Model":private]=>
+    string(7) "default"
+    ["_events":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_eventWildcards":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_behaviors":"yii\base\Component":private]=>
+    array(0) {
+    }
+  }
+}
+- - - Establish Queue - ID: 177624
+RUN with what 
+creating file
+CREATING XML
+ PAGE 21 of 44
+FIND LAST TYPE FOR QUEUE 
+jobs running 
+array(1) {
+  [0]=>
+  object(app\models\Queue)#36 (11) {
+    ["_user":"app\models\Queue":private]=>
+    NULL
+    ["_attributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_oldAttributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_related":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_relationsDependencies":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_errors":"yii\base\Model":private]=>
+    NULL
+    ["_validators":"yii\base\Model":private]=>
+    NULL
+    ["_scenario":"yii\base\Model":private]=>
+    string(7) "default"
+    ["_events":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_eventWildcards":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_behaviors":"yii\base\Component":private]=>
+    array(0) {
+    }
+  }
+}
+- - - Establish Queue - ID: 177624
+RUN with what 
+creating file
+CREATING XML
+ PAGE 22 of 44
+FIND LAST TYPE FOR QUEUE 
+jobs running 
+array(1) {
+  [0]=>
+  object(app\models\Queue)#36 (11) {
+    ["_user":"app\models\Queue":private]=>
+    NULL
+    ["_attributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_oldAttributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_related":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_relationsDependencies":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_errors":"yii\base\Model":private]=>
+    NULL
+    ["_validators":"yii\base\Model":private]=>
+    NULL
+    ["_scenario":"yii\base\Model":private]=>
+    string(7) "default"
+    ["_events":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_eventWildcards":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_behaviors":"yii\base\Component":private]=>
+    array(0) {
+    }
+  }
+}
+- - - Establish Queue - ID: 177624
+RUN with what 
+creating file
+CREATING XML
+ PAGE 23 of 44
+FIND LAST TYPE FOR QUEUE 
+jobs running 
+array(1) {
+  [0]=>
+  object(app\models\Queue)#36 (11) {
+    ["_user":"app\models\Queue":private]=>
+    NULL
+    ["_attributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_oldAttributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_related":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_relationsDependencies":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_errors":"yii\base\Model":private]=>
+    NULL
+    ["_validators":"yii\base\Model":private]=>
+    NULL
+    ["_scenario":"yii\base\Model":private]=>
+    string(7) "default"
+    ["_events":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_eventWildcards":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_behaviors":"yii\base\Component":private]=>
+    array(0) {
+    }
+  }
+}
+- - - Establish Queue - ID: 177624
+RUN with what 
+creating file
+CREATING XML
+ PAGE 24 of 44
+FIND LAST TYPE FOR QUEUE 
+jobs running 
+array(1) {
+  [0]=>
+  object(app\models\Queue)#36 (11) {
+    ["_user":"app\models\Queue":private]=>
+    NULL
+    ["_attributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_oldAttributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_related":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_relationsDependencies":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_errors":"yii\base\Model":private]=>
+    NULL
+    ["_validators":"yii\base\Model":private]=>
+    NULL
+    ["_scenario":"yii\base\Model":private]=>
+    string(7) "default"
+    ["_events":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_eventWildcards":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_behaviors":"yii\base\Component":private]=>
+    array(0) {
+    }
+  }
+}
+- - - Establish Queue - ID: 177624
+RUN with what 
+creating file
+CREATING XML
+ PAGE 25 of 44
+FIND LAST TYPE FOR QUEUE 
+jobs running 
+array(1) {
+  [0]=>
+  object(app\models\Queue)#36 (11) {
+    ["_user":"app\models\Queue":private]=>
+    NULL
+    ["_attributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_oldAttributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_related":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_relationsDependencies":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_errors":"yii\base\Model":private]=>
+    NULL
+    ["_validators":"yii\base\Model":private]=>
+    NULL
+    ["_scenario":"yii\base\Model":private]=>
+    string(7) "default"
+    ["_events":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_eventWildcards":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_behaviors":"yii\base\Component":private]=>
+    array(0) {
+    }
+  }
+}
+- - - Establish Queue - ID: 177624
+RUN with what 
+creating file
+CREATING XML
+ PAGE 26 of 44
+FIND LAST TYPE FOR QUEUE 
+jobs running 
+array(1) {
+  [0]=>
+  object(app\models\Queue)#36 (11) {
+    ["_user":"app\models\Queue":private]=>
+    NULL
+    ["_attributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_oldAttributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_related":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_relationsDependencies":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_errors":"yii\base\Model":private]=>
+    NULL
+    ["_validators":"yii\base\Model":private]=>
+    NULL
+    ["_scenario":"yii\base\Model":private]=>
+    string(7) "default"
+    ["_events":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_eventWildcards":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_behaviors":"yii\base\Component":private]=>
+    array(0) {
+    }
+  }
+}
+- - - Establish Queue - ID: 177624
+RUN with what 
+creating file
+CREATING XML
+ PAGE 27 of 44
+FIND LAST TYPE FOR QUEUE 
+jobs running 
+array(1) {
+  [0]=>
+  object(app\models\Queue)#36 (11) {
+    ["_user":"app\models\Queue":private]=>
+    NULL
+    ["_attributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_oldAttributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_related":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_relationsDependencies":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_errors":"yii\base\Model":private]=>
+    NULL
+    ["_validators":"yii\base\Model":private]=>
+    NULL
+    ["_scenario":"yii\base\Model":private]=>
+    string(7) "default"
+    ["_events":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_eventWildcards":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_behaviors":"yii\base\Component":private]=>
+    array(0) {
+    }
+  }
+}
+- - - Establish Queue - ID: 177624
+RUN with what 
+creating file
+CREATING XML
+ PAGE 28 of 44
+FIND LAST TYPE FOR QUEUE 
+jobs running 
+array(1) {
+  [0]=>
+  object(app\models\Queue)#36 (11) {
+    ["_user":"app\models\Queue":private]=>
+    NULL
+    ["_attributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_oldAttributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_related":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_relationsDependencies":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_errors":"yii\base\Model":private]=>
+    NULL
+    ["_validators":"yii\base\Model":private]=>
+    NULL
+    ["_scenario":"yii\base\Model":private]=>
+    string(7) "default"
+    ["_events":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_eventWildcards":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_behaviors":"yii\base\Component":private]=>
+    array(0) {
+    }
+  }
+}
+- - - Establish Queue - ID: 177624
+RUN with what 
+creating file
+CREATING XML
+ PAGE 29 of 44
+FIND LAST TYPE FOR QUEUE 
+jobs running 
+array(1) {
+  [0]=>
+  object(app\models\Queue)#36 (11) {
+    ["_user":"app\models\Queue":private]=>
+    NULL
+    ["_attributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_oldAttributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_related":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_relationsDependencies":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_errors":"yii\base\Model":private]=>
+    NULL
+    ["_validators":"yii\base\Model":private]=>
+    NULL
+    ["_scenario":"yii\base\Model":private]=>
+    string(7) "default"
+    ["_events":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_eventWildcards":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_behaviors":"yii\base\Component":private]=>
+    array(0) {
+    }
+  }
+}
+- - - Establish Queue - ID: 177624
+RUN with what 
+creating file
+CREATING XML
+ PAGE 30 of 44
+FIND LAST TYPE FOR QUEUE 
+jobs running 
+array(1) {
+  [0]=>
+  object(app\models\Queue)#36 (11) {
+    ["_user":"app\models\Queue":private]=>
+    NULL
+    ["_attributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_oldAttributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_related":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_relationsDependencies":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_errors":"yii\base\Model":private]=>
+    NULL
+    ["_validators":"yii\base\Model":private]=>
+    NULL
+    ["_scenario":"yii\base\Model":private]=>
+    string(7) "default"
+    ["_events":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_eventWildcards":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_behaviors":"yii\base\Component":private]=>
+    array(0) {
+    }
+  }
+}
+- - - Establish Queue - ID: 177624
+RUN with what 
+creating file
+CREATING XML
+ PAGE 31 of 44
+FIND LAST TYPE FOR QUEUE 
+jobs running 
+array(1) {
+  [0]=>
+  object(app\models\Queue)#36 (11) {
+    ["_user":"app\models\Queue":private]=>
+    NULL
+    ["_attributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_oldAttributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_related":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_relationsDependencies":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_errors":"yii\base\Model":private]=>
+    NULL
+    ["_validators":"yii\base\Model":private]=>
+    NULL
+    ["_scenario":"yii\base\Model":private]=>
+    string(7) "default"
+    ["_events":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_eventWildcards":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_behaviors":"yii\base\Component":private]=>
+    array(0) {
+    }
+  }
+}
+- - - Establish Queue - ID: 177624
+RUN with what 
+creating file
+CREATING XML
+ PAGE 32 of 44
+FIND LAST TYPE FOR QUEUE 
+jobs running 
+array(1) {
+  [0]=>
+  object(app\models\Queue)#36 (11) {
+    ["_user":"app\models\Queue":private]=>
+    NULL
+    ["_attributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_oldAttributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_related":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_relationsDependencies":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_errors":"yii\base\Model":private]=>
+    NULL
+    ["_validators":"yii\base\Model":private]=>
+    NULL
+    ["_scenario":"yii\base\Model":private]=>
+    string(7) "default"
+    ["_events":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_eventWildcards":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_behaviors":"yii\base\Component":private]=>
+    array(0) {
+    }
+  }
+}
+- - - Establish Queue - ID: 177624
+RUN with what 
+creating file
+CREATING XML
+ PAGE 33 of 44
+FIND LAST TYPE FOR QUEUE 
+jobs running 
+array(1) {
+  [0]=>
+  object(app\models\Queue)#36 (11) {
+    ["_user":"app\models\Queue":private]=>
+    NULL
+    ["_attributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_oldAttributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_related":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_relationsDependencies":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_errors":"yii\base\Model":private]=>
+    NULL
+    ["_validators":"yii\base\Model":private]=>
+    NULL
+    ["_scenario":"yii\base\Model":private]=>
+    string(7) "default"
+    ["_events":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_eventWildcards":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_behaviors":"yii\base\Component":private]=>
+    array(0) {
+    }
+  }
+}
+- - - Establish Queue - ID: 177624
+RUN with what 
+creating file
+CREATING XML
+ PAGE 34 of 44
+FIND LAST TYPE FOR QUEUE 
+jobs running 
+array(1) {
+  [0]=>
+  object(app\models\Queue)#36 (11) {
+    ["_user":"app\models\Queue":private]=>
+    NULL
+    ["_attributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_oldAttributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_related":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_relationsDependencies":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_errors":"yii\base\Model":private]=>
+    NULL
+    ["_validators":"yii\base\Model":private]=>
+    NULL
+    ["_scenario":"yii\base\Model":private]=>
+    string(7) "default"
+    ["_events":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_eventWildcards":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_behaviors":"yii\base\Component":private]=>
+    array(0) {
+    }
+  }
+}
+- - - Establish Queue - ID: 177624
+RUN with what 
+creating file
+CREATING XML
+ PAGE 35 of 44
+FIND LAST TYPE FOR QUEUE 
+jobs running 
+array(1) {
+  [0]=>
+  object(app\models\Queue)#36 (11) {
+    ["_user":"app\models\Queue":private]=>
+    NULL
+    ["_attributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_oldAttributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_related":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_relationsDependencies":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_errors":"yii\base\Model":private]=>
+    NULL
+    ["_validators":"yii\base\Model":private]=>
+    NULL
+    ["_scenario":"yii\base\Model":private]=>
+    string(7) "default"
+    ["_events":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_eventWildcards":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_behaviors":"yii\base\Component":private]=>
+    array(0) {
+    }
+  }
+}
+- - - Establish Queue - ID: 177624
+RUN with what 
+creating file
+CREATING XML
+ PAGE 36 of 44
+FIND LAST TYPE FOR QUEUE 
+jobs running 
+array(1) {
+  [0]=>
+  object(app\models\Queue)#36 (11) {
+    ["_user":"app\models\Queue":private]=>
+    NULL
+    ["_attributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_oldAttributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_related":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_relationsDependencies":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_errors":"yii\base\Model":private]=>
+    NULL
+    ["_validators":"yii\base\Model":private]=>
+    NULL
+    ["_scenario":"yii\base\Model":private]=>
+    string(7) "default"
+    ["_events":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_eventWildcards":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_behaviors":"yii\base\Component":private]=>
+    array(0) {
+    }
+  }
+}
+- - - Establish Queue - ID: 177624
+RUN with what 
+creating file
+CREATING XML
+ PAGE 37 of 44
+FIND LAST TYPE FOR QUEUE 
+jobs running 
+array(1) {
+  [0]=>
+  object(app\models\Queue)#36 (11) {
+    ["_user":"app\models\Queue":private]=>
+    NULL
+    ["_attributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_oldAttributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_related":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_relationsDependencies":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_errors":"yii\base\Model":private]=>
+    NULL
+    ["_validators":"yii\base\Model":private]=>
+    NULL
+    ["_scenario":"yii\base\Model":private]=>
+    string(7) "default"
+    ["_events":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_eventWildcards":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_behaviors":"yii\base\Component":private]=>
+    array(0) {
+    }
+  }
+}
+- - - Establish Queue - ID: 177624
+RUN with what 
+creating file
+CREATING XML
+ PAGE 38 of 44
+FIND LAST TYPE FOR QUEUE 
+jobs running 
+array(1) {
+  [0]=>
+  object(app\models\Queue)#36 (11) {
+    ["_user":"app\models\Queue":private]=>
+    NULL
+    ["_attributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_oldAttributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_related":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_relationsDependencies":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_errors":"yii\base\Model":private]=>
+    NULL
+    ["_validators":"yii\base\Model":private]=>
+    NULL
+    ["_scenario":"yii\base\Model":private]=>
+    string(7) "default"
+    ["_events":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_eventWildcards":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_behaviors":"yii\base\Component":private]=>
+    array(0) {
+    }
+  }
+}
+- - - Establish Queue - ID: 177624
+RUN with what 
+creating file
+CREATING XML
+ PAGE 39 of 44
+FIND LAST TYPE FOR QUEUE 
+jobs running 
+array(1) {
+  [0]=>
+  object(app\models\Queue)#36 (11) {
+    ["_user":"app\models\Queue":private]=>
+    NULL
+    ["_attributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_oldAttributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_related":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_relationsDependencies":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_errors":"yii\base\Model":private]=>
+    NULL
+    ["_validators":"yii\base\Model":private]=>
+    NULL
+    ["_scenario":"yii\base\Model":private]=>
+    string(7) "default"
+    ["_events":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_eventWildcards":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_behaviors":"yii\base\Component":private]=>
+    array(0) {
+    }
+  }
+}
+- - - Establish Queue - ID: 177624
+RUN with what 
+creating file
+CREATING XML
+ PAGE 40 of 44
+FIND LAST TYPE FOR QUEUE 
+jobs running 
+array(1) {
+  [0]=>
+  object(app\models\Queue)#36 (11) {
+    ["_user":"app\models\Queue":private]=>
+    NULL
+    ["_attributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_oldAttributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_related":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_relationsDependencies":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_errors":"yii\base\Model":private]=>
+    NULL
+    ["_validators":"yii\base\Model":private]=>
+    NULL
+    ["_scenario":"yii\base\Model":private]=>
+    string(7) "default"
+    ["_events":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_eventWildcards":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_behaviors":"yii\base\Component":private]=>
+    array(0) {
+    }
+  }
+}
+- - - Establish Queue - ID: 177624
+RUN with what 
+creating file
+CREATING XML
+ PAGE 41 of 44
+FIND LAST TYPE FOR QUEUE 
+jobs running 
+array(1) {
+  [0]=>
+  object(app\models\Queue)#36 (11) {
+    ["_user":"app\models\Queue":private]=>
+    NULL
+    ["_attributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_oldAttributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_related":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_relationsDependencies":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_errors":"yii\base\Model":private]=>
+    NULL
+    ["_validators":"yii\base\Model":private]=>
+    NULL
+    ["_scenario":"yii\base\Model":private]=>
+    string(7) "default"
+    ["_events":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_eventWildcards":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_behaviors":"yii\base\Component":private]=>
+    array(0) {
+    }
+  }
+}
+- - - Establish Queue - ID: 177624
+RUN with what 
+creating file
+CREATING XML
+ PAGE 42 of 44
+FIND LAST TYPE FOR QUEUE 
+jobs running 
+array(1) {
+  [0]=>
+  object(app\models\Queue)#36 (11) {
+    ["_user":"app\models\Queue":private]=>
+    NULL
+    ["_attributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_oldAttributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_related":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_relationsDependencies":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_errors":"yii\base\Model":private]=>
+    NULL
+    ["_validators":"yii\base\Model":private]=>
+    NULL
+    ["_scenario":"yii\base\Model":private]=>
+    string(7) "default"
+    ["_events":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_eventWildcards":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_behaviors":"yii\base\Component":private]=>
+    array(0) {
+    }
+  }
+}
+- - - Establish Queue - ID: 177624
+RUN with what 
+creating file
+CREATING XML
+ PAGE 43 of 44
+FIND LAST TYPE FOR QUEUE 
+jobs running 
+array(1) {
+  [0]=>
+  object(app\models\Queue)#36 (11) {
+    ["_user":"app\models\Queue":private]=>
+    NULL
+    ["_attributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_oldAttributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_related":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_relationsDependencies":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_errors":"yii\base\Model":private]=>
+    NULL
+    ["_validators":"yii\base\Model":private]=>
+    NULL
+    ["_scenario":"yii\base\Model":private]=>
+    string(7) "default"
+    ["_events":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_eventWildcards":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_behaviors":"yii\base\Component":private]=>
+    array(0) {
+    }
+  }
+}
+- - - Establish Queue - ID: 177624
+RUN with what 
+creating file
+FIND LAST TYPE FOR QUEUE 
+jobs running 
+array(1) {
+  [0]=>
+  object(app\models\Queue)#36 (11) {
+    ["_user":"app\models\Queue":private]=>
+    NULL
+    ["_attributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_oldAttributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_related":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_relationsDependencies":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_errors":"yii\base\Model":private]=>
+    NULL
+    ["_validators":"yii\base\Model":private]=>
+    NULL
+    ["_scenario":"yii\base\Model":private]=>
+    string(7) "default"
+    ["_events":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_eventWildcards":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_behaviors":"yii\base\Component":private]=>
+    array(0) {
+    }
+  }
+}
+- - - Establish Queue - ID: 177626
+RUN with what 
+creating file
+CREATING XML
+ PAGE 0 of 11
+FIND LAST TYPE FOR QUEUE 
+jobs running 
+array(1) {
+  [0]=>
+  object(app\models\Queue)#36 (11) {
+    ["_user":"app\models\Queue":private]=>
+    NULL
+    ["_attributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_oldAttributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_related":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_relationsDependencies":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_errors":"yii\base\Model":private]=>
+    NULL
+    ["_validators":"yii\base\Model":private]=>
+    NULL
+    ["_scenario":"yii\base\Model":private]=>
+    string(7) "default"
+    ["_events":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_eventWildcards":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_behaviors":"yii\base\Component":private]=>
+    array(0) {
+    }
+  }
+}
+- - - Establish Queue - ID: 177626
+RUN with what 
+creating file
+CREATING XML
+ PAGE 1 of 11
+FIND LAST TYPE FOR QUEUE 
+jobs running 
+array(1) {
+  [0]=>
+  object(app\models\Queue)#36 (11) {
+    ["_user":"app\models\Queue":private]=>
+    NULL
+    ["_attributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_oldAttributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_related":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_relationsDependencies":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_errors":"yii\base\Model":private]=>
+    NULL
+    ["_validators":"yii\base\Model":private]=>
+    NULL
+    ["_scenario":"yii\base\Model":private]=>
+    string(7) "default"
+    ["_events":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_eventWildcards":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_behaviors":"yii\base\Component":private]=>
+    array(0) {
+    }
+  }
+}
+- - - Establish Queue - ID: 177626
+RUN with what 
+creating file
+CREATING XML
+ PAGE 2 of 11
+FIND LAST TYPE FOR QUEUE 
+jobs running 
+array(1) {
+  [0]=>
+  object(app\models\Queue)#36 (11) {
+    ["_user":"app\models\Queue":private]=>
+    NULL
+    ["_attributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_oldAttributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_related":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_relationsDependencies":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_errors":"yii\base\Model":private]=>
+    NULL
+    ["_validators":"yii\base\Model":private]=>
+    NULL
+    ["_scenario":"yii\base\Model":private]=>
+    string(7) "default"
+    ["_events":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_eventWildcards":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_behaviors":"yii\base\Component":private]=>
+    array(0) {
+    }
+  }
+}
+- - - Establish Queue - ID: 177626
+RUN with what 
+creating file
+CREATING XML
+ PAGE 3 of 11
+FIND LAST TYPE FOR QUEUE 
+jobs running 
+array(1) {
+  [0]=>
+  object(app\models\Queue)#36 (11) {
+    ["_user":"app\models\Queue":private]=>
+    NULL
+    ["_attributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_oldAttributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_related":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_relationsDependencies":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_errors":"yii\base\Model":private]=>
+    NULL
+    ["_validators":"yii\base\Model":private]=>
+    NULL
+    ["_scenario":"yii\base\Model":private]=>
+    string(7) "default"
+    ["_events":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_eventWildcards":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_behaviors":"yii\base\Component":private]=>
+    array(0) {
+    }
+  }
+}
+- - - Establish Queue - ID: 177626
+RUN with what 
+creating file
+CREATING XML
+ PAGE 4 of 11
+FIND LAST TYPE FOR QUEUE 
+jobs running 
+array(1) {
+  [0]=>
+  object(app\models\Queue)#36 (11) {
+    ["_user":"app\models\Queue":private]=>
+    NULL
+    ["_attributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_oldAttributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_related":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_relationsDependencies":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_errors":"yii\base\Model":private]=>
+    NULL
+    ["_validators":"yii\base\Model":private]=>
+    NULL
+    ["_scenario":"yii\base\Model":private]=>
+    string(7) "default"
+    ["_events":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_eventWildcards":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_behaviors":"yii\base\Component":private]=>
+    array(0) {
+    }
+  }
+}
+- - - Establish Queue - ID: 177626
+RUN with what 
+creating file
+CREATING XML
+ PAGE 5 of 11
+FIND LAST TYPE FOR QUEUE 
+jobs running 
+array(1) {
+  [0]=>
+  object(app\models\Queue)#36 (11) {
+    ["_user":"app\models\Queue":private]=>
+    NULL
+    ["_attributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_oldAttributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_related":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_relationsDependencies":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_errors":"yii\base\Model":private]=>
+    NULL
+    ["_validators":"yii\base\Model":private]=>
+    NULL
+    ["_scenario":"yii\base\Model":private]=>
+    string(7) "default"
+    ["_events":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_eventWildcards":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_behaviors":"yii\base\Component":private]=>
+    array(0) {
+    }
+  }
+}
+- - - Establish Queue - ID: 177626
+RUN with what 
+creating file
+CREATING XML
+ PAGE 6 of 11
+FIND LAST TYPE FOR QUEUE 
+jobs running 
+array(1) {
+  [0]=>
+  object(app\models\Queue)#36 (11) {
+    ["_user":"app\models\Queue":private]=>
+    NULL
+    ["_attributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_oldAttributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_related":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_relationsDependencies":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_errors":"yii\base\Model":private]=>
+    NULL
+    ["_validators":"yii\base\Model":private]=>
+    NULL
+    ["_scenario":"yii\base\Model":private]=>
+    string(7) "default"
+    ["_events":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_eventWildcards":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_behaviors":"yii\base\Component":private]=>
+    array(0) {
+    }
+  }
+}
+- - - Establish Queue - ID: 177626
+RUN with what 
+creating file
+CREATING XML
+ PAGE 7 of 11
+FIND LAST TYPE FOR QUEUE 
+jobs running 
+array(1) {
+  [0]=>
+  object(app\models\Queue)#36 (11) {
+    ["_user":"app\models\Queue":private]=>
+    NULL
+    ["_attributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_oldAttributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_related":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_relationsDependencies":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_errors":"yii\base\Model":private]=>
+    NULL
+    ["_validators":"yii\base\Model":private]=>
+    NULL
+    ["_scenario":"yii\base\Model":private]=>
+    string(7) "default"
+    ["_events":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_eventWildcards":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_behaviors":"yii\base\Component":private]=>
+    array(0) {
+    }
+  }
+}
+- - - Establish Queue - ID: 177626
+RUN with what 
+creating file
+CREATING XML
+ PAGE 8 of 11
+FIND LAST TYPE FOR QUEUE 
+jobs running 
+array(1) {
+  [0]=>
+  object(app\models\Queue)#36 (11) {
+    ["_user":"app\models\Queue":private]=>
+    NULL
+    ["_attributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_oldAttributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_related":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_relationsDependencies":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_errors":"yii\base\Model":private]=>
+    NULL
+    ["_validators":"yii\base\Model":private]=>
+    NULL
+    ["_scenario":"yii\base\Model":private]=>
+    string(7) "default"
+    ["_events":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_eventWildcards":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_behaviors":"yii\base\Component":private]=>
+    array(0) {
+    }
+  }
+}
+- - - Establish Queue - ID: 177626
+RUN with what 
+creating file
+CREATING XML
+ PAGE 9 of 11
+FIND LAST TYPE FOR QUEUE 
+jobs running 
+array(1) {
+  [0]=>
+  object(app\models\Queue)#36 (11) {
+    ["_user":"app\models\Queue":private]=>
+    NULL
+    ["_attributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_oldAttributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_related":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_relationsDependencies":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_errors":"yii\base\Model":private]=>
+    NULL
+    ["_validators":"yii\base\Model":private]=>
+    NULL
+    ["_scenario":"yii\base\Model":private]=>
+    string(7) "default"
+    ["_events":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_eventWildcards":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_behaviors":"yii\base\Component":private]=>
+    array(0) {
+    }
+  }
+}
+- - - Establish Queue - ID: 177626
+RUN with what 
+creating file
+CREATING XML
+ PAGE 10 of 11
+FIND LAST TYPE FOR QUEUE 
+jobs running 
+array(1) {
+  [0]=>
+  object(app\models\Queue)#36 (11) {
+    ["_user":"app\models\Queue":private]=>
+    NULL
+    ["_attributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_oldAttributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_related":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_relationsDependencies":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_errors":"yii\base\Model":private]=>
+    NULL
+    ["_validators":"yii\base\Model":private]=>
+    NULL
+    ["_scenario":"yii\base\Model":private]=>
+    string(7) "default"
+    ["_events":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_eventWildcards":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_behaviors":"yii\base\Component":private]=>
+    array(0) {
+    }
+  }
+}
+- - - Establish Queue - ID: 177626
+RUN with what 
+creating file
+FIND LAST TYPE FOR QUEUE 
+jobs running 
+array(1) {
+  [0]=>
+  object(app\models\Queue)#36 (11) {
+    ["_user":"app\models\Queue":private]=>
+    NULL
+    ["_attributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_oldAttributes":"yii\db\BaseActiveRecord":private]=>
+    array(10) {
+      ["id"]=>
+      int(177609)
+      ["integrated"]=>
+      int(1)
+      ["next_integration_date"]=>
+      string(19) "2023-07-16 00:00:00"
+      ["executed_at"]=>
+      string(19) "2023-07-16 00:05:37"
+      ["finished_at"]=>
+      string(19) "0000-00-00 00:00:00"
+      ["integration_type"]=>
+      string(8) "customer"
+      ["current_integrate_user"]=>
+      int(32)
+      ["page"]=>
+      int(180)
+      ["max_page"]=>
+      int(1126)
+      ["parameters"]=>
+      string(29) "a:1:{s:11:"tokenerrors";i:0;}"
+    }
+    ["_related":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_relationsDependencies":"yii\db\BaseActiveRecord":private]=>
+    array(0) {
+    }
+    ["_errors":"yii\base\Model":private]=>
+    NULL
+    ["_validators":"yii\base\Model":private]=>
+    NULL
+    ["_scenario":"yii\base\Model":private]=>
+    string(7) "default"
+    ["_events":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_eventWildcards":"yii\base\Component":private]=>
+    array(0) {
+    }
+    ["_behaviors":"yii\base\Component":private]=>
+    array(0) {
+    }
+  }
+}
+object(app\models\Queue)#50 (11) {
+  ["_user":"app\models\Queue":private]=>
+  NULL
+  ["_attributes":"yii\db\BaseActiveRecord":private]=>
+  array(10) {
+    ["id"]=>
+    int(177628)
+    ["integrated"]=>
+    int(0)
+    ["next_integration_date"]=>
+    string(19) "2023-07-16 01:00:00"
+    ["executed_at"]=>
+    string(19) "0000-00-00 00:00:00"
+    ["finished_at"]=>
+    string(19) "0000-00-00 00:00:00"
+    ["integration_type"]=>
+    string(8) "customer"
+    ["current_integrate_user"]=>
+    int(55)
+    ["page"]=>
+    int(0)
+    ["max_page"]=>
+    int(0)
+    ["parameters"]=>
+    string(30) "a:1:{s:12:"objects_done";i:1;}"
+  }
+  ["_oldAttributes":"yii\db\BaseActiveRecord":private]=>
+  array(10) {
+    ["id"]=>
+    int(177628)
+    ["integrated"]=>
+    int(0)
+    ["next_integration_date"]=>
+    string(19) "2023-07-16 01:00:00"
+    ["executed_at"]=>
+    string(19) "0000-00-00 00:00:00"
+    ["finished_at"]=>
+    string(19) "0000-00-00 00:00:00"
+    ["integration_type"]=>
+    string(8) "customer"
+    ["current_integrate_user"]=>
+    int(55)
+    ["page"]=>
+    int(0)
+    ["max_page"]=>
+    int(0)
+    ["parameters"]=>
+    string(30) "a:1:{s:12:"objects_done";i:1;}"
+  }
+  ["_related":"yii\db\BaseActiveRecord":private]=>
+  array(0) {
+  }
+  ["_relationsDependencies":"yii\db\BaseActiveRecord":private]=>
+  array(0) {
+  }
+  ["_errors":"yii\base\Model":private]=>
+  NULL
+  ["_validators":"yii\base\Model":private]=>
+  NULL
+  ["_scenario":"yii\base\Model":private]=>
+  string(7) "default"
+  ["_events":"yii\base\Component":private]=>
+  array(0) {
+  }
+  ["_eventWildcards":"yii\base\Component":private]=>
+  array(0) {
+  }
+  ["_behaviors":"yii\base\Component":private]=>
+  array(0) {
+  }
+}
+- - - Establish Queue - ID: 177628
+customer !!!# 
+file preparingcustomer pages 1
+ PAGE 0 of 2
+STOP HERE
