@@ -33,3 +33,4 @@ tests/_support/_generated
 /.vagrant
 
 /modules/xml_generator/src/feeds/
+/logs
