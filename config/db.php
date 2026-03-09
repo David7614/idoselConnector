@@ -6,15 +6,26 @@ if ($url = getenv('STACKHERO_MYSQL_DATABASE_URL')) {
     $port   = $parsed['port'] ?? 3306;
     $user   = $parsed['user'] ?? 'root';
     $pass   = isset($parsed['pass']) ? urldecode($parsed['pass']) : '';
-    $dbName = getenv('DB_NAME') ?: 'samba_idosell';
+    $dbName = getenv('DB_NAME') ?: ltrim($parsed['path'] ?? '', '/') ?: 'samba_idosell';
 
-    return [
+    parse_str($parsed['query'] ?? '', $query);
+    $useSSL = !empty($query['useSSL']) && $query['useSSL'] === 'true';
+
+    $config = [
         'class'    => 'yii\db\Connection',
         'dsn'      => "mysql:host={$host};port={$port};dbname={$dbName}",
         'username' => $user,
         'password' => $pass,
         'charset'  => 'utf8mb4',
     ];
+
+    if ($useSSL) {
+        $config['attributes'] = [
+            PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT => false,
+        ];
+    }
+
+    return $config;
 }
 
 return [
