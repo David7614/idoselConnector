@@ -32,5 +32,4 @@ tests/_support/_generated
 #vagrant folder
 /.vagrant
 
-/modules/shoper/files/
 /modules/xml_generator/src/feeds/

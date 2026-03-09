@@ -28,9 +28,6 @@ $config = [
         'xml_generator' => [
             'class' => 'app\modules\xml_generator\Module',
         ],
-        'shoper'        => [
-            'class' => 'app\modules\shoper\Module',
-        ],
     ],
     'components' => [
         'request'      => [
@@ -67,13 +64,6 @@ $config = [
                     'class'  => 'yii\log\FileTarget',
                     'levels' => ['error', 'warning'],
                 ],
-                [
-                    'class'      => 'yii\log\FileTarget',
-                    'levels'     => ['info', 'trace', 'error', 'warning'],
-                    'categories' => ['shoper'],
-                    'logVars'    => [],
-                    'logFile'    => '@runtime/logs/shoper/shoper.log',
-                ],
             ],
         ],
         'db'           => $db,
@@ -92,8 +82,13 @@ $config = [
                 'httponly' => true,
             ],
         ],
+        'assetManager' => [
+            'basePath' => '@webroot/assets',
+            'baseUrl'  => '@web/assets',
+        ],
     ],
     'params'     => $params,
+
 ];
 
 if (YII_ENV_DEV) {

@@ -420,20 +420,4 @@
         </div>
     </div>
 
-    <div class="row">
-        <div class="col-md-12">
-            <div class="panel">
-                <div class="panel-body">
-                    <div class="panel-title">
-                        <h2 class="panel-heading">
-                            Dodatkowe ustawienia tylko dla admina
-                        </h2>
-                    </div>
-                    <div class="panel-body">
-                        <?= $user->getUserDataValue('api3_key') ?>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 </div>

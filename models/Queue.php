@@ -2,7 +2,6 @@
 
 namespace app\models;
 
-use app\modules\shoper\models\Integrator;
 use app\modules\xml_generator\src\XmlFeed;
 use League\OAuth2\Client\Token\AccessToken;
 use Yii;
@@ -315,19 +314,17 @@ class Queue extends \yii\db\ActiveRecord
                     $queue->page = 0;
                     $queue->max_page = 0;
                     $queue->save();
-                    if ($user->shop_type!='shoper' || $type=='customer'){    
-                        $sheduleDate2=date('Y-m-d H:i:s', strtotime($sheduleDate . " + 10 minutes"));
-                        $queue = new self();
-                        $queue->current_integrate_user = $user->id;
-                        $queue->integration_type = $type;
-                        $queue->integrated = self::PENDING;
-                        $queue->next_integration_date = $sheduleDate2;
-                        $queue->page = 0;
-                        $queue->max_page = 0;
-                        $queue->setAdditionalParameters(['objects_done' => 1]);
-                        $queue->save();
-                    }
-                        
+                    $sheduleDate2=date('Y-m-d H:i:s', strtotime($sheduleDate . " + 10 minutes"));
+                    $queue = new self();
+                    $queue->current_integrate_user = $user->id;
+                    $queue->integration_type = $type;
+                    $queue->integrated = self::PENDING;
+                    $queue->next_integration_date = $sheduleDate2;
+                    $queue->page = 0;
+                    $queue->max_page = 0;
+                    $queue->setAdditionalParameters(['objects_done' => 1]);
+                    $queue->save();
+
                 }
                 $user->setUserDataValue('last_sheduled_'.$type, $sheduleDate);
             }
@@ -440,8 +437,6 @@ class Queue extends \yii\db\ActiveRecord
             }
         }
         // var_dump($queue_item);
-        $queue_item = self::checkShoperApiDelay($queue_item);
-
         return $queue_item;
     }
 
@@ -498,53 +493,6 @@ class Queue extends \yii\db\ActiveRecord
         $this->parameters=serialize($params);
     }
 
-
-    /**
-     * Prevention of queue blocking by http request failed error
-     */
-    public function setShoperApiDelay($delay = '+2 minutes')
-    {
-        $parameters = $this->additionalParameters;
-        $parameters['shoper_api_delay'] = date('Y-m-d H:i:s', strtotime($delay));
-        $this->additionalParameters = $parameters;
-
-        $this->integrated = self::PENDING;
-
-        return $this->save();
-    }
-
-    /**
-     * Check if there is a delay applied to the execution of requests to the shoper api
-     */
-    public static function checkShoperApiDelay($queue_item) {
-        if (($user = $queue_item->getCurrentUser()) && $user->shop_type == 'shoper') {
-            var_dump($queue_item);
-            $parameters = $queue_item->additionalParameters;
-
-            if (!isset($parameters['shoper_api_delay'])) {
-                $queueItem = self::find()->where(['integrated' => self::PENDING])
-                    ->andWhere(['<', 'next_integration_date', date('Y-m-d H:i:s')])
-                    ->andWhere(['like', 'parameters', 'shoper_api_delay'])
-                    ->orderBy(['next_integration_date' => SORT_ASC])
-                    ->one();
-                    // var_dump($queueItem);
-                if ($queueItem) {
-                    // var_dump($queueItem);
-                    $parameters = $queueItem->additionalParameters;
-
-                    if ($parameters['shoper_api_delay'] > date('Y-m-d H:i:s')) {
-                        return null;
-                    }
-                }
-            } else {
-                if ($parameters['shoper_api_delay'] > date('Y-m-d H:i:s')) {
-                    return null;
-                }
-            }
-        }
-
-        return $queue_item;
-    }
 
     /**
      * Check if provided email is disallowed for feed generation

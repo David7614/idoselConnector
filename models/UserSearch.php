@@ -1,45 +1,64 @@
 <?php
 namespace app\models;
-use yii\data\ActiveDataProvider;
-use yii\helpers\ArrayHelper;
-// use app\models\ListCardsAssigned
 
+use yii\data\ActiveDataProvider;
 use Yii;
 
-class UserSearch extends User{
+class UserSearch extends User
+{
     public function rules()
     {
         return [
-                [['name', 'customerBoard', 'assignedUsersList', 'customer_boards_lists_id', 'status'], 'safe'],
-                [['customer_id'], 'safe'],
-            ];
+            [['id', 'active'], 'integer'],
+            [['username', 'email', 'shop_type', 'lastFinishedAt'], 'safe'],
+        ];
     }
 
+    public function search(array $params): ActiveDataProvider
+    {
+        $subQuery = (new \yii\db\Query())
+            ->select('MAX(finished_at)')
+            ->from('xml_feed_queue')
+            ->where('current_integrate_user = {{%user}}.id')
+            ->andWhere(['integrated' => Queue::EXECUTED]);
 
-    public function search($params){
-        $query=User::find();
-        // if (!isset($params['sort'])){
-        //     $query->orderBy(['priority'=>SORT_DESC, 'last_activity'=>SORT_DESC]);
-        // }
+        $query = User::find()->addSelect(['{{%user}}.*', 'lastFinishedAt' => $subQuery]);
 
-        $dataProvider  = new ActiveDataProvider([
-            'query' => $query,
-            'pagination' => [
-                'pageSize' => 50,
+        $dataProvider = new ActiveDataProvider([
+            'query'      => $query,
+            'pagination' => ['pageSize' => 100],
+            'sort'       => [
+                'defaultOrder' => ['lastFinishedAt' => SORT_DESC],
+                'attributes'   => [
+                    'id',
+                    'username',
+                    'active',
+                    'shop_type',
+                    'lastFinishedAt' => [
+                        'asc'     => ['lastFinishedAt' => SORT_ASC],
+                        'desc'    => ['lastFinishedAt' => SORT_DESC],
+                        'label'   => 'Ostatnia synchronizacja',
+                        'default' => SORT_DESC,
+                    ],
+                ],
             ],
         ]);
+
         $this->load($params);
-        // echo "<pre>";
-        // print_r($this->attributes);
-        // echo "</pre>";
-        if (!$this->validate()) {
-            // uncomment the following line if you do not want to return any records when validation fails
-            // $query->where('0=1');
-            return $dataProvider;
+
+        // Filtr "tylko aktywni" — domyślnie włączony gdy brak parametru
+        $activeParam = $params['active'] ?? '1';
+        if ($activeParam !== 'all') {
+            $query->andWhere(['active' => (int)$activeParam]);
         }
 
+        if ($this->username) {
+            $query->andWhere(['like', 'username', $this->username]);
+        }
+        if ($this->shop_type) {
+            $query->andWhere(['shop_type' => $this->shop_type]);
+        }
 
         return $dataProvider;
     }
-
 }

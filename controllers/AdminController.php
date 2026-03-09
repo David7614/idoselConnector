@@ -1,12 +1,13 @@
 <?php
 namespace app\controllers;
 
+use app\services\QueueRunnerService;
 use app\services\SettingsService;
 use app\models\IntegrationData;
 use app\models\User;
+use app\models\Queue;
 use app\modules\IAI\Application\Config;
 use app\modules\idosellv3\models\ApiClient;
-use app\modules\shoper\library\App;
 use app\modules\xml_generator\src\XmlFeed;
 use Yii;
 use yii\filters\AccessControl;
@@ -27,10 +28,10 @@ class AdminController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only'  => ['index'],
+                'only'  => ['index', 'view', 'run-queue-output', 'update', 'queues'],
                 'rules' => [
                     [
-                        'actions' => ['index'],
+                        'actions' => ['index', 'view', 'run-queue-output', 'update', 'queues'],
                         'allow'   => true,
                         'roles'   => ['admin'],
                     ],
@@ -228,6 +229,229 @@ class AdminController extends Controller
             'filesInfo' => $filesInfo,
         ]);
     }
+    public function actionQueues()
+    {
+        $now = date('Y-m-d H:i:s');
+
+        $running = Queue::find()
+            ->where(['integrated' => Queue::RUNNING])
+            ->orderBy(['executed_at' => SORT_ASC])
+            ->all();
+
+        $overdue = Queue::find()
+            ->where(['integrated' => Queue::PENDING])
+            ->andWhere(['<', 'next_integration_date', $now])
+            ->orderBy(['next_integration_date' => SORT_ASC])
+            ->all();
+
+        $errors = Queue::find()
+            ->where(['integrated' => Queue::ERROR])
+            ->orderBy(['finished_at' => SORT_DESC])
+            ->all();
+
+        // Per-user summary: last executed per type
+        $recentWindow = date('Y-m-d H:i:s', strtotime('-24 hours'));
+        $recentDone = Queue::find()
+            ->where(['integrated' => Queue::EXECUTED])
+            ->andWhere(['>=', 'finished_at', $recentWindow])
+            ->orderBy(['finished_at' => SORT_DESC])
+            ->all();
+
+        // Users involved in any problem
+        $problemUserIds = array_unique(array_merge(
+            ArrayHelper::getColumn($overdue, 'current_integrate_user'),
+            ArrayHelper::getColumn($errors,  'current_integrate_user')
+        ));
+
+        $users = User::find()
+            ->where(['active' => 1])
+            ->indexBy('id')
+            ->all();
+
+        return $this->render('queues', [
+            'running'         => $running,
+            'overdue'         => $overdue,
+            'errors'          => $errors,
+            'recentDone'      => $recentDone,
+            'users'           => $users,
+            'problemUserIds'  => $problemUserIds,
+            'now'             => $now,
+        ]);
+    }
+
+    public function actionUpdate($id)
+    {
+        $user         = User::findOne($id);
+        $checkResults = null;
+        $savedOk      = false;
+
+        if (Yii::$app->request->isPost) {
+            $action = Yii::$app->request->post('_action');
+
+            if ($action === 'check') {
+                $apiKey = $user->getUserDataValue('api3_key');
+
+                if (!$apiKey) {
+                    $checkResults = ['error' => 'Brak klucza API — nie można wykonać testu.'];
+                } else {
+                    $client    = new ApiClient($user->username, $apiKey);
+                    $endpoints = [
+                        'System' => ['method' => 'GET',  'path' => '/api/admin/v3/system/config'],
+                        'CRM'    => ['method' => 'GET',  'path' => '/api/admin/v4/clients/clients'],
+                        'OMS'    => ['method' => 'POST', 'path' => '/api/admin/v4/orders/orders/get'],
+                        'PIM'    => ['method' => 'POST', 'path' => '/api/admin/v4/products/products/get'],
+                    ];
+                    $checkResults = [];
+                    foreach ($endpoints as $label => $ep) {
+                        $res = ($ep['method'] === 'POST')
+                            ? $client->post($ep['path'], [])
+                            : $client->sendRequest($ep['path']);
+                        $checkResults[] = ['label' => $label, 'path' => $ep['path'], 'ok' => $res !== false];
+                    }
+                }
+            } else {
+                $active   = (int) Yii::$app->request->post('active', $user->active);
+                $shopType = Yii::$app->request->post('shop_type', $user->shop_type);
+                $apiKey   = Yii::$app->request->post('api3_key');
+
+                $user->active    = $active;
+                $user->shop_type = $shopType;
+                $user->save();
+
+                if ($apiKey) {
+                    $user->setUserDataValue('api3_key', $apiKey);
+                }
+
+                $savedOk = true;
+                return $this->redirect(['admin/update', 'id' => $id]);
+            }
+        }
+
+        return $this->render('settings', [
+            'user'         => $user,
+            'checkResults' => $checkResults,
+            'savedOk'      => $savedOk,
+        ]);
+    }
+
+    public function actionRunQueueOutput($queueId)
+    {
+        $queue = Queue::findOne((int)$queueId);
+
+        if (!$queue) {
+            die("Kolejka #$queueId nie istnieje.");
+        }
+
+        $this->layout = false;
+
+        set_time_limit(0);
+        ignore_user_abort(true);
+
+        // Wyłącz wszystkie bufory wyjścia
+        while (ob_get_level()) {
+            ob_end_clean();
+        }
+
+        $type     = $queue->integration_type;
+        $userId   = $queue->current_integrate_user;
+        $user     = $queue->getCurrentUser();
+        $username = $user ? $user->username : "user #$userId";
+
+        header('Content-Type: text/html; charset=utf-8');
+        header('X-Accel-Buffering: no');
+        header('Cache-Control: no-cache');
+
+        echo '<!DOCTYPE html><html><head><meta charset="utf-8">';
+        echo '<title>Kolejka #' . (int)$queueId . ' – ' . htmlspecialchars($type) . '</title>';
+        echo '<style>
+            body { background:#1e1e1e; color:#d4d4d4; font-family:monospace; font-size:13px; padding:20px; margin:0; }
+            h2   { color:#9cdcfe; margin-bottom:4px; }
+            p    { color:#888; margin:0 0 16px; }
+            pre  { margin:0; white-space:pre-wrap; word-break:break-all; }
+            .ok  { color:#4ec9b0; }
+            .err { color:#f44747; }
+            .dim { color:#666; }
+            #output { border-top:1px solid #333; padding-top:12px; margin-top:8px; }
+            #status { position:fixed; bottom:0; left:0; right:0; background:#252526;
+                      border-top:1px solid #333; padding:8px 20px; font-size:12px; color:#888; }
+        </style></head><body>';
+        echo '<h2>Kolejka #' . (int)$queueId . ' &mdash; ' . htmlspecialchars($type) . '</h2>';
+        echo '<p>Użytkownik: <strong style="color:#ce9178">' . htmlspecialchars($username) . '</strong>'
+           . ' &nbsp;|&nbsp; Strona: ' . (int)$queue->page . '/' . (int)$queue->max_page . '</p>';
+        echo '<div id="output"><pre>';
+        flush();
+
+        // Przechwytuj echo z serwisu przez output buffering + flush
+        ob_start(function (string $chunk): string {
+            return '<span>' . htmlspecialchars($chunk, ENT_QUOTES) . '</span>';
+        }, 1);
+
+        (new QueueRunnerService())->runById((int)$queueId);
+
+        ob_end_flush();
+        flush();
+
+        echo '</pre></div>';
+        echo '<div id="status"><span class="ok">✔ Zakończono</span> &nbsp;|&nbsp; '
+           . '<a href="javascript:window.close()" style="color:#569cd6;">Zamknij okno</a>'
+           . ' &nbsp;|&nbsp; <a href="' . Url::to(['admin/view', 'id' => $userId]) . '" style="color:#569cd6;" target="_parent">Wróć do kolejki</a>'
+           . '</div>';
+        echo '</body></html>';
+        Yii::$app->end();
+    }
+
+    public function actionView($id)
+    {
+        $user = User::findOne($id);
+
+        $filterType   = Yii::$app->request->get('type');
+        $filterStatus = Yii::$app->request->get('status');
+
+        // Wszystkie wpisy do podsumowania (bez limitu filtrów)
+        $allItems = Queue::find()
+            ->where(['current_integrate_user' => $id])
+            ->all();
+
+        // Zapytanie z filtrami do tabeli
+        $query = Queue::find()
+            ->where(['current_integrate_user' => $id])
+            ->orderBy(['next_integration_date' => SORT_DESC])
+            ->limit(200);
+
+        if ($filterType) {
+            $query->andWhere(['integration_type' => $filterType]);
+        }
+
+        if ($filterStatus !== null && $filterStatus !== '') {
+            if ($filterStatus === 'overdue') {
+                $query->andWhere(['integrated' => Queue::PENDING])
+                      ->andWhere(['<', 'next_integration_date', date('Y-m-d H:i:s')]);
+            } else {
+                $statusMap = [
+                    'pending'  => Queue::PENDING,
+                    'running'  => Queue::RUNNING,
+                    'executed' => Queue::EXECUTED,
+                    'missed'   => Queue::MISSED,
+                    'error'    => Queue::ERROR,
+                ];
+                if (isset($statusMap[$filterStatus])) {
+                    $query->andWhere(['integrated' => $statusMap[$filterStatus]]);
+                    if ($filterStatus === 'pending') {
+                        $query->andWhere(['>=', 'next_integration_date', date('Y-m-d H:i:s')]);
+                    }
+                }
+            }
+        }
+
+        return $this->render('view', [
+            'user'         => $user,
+            'allItems'     => $allItems,
+            'queueItems'   => $query->all(),
+            'filterType'   => $filterType,
+            'filterStatus' => $filterStatus,
+        ]);
+    }
+
     public function actionIndex()
     {
         $user = User::findIdentity(Yii::$app->user->id);

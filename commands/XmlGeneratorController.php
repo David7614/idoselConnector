@@ -6,13 +6,13 @@ use app\models\Queue;
 use app\models\IdoselSubscriptions;
 use app\models\User;
 use app\modules\api\src\Connection;
-use app\modules\shoper\models\Integrator;
 use app\modules\xml_generator\src\CustomersPartialFeed;
 use app\modules\xml_generator\src\IdioselClient;
 use app\modules\xml_generator\src\Magazine;
 use app\modules\xml_generator\src\OrderFeed;
 use app\modules\xml_generator\src\SoapRequest;
 use app\modules\xml_generator\src\XmlFeed;
+use app\services\QueueRunnerService;
 use Exception;
 use InvalidArgumentException;
 use yii\console\Controller;
@@ -494,146 +494,8 @@ class XmlGeneratorController extends Controller
         // Queue::resetAllException();
     }
 
-    private function determineQueue(string $type, array $config = [])
+    private function establishQueue(string $type, array $config = []): int
     {
-        if ($config['forceId'] != 0) {
-            $queue = Queue::findOne($config['forceId']);
-            return $queue;
-        }
-        if (isset($config['pararel_processing']) && $config['pararel_processing']) {
-
-            $queue = Queue::findPararelForType($type,$config['offset']); // 2 - offset
-            return $queue;
-        }
-
-
-        if (isset($config['shop_type'])) {
-            $queue = Queue::findLastForTypeAndShop($type, $config['shop_type']);
-        } else {
-            $queue = Queue::findLastForType($type);
-        }
-
-        return $queue;
-    }
-    private function establishQueue(string $type, array $config = [])
-    {
-
-        if (! isset($config['forceId'])) {
-            $config['forceId'] = 0;
-        }
-
-
-        $queue = $this->determineQueue($type, $config);
-
-
-        if ($queue == null) {
-            echo "nothing to do for type " . $type . PHP_EOL;
-            return ExitCode::OK;
-        }
-
-        Integrator::shoperLog('', $queue->id);
-        Integrator::shoperLog('1.1 Establish Queue - ID: ' . $queue->id, $queue->id);
-
-        echo '- - - Establish Queue - ID: ' . $queue->id . PHP_EOL;
-
-        $user        = $queue->getCurrentUser();
-        $parameters  = $queue->additionalParameters;
-        $filePrepare = isset($parameters['objects_done']) ? true : false;
-
-        // if ($queue->integrated == Queue::RUNNING && ($user->shop_type != 'shoper' || $filePrepare)) { // prevent double run
-        if ($queue->integrated == Queue::RUNNING && $config['forceId'] == 0) {
-            // prevent double run
-            echo " job still in progress " . PHP_EOL;
-            echo "from " . $queue->executed_at . PHP_EOL;
-            $date          = new \DateTime($queue->executed_at);
-            $date2         = new \DateTime(date('Y-m-d H:i:s'));
-            $diffInSeconds = $date2->getTimestamp() - $date->getTimestamp();
-            echo "in seconds: " . $diffInSeconds . PHP_EOL;
-            if ($diffInSeconds > 3600) {
-                echo 'over hour';
-                $queue->setPendingStatus();
-                return ExitCode::OK;
-            }
-            return ExitCode::OK;
-        }
-
-        if (! $queue->checkQueueConstraints()) {
-            echo " job should not run " . PHP_EOL;
-            $queue->setErrorStatus('job disabled');
-            return ExitCode::OK;
-        }
-
-        // die ("STOP FOR NOW");
-        $queue->setRunningStatus();
-
-        if (! $user) {
-            $queue->delete();
-            return ExitCode::ERR;
-        }
-
-        $xml_generator = new XmlFeed();
-
-        $xml_generator->setType($type);
-        if (isset($config['forcePage'])) {
-            $queue->page = $config['forcePage'];
-        }
-        $xml_generator->setQueue($queue);
-        $xml_generator->setUser($user);
-
-        try {
-
-            $parameters = $queue->additionalParameters;
-
-            $what = isset($parameters['objects_done']) ? null : 'objects';
-            echo "RUN with what " . $what . PHP_EOL;
-            $generated = $xml_generator->generate($what);
-
-            if (! $generated) {
-                var_dump($generated);
-                $queue->setErrorStatus();
-                throw new Exception('Cannot generate ' . $type . ' feed. Cannot save file');
-            }
-            if (isset($config['forcePage'])) {
-                $queue->setErrorStatus();
-                echo "page forced ";
-                die();
-            }
-            // if($xml_generator->isFinished()) {
-            if ($generated === 10) {
-                // czyli skończone
-                // die ("SET EXECUTED");
-                $queue->setExecutedStatus();
-                $queue->setCountErrors(0);
-                return true;
-                /*
-
-					                $xml_generator->generate();
-					                // if($type == XmlFeed::PRODUCT || $type == XmlFeed::CATEGORY) {
-					                //     $queue->setExecutedStatus();
-					                // }
-					                file_put_contents($xml_generator->getFile(true, true), '');
-					                echo "finished ".$xml_generator->getFile(true, true);
-					                $queue->setExecutedStatus();
-				*/
-            }
-
-            $queue->setPendingStatus(); // back to pending
-            $queue->setCountErrors(0);
-
-            return ExitCode::OK;
-        } catch (Exception $e) {
-            echo "ERROR::" . PHP_EOL;
-            echo $e->getMessage();
-            // $queue->setErrorStatus($e->getMessage());
-
-            $queue->raiseCountErrors();
-            if ($queue->getCountErrors() < 30) {
-                $queue->setPendingStatus();
-            } else {
-                $queue->setErrorStatus($e->getMessage());
-            }
-
-            return ExitCode::UNSPECIFIED_ERROR;
-        }
+        return (new QueueRunnerService())->run($type, $config);
     }
 }

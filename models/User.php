@@ -22,6 +22,9 @@ use yii\web\IdentityInterface;
  */
 class User extends \yii\db\ActiveRecord implements IdentityInterface
 {
+    /** Computed via subquery in UserSearch — stores MAX(finished_at) from xml_feed_queue */
+    public $lastFinishedAt;
+
     /**
      * {@inheritdoc}
      */

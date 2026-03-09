@@ -5,23 +5,15 @@
     "homepage": "http://www.yiiframework.com/",
     "type": "project",
     "license": "BSD-3-Clause",
-    "support": {
-        "issues": "https://github.com/yiisoft/yii2/issues?state=open",
-        "forum": "http://www.yiiframework.com/forum/",
-        "wiki": "http://www.yiiframework.com/wiki/",
-        "irc": "irc://irc.freenode.net/yii",
-        "source": "https://github.com/yiisoft/yii2"
-    },
     "minimum-stability": "stable",
     "require": {
-        "php": ">=7.0",
+        "php": ">=8.0",
         "yiisoft/yii2": "~2.0.14",
         "yiisoft/yii2-bootstrap": "~2.0.0",
         "yiisoft/yii2-swiftmailer": "~2.0.0 || ~2.1.0",
         "steverhoades/oauth2-openid-connect-client": "^0.3.0",
-      "ext-soap": "*",
+        "ext-soap": "*",
         "lcobucci/jwt": "3.3",
-        "dreamcommerce/shop-appstore-lib": "^1.2",
         "kartik-v/yii2-widget-datepicker": "^1.4",
         "yiisoft/yii2-httpclient": "^2.0"
     },
@@ -53,7 +45,8 @@
         "post-create-project-cmd": [
             "yii\\composer\\Installer::postCreateProject",
             "yii\\composer\\Installer::postInstall"
-        ]
+        ],
+        "start": "php -S 0.0.0.0:$PORT -t web"
     },
     "extra": {
         "yii\\composer\\Installer::postCreateProject": {
