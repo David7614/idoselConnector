@@ -7,13 +7,13 @@
     "license": "BSD-3-Clause",
     "minimum-stability": "stable",
     "require": {
-        "php": ">=8.0",
+        "php": "^8.4",
         "yiisoft/yii2": "~2.0.14",
         "yiisoft/yii2-bootstrap": "~2.0.0",
-        "yiisoft/yii2-swiftmailer": "~2.0.0 || ~2.1.0",
-        "steverhoades/oauth2-openid-connect-client": "^0.3.0",
+        "yiisoft/yii2-swiftmailer": "~2.1.0",
+        "steverhoades/oauth2-openid-connect-client": "^2.0",
         "ext-soap": "*",
-        "lcobucci/jwt": "3.3",
+        "lcobucci/jwt": "~4.0",
         "kartik-v/yii2-widget-datepicker": "^1.4",
         "yiisoft/yii2-httpclient": "^2.0"
     },
@@ -21,13 +21,13 @@
         "yiisoft/yii2-debug": "~2.1.0",
         "yiisoft/yii2-gii": "~2.1.0",
         "yiisoft/yii2-faker": "~2.0.0",
-        "codeception/codeception": "^4.0",
-        "codeception/verify": "~0.5.0 || ~1.1.0",
+        "codeception/codeception": "^5.0",
+        "codeception/verify": "^2.0",
         "codeception/specify": "~0.4.6",
-        "symfony/browser-kit": ">=2.7 <=4.2.4",
-        "codeception/module-filesystem": "^1.0.0",
+        "symfony/browser-kit": "^6.0 || ^7.0",
+        "codeception/module-filesystem": "^3.0",
         "codeception/module-yii2": "^1.0.0",
-        "codeception/module-asserts": "^1.0.0"
+        "codeception/module-asserts": "^3.0"
     },
     "config": {
         "process-timeout": 1800,
