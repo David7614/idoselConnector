@@ -21,7 +21,7 @@ if ($url = getenv('STACKHERO_MYSQL_DATABASE_URL')) {
 
     if ($useSSL) {
         $config['attributes'] = [
-            PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT => false,
+            Pdo\Mysql::ATTR_SSL_VERIFY_SERVER_CERT => false
         ];
     }
 
