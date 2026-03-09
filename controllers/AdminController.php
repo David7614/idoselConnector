@@ -28,10 +28,10 @@ class AdminController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only'  => ['index', 'view', 'run-queue-output', 'update', 'queues'],
+                'only'  => ['index', 'view', 'run-queue-output', 'restart-queue-output', 'update', 'queues', 'prepare-queue-output'],
                 'rules' => [
                     [
-                        'actions' => ['index', 'view', 'run-queue-output', 'update', 'queues'],
+                        'actions' => ['index', 'view', 'run-queue-output', 'restart-queue-output', 'update', 'queues', 'prepare-queue-output'],
                         'allow'   => true,
                         'roles'   => ['admin'],
                     ],
@@ -229,6 +229,70 @@ class AdminController extends Controller
             'filesInfo' => $filesInfo,
         ]);
     }
+    public function actionPrepareQueueOutput()
+    {
+        $this->layout = false;
+
+        set_time_limit(0);
+        ignore_user_abort(true);
+
+        while (ob_get_level()) {
+            ob_end_clean();
+        }
+
+        header('Content-Type: text/html; charset=utf-8');
+        header('X-Accel-Buffering: no');
+        header('Cache-Control: no-cache');
+
+        echo '<!DOCTYPE html><html><head><meta charset="utf-8">';
+        echo '<title>Przygotowanie kolejek</title>';
+        echo '<style>
+            body { background:#1e1e1e; color:#d4d4d4; font-family:monospace; font-size:13px; padding:20px; margin:0; }
+            h2   { color:#9cdcfe; margin-bottom:4px; }
+            p    { color:#888; margin:0 0 16px; }
+            pre  { margin:0; white-space:pre-wrap; word-break:break-all; }
+            .ok  { color:#4ec9b0; }
+            #status { position:fixed; bottom:0; left:0; right:0; background:#252526;
+                      border-top:1px solid #333; padding:8px 20px; font-size:12px; color:#888; }
+        </style></head><body>';
+        echo '<h2>Przygotowanie kolejek</h2>';
+        echo '<p>Planowanie zadań dla wszystkich aktywnych użytkowników&hellip;</p>';
+        echo '<pre>';
+        flush();
+
+        ob_start(function (string $chunk): string {
+            return '<span>' . htmlspecialchars($chunk, ENT_QUOTES) . '</span>';
+        }, 1);
+
+        $types = [
+            \app\modules\xml_generator\src\XmlFeed::CUSTOMER,
+            \app\modules\xml_generator\src\XmlFeed::PRODUCT,
+            \app\modules\xml_generator\src\XmlFeed::CATEGORY,
+            \app\modules\xml_generator\src\XmlFeed::ORDER,
+            \app\modules\xml_generator\src\XmlFeed::TAGS,
+            'countries',
+            'subscribers',
+            'phonesubscribers',
+        ];
+
+        foreach ($types as $type) {
+            echo "=== " . strtoupper($type) . " ===" . PHP_EOL;
+            Queue::prepareQueue($type);
+            echo PHP_EOL;
+        }
+
+        ob_end_flush();
+        flush();
+
+        echo '</pre>';
+        echo '<div id="status"><span class="ok">✔ Zakończono</span> &nbsp;|&nbsp; '
+           . '<a href="javascript:window.close()" style="color:#569cd6;">Zamknij okno</a>'
+           . ' &nbsp;|&nbsp; <a href="' . Url::to(['admin/queues']) . '" style="color:#569cd6;" target="_parent">Wróć do monitora</a>'
+           . '</div>';
+        echo '</body></html>';
+        Yii::$app->end();
+    }
+
     public function actionQueues()
     {
         $now = date('Y-m-d H:i:s');
@@ -332,6 +396,17 @@ class AdminController extends Controller
             'checkResults' => $checkResults,
             'savedOk'      => $savedOk,
         ]);
+    }
+
+    public function actionRestartQueueOutput($queueId)
+    {
+        $queue = Queue::findOne((int)$queueId);
+
+        if ($queue && $queue->integrated === Queue::RUNNING) {
+            $queue->setPendingStatus();
+        }
+
+        return $this->redirect(['admin/run-queue-output', 'queueId' => $queueId]);
     }
 
     public function actionRunQueueOutput($queueId)

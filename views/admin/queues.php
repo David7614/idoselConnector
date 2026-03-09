@@ -105,6 +105,11 @@ table.q-table tr:hover td { background:#fafafa; }
         <div>
             <?= Html::a('&larr; Lista użytkowników', Url::to(['admin/index']), ['class' => 'btn btn-default btn-sm']) ?>
             <?= Html::a('↻ Odśwież', Url::current(), ['class' => 'btn btn-default btn-sm']) ?>
+            <?= Html::a('⚙ Zaplanuj kolejki', Url::to(['admin/prepare-queue-output']), [
+                'class'  => 'btn btn-primary btn-sm',
+                'target' => '_blank',
+                'title'  => 'Uruchom Queue::prepareQueue dla wszystkich typów — planuje zadania dla aktywnych użytkowników',
+            ]) ?>
         </div>
     </div>
 
@@ -144,17 +149,34 @@ table.q-table tr:hover td { background:#fafafa; }
         </tr></thead>
         <tbody>
         <?php foreach ($running as $item):
-            $progress  = $item->max_page > 0 ? round($item->page / $item->max_page * 100) . '%' : '—';
-            $duration  = $item->executed_at ? $timeDiff($item->executed_at) : '—';
-            $isStuck   = $item->executed_at && (strtotime($now) - strtotime($item->executed_at)) > 3600;
+            $progress      = $item->max_page > 0 ? round($item->page / $item->max_page * 100) . '%' : '—';
+            $runningSecs   = $item->executed_at ? (strtotime($now) - strtotime($item->executed_at)) : 0;
+            $isStuck       = $runningSecs > 3600;
+            $isStuck15     = $runningSecs > 900;
+            $rowBg         = $isStuck ? 'style="background:#fff3e0;"' : ($isStuck15 ? 'style="background:#fffdf0;"' : '');
         ?>
-        <tr <?= $isStuck ? 'style="background:#fff3e0;"' : '' ?>>
+        <tr <?= $rowBg ?>>
             <td><?= $userName($item->current_integrate_user) ?></td>
             <td><span class="type-chip run"><?= Html::encode($typeLabel[$item->integration_type] ?? $item->integration_type) ?></span></td>
             <td><?= $progress ?> <?= $item->max_page > 0 ? "<small style='color:#999'>({$item->page}/{$item->max_page})</small>" : '' ?></td>
             <td title="<?= Html::encode($item->executed_at) ?>"><?= $timeDiff($item->executed_at) ?></td>
-            <td><?= $isStuck ? '<span style="color:#e65100">⚠ ponad godzinę</span>' : '' ?></td>
-            <td><?= Html::a('Kolejka', Url::to(['admin/view', 'id' => $item->current_integrate_user]), ['class' => 'btn btn-xs btn-default']) ?></td>
+            <td>
+                <?php if ($isStuck): ?>
+                    <span style="color:#e65100">⚠ ponad godzinę</span>
+                <?php elseif ($isStuck15): ?>
+                    <span style="color:#b26a00">⚠ ponad 15 min</span>
+                <?php endif ?>
+            </td>
+            <td>
+                <?= Html::a('Kolejka', Url::to(['admin/view', 'id' => $item->current_integrate_user]), ['class' => 'btn btn-xs btn-default']) ?>
+                <?php if ($isStuck15): ?>
+                    <?= Html::a('↺ Restartuj', Url::to(['admin/restart-queue-output', 'queueId' => $item->id]), [
+                        'class'  => 'btn btn-xs btn-warning',
+                        'target' => '_blank',
+                        'title'  => 'Zresetuj status i uruchom ponownie w nowym oknie',
+                    ]) ?>
+                <?php endif ?>
+            </td>
         </tr>
         <?php endforeach ?>
         </tbody>

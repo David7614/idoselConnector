@@ -233,8 +233,11 @@ th.sorted           { background:#ddeeff; }
             if (!empty($params['tokenerrors']))  $extras[] = 'Błędy tokena: ' . (int)$params['tokenerrors'];
             if (!empty($params['objects_done'])) $extras[] = 'Obiekty: ' . (int)$params['objects_done'];
 
-            $runUrl = Url::to(['admin/run-queue', 'queueId' => $item->id]);
-            $isRunning = $item->integrated === Queue::RUNNING;
+            $isRunning     = $item->integrated === Queue::RUNNING;
+            $runningSecsSince = ($isRunning && $item->executed_at)
+                ? ($now->getTimestamp() - (new DateTime($item->executed_at))->getTimestamp())
+                : 0;
+            $isStuckRunning = $runningSecsSince > 900; // 15 min
         ?>
             <tr style="<?= $rowStyle ?>">
                 <td><?= $item->id ?></td>
@@ -252,8 +255,14 @@ th.sorted           { background:#ddeeff; }
                 <td><?= $progress ?></td>
                 <td><?= $extras ? implode('<br>', $extras) : '—' ?></td>
                 <td style="border-left:2px solid #ddd; text-align:center;">
-                    <?php if ($isRunning): ?>
+                    <?php if ($isRunning && !$isStuckRunning): ?>
                         <span class="label label-primary" title="Zadanie jest aktualnie w trakcie">w trakcie</span>
+                    <?php elseif ($isStuckRunning): ?>
+                        <?= Html::a('↺ Restartuj', Url::to(['admin/restart-queue-output', 'queueId' => $item->id]), [
+                            'class'  => 'btn btn-xs btn-warning',
+                            'target' => '_blank',
+                            'title'  => 'Zadanie trwa ponad 15 min — zresetuj i uruchom ponownie',
+                        ]) ?>
                     <?php else: ?>
                         <?= Html::a('▶ Uruchom', Url::to(['admin/run-queue-output', 'queueId' => $item->id]), [
                             'class'  => 'btn btn-xs btn-success',
