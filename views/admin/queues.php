@@ -206,6 +206,7 @@ table.q-table tr:hover td { background:#fafafa; }
             <td>
                 <?= Html::a('Kolejka', Url::to(['admin/view', 'id' => $item->current_integrate_user, 'status' => 'error']), ['class' => 'btn btn-xs btn-danger']) ?>
                 <?= Html::a('▶', Url::to(['admin/run-queue-output', 'queueId' => $item->id]), ['class' => 'btn btn-xs btn-success', 'target' => '_blank', 'title' => 'Uruchom ponownie']) ?>
+                <?= Html::a('↺ Reset', Url::to(['admin/reset-queue', 'queueId' => $item->id]), ['class' => 'btn btn-xs btn-warning', 'title' => 'Ustaw na pending — automat odpali ponownie']) ?>
             </td>
         </tr>
         <?php endforeach ?>

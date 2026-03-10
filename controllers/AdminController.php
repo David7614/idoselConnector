@@ -398,6 +398,17 @@ class AdminController extends Controller
         ]);
     }
 
+    public function actionResetQueue($queueId)
+    {
+        $queue = Queue::findOne((int)$queueId);
+
+        if ($queue) {
+            $queue->setPendingStatus();
+        }
+
+        return $this->redirect(['admin/queues']);
+    }
+
     public function actionRestartQueueOutput($queueId)
     {
         $queue = Queue::findOne((int)$queueId);
