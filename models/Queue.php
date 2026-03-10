@@ -280,6 +280,17 @@ class Queue extends \yii\db\ActiveRecord
     /**
      * @param string $type
      */
+    public static function deleteFutureQueuesForUser(int $userId, string $type): void
+    {
+        self::deleteAll([
+            'and',
+            ['current_integrate_user' => $userId],
+            ['integration_type'       => $type],
+            ['integrated'             => self::PENDING],
+            ['>', 'next_integration_date', date('Y-m-d H:i:s')],
+        ]);
+    }
+
     public static function prepareQueue(string $type)
     {
 
@@ -292,6 +303,13 @@ class Queue extends \yii\db\ActiveRecord
         echo "maxdate ".$maxDate.PHP_EOL;
         foreach($user_list as $user) {
             echo "user ".$user->id.PHP_EOL;
+
+            if ($type === \app\modules\xml_generator\src\XmlFeed::PRODUCT
+                && $user->config->get('product_feed_disable') == 1) {
+                echo "product feed disabled — skipping user " . $user->id . PHP_EOL;
+                continue;
+            }
+
             $lastScheduled=$user->getUserDataValue('last_sheduled_'.$type);
             if (!$lastScheduled){
                 $lastScheduled=$date;

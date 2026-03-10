@@ -19,8 +19,7 @@ class CategoryFeed extends XmlFeed
     public function generate($what = null): int
     {
         if ($this->_user->config->get('product_feed_disable') == 1) {
-            throw new \Exception('Product feed disabled');
-            return 0;
+            throw new \app\services\FeedDisabledException('Product feed disabled');
         }
         $temp = $this->getFile(true, true);
         $file = $this->getFile(true, false);

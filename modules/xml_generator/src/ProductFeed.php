@@ -25,8 +25,7 @@ class ProductFeed extends XmlFeed
     {
 
         if ($this->_user->config->get('product_feed_disable') == 1) {
-            throw new \Exception('Product feed disabled');
-            return 0;
+            throw new \app\services\FeedDisabledException('Product feed disabled');
         }
 
 

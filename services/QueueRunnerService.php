@@ -6,6 +6,7 @@ use app\models\Queue;
 use app\modules\xml_generator\src\XmlFeed;
 use Exception;
 use yii\console\ExitCode;
+use app\services\FeedDisabledException;
 
 class QueueRunnerService
 {
@@ -106,6 +107,12 @@ class QueueRunnerService
             $queue->setPendingStatus();
             $queue->setCountErrors(0);
 
+            return ExitCode::OK;
+
+        } catch (FeedDisabledException $e) {
+            echo "FEED DISABLED — cancelling queue and removing future entries." . PHP_EOL;
+            $queue->setErrorStatus($e->getMessage());
+            Queue::deleteFutureQueuesForUser($queue->current_integrate_user, $type);
             return ExitCode::OK;
 
         } catch (Exception $e) {
