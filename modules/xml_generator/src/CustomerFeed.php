@@ -323,8 +323,8 @@ class CustomerFeed extends XmlFeed
 
         $customer_item['tags'] = serialize([]);
 
-        $email_approval = $customer['newsletterEmailApprovalsData'][0]['newsletterEmailApprovalDate'];
-        $sms_approval   = $customer['newsletterSmsApprovalsData'][0]['newsletterSmsApprovalDate'];
+        $email_approval = $customer['newsletterEmailApprovalsData'][0]['newsletterEmailApprovalDate'] ?? '0000-00-00 00:00:00';
+        $sms_approval   = $customer['newsletterSmsApprovalsData'][0]['newsletterSmsApprovalDate'] ?? '0000-00-00 00:00:00';
 
         foreach ($customer['newsletterEmailApprovalsData'] as $itm) {
             if ($itm['shopId'] == $approvalsShopId) {
