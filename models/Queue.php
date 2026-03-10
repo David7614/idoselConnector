@@ -487,7 +487,8 @@ class Queue extends \yii\db\ActiveRecord
     }
 
     public function getAdditionalParameters(){
-        return unserialize($this->parameters);
+        $result = unserialize((string)$this->parameters);
+        return is_array($result) ? $result : [];
     }
     public function setAdditionalParameters($params){
         $this->parameters=serialize($params);

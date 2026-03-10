@@ -20,8 +20,8 @@ class OrderFeed extends XmlFeed
     const XML_PAGE_SIZE    = 50000;
 
     private $request_parameters = [];
-
     private $apiMethod = '/api/admin/v4/orders/orders/get';
+    private $_client;
 
     public function generate($what = null): int
     {

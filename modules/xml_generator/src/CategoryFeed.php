@@ -12,6 +12,7 @@ class CategoryFeed extends XmlFeed
      */
     private $request_parameters = [];
     private $gate               = "/api/admin/v3/products/categories";
+    private $_client;
 
     const API_RESULT_COUNT = 1000;
 

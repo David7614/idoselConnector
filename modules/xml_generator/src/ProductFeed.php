@@ -19,6 +19,7 @@ class ProductFeed extends XmlFeed
     const XML_PAGE_SIZE         = 100; // default 100
     private $request_parameters = [];
     private $apiMethod          = '/api/admin/v4/products/products/get';
+    private $_client;
 
     public function generate($what = null): int
     {
