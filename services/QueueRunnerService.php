@@ -9,6 +9,7 @@ use yii\console\ExitCode;
 
 class QueueRunnerService
 {
+    const QUEUE_EMPTY = 2;
     public function runById(int $queueId): int
     {
         $queue = Queue::findOne($queueId);
@@ -31,7 +32,7 @@ class QueueRunnerService
 
         if ($queue === null) {
             echo "nothing to do for type " . $type . PHP_EOL;
-            return ExitCode::OK;
+            return self::QUEUE_EMPTY;
         }
 
         echo '- - - Establish Queue - ID: ' . $queue->id . PHP_EOL;

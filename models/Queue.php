@@ -431,6 +431,7 @@ class Queue extends \yii\db\ActiveRecord
             if ($userList){
                 $queue_item->andWhere(['current_integrate_user'=>$userList]);
             }
+            echo $queue_item->createCommand()->getRawSql();
             $queue_item=$queue_item->one();
             if (!$queue_item){
                 return $queue_item;

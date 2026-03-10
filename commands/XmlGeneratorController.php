@@ -494,6 +494,62 @@ class XmlGeneratorController extends Controller
         // Queue::resetAllException();
     }
 
+    public function actionLoopProducts(int $limitSeconds = 540)
+    {
+        return $this->loopQueue(XmlFeed::PRODUCT, ['shop_type' => 'idiosell'], $limitSeconds);
+    }
+
+    public function actionLoopOrders(int $limitSeconds = 540)
+    {
+        return $this->loopQueue(XmlFeed::ORDER, ['shop_type' => 'idiosell'], $limitSeconds);
+    }
+
+    public function actionLoopCustomers(int $limitSeconds = 540)
+    {
+        return $this->loopQueue(XmlFeed::CUSTOMER, [], $limitSeconds);
+    }
+
+    public function actionLoopSubscribers(int $limitSeconds = 540)
+    {
+        return $this->loopQueue('subscribers', [], $limitSeconds);
+    }
+
+    public function actionLoopPhonesubscribers(int $limitSeconds = 540)
+    {
+        return $this->loopQueue('phonesubscribers', [], $limitSeconds);
+    }
+
+    private function loopQueue(string $type, array $config = [], int $limitSeconds = 540): int
+    {
+        $start   = time();
+        $runner  = new QueueRunnerService();
+        $iteration = 0;
+
+        echo "LOOP START — type: $type, limit: {$limitSeconds}s" . PHP_EOL;
+
+        while (true) {
+            $elapsed = time() - $start;
+
+            if ($elapsed >= $limitSeconds) {
+                echo "TIME LIMIT reached ({$elapsed}s) — stopping." . PHP_EOL;
+                break;
+            }
+
+            $iteration++;
+            echo "--- iteration #{$iteration} [{$elapsed}s elapsed] ---" . PHP_EOL;
+
+            $result = $runner->run($type, $config);
+
+            if ($result === QueueRunnerService::QUEUE_EMPTY) {
+                echo "Queue empty — stopping early." . PHP_EOL;
+                break;
+            }
+        }
+
+        echo "LOOP END — total: " . (time() - $start) . "s, iterations: $iteration" . PHP_EOL;
+        return ExitCode::OK;
+    }
+
     private function establishQueue(string $type, array $config = []): int
     {
         return (new QueueRunnerService())->run($type, $config);
