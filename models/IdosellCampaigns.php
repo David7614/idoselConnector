@@ -5,6 +5,8 @@ class IdosellCampaigns
 {
     private $gate  = "/api/admin/v5/snippets/campaign";
     private $gateSnippets  = "/api/admin/v5/snippets/snippets";
+    private $_user;
+    private $_client;
 
 
 

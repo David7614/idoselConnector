@@ -13,6 +13,7 @@ class Tags extends XmlFeed
     private $package = 200; // 20000 wtf
     private $apiMethod          = '/api/admin/v4/clients/tags';
     private $request_parameters = [];
+    private $_client;
 
     public function generate($what = null): int
     {
