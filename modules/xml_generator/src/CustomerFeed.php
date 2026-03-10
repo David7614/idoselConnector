@@ -201,7 +201,7 @@ class CustomerFeed extends XmlFeed
                         continue;
 
                     }
-                    foreach ($crmData['clientsResults'][0]['clientActiveInShops'] as $shop) {
+                    foreach ($crmData['clientsResults'][0]['clientActiveInShops'] ?? [] as $shop) {
                         if ($shop['shopId'] == $approvalsShopId) {
                             $customerObject->shop_id = $shop['shopId'];
                         }
