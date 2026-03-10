@@ -10,6 +10,8 @@ class IdiosellProduct
     private $productName        = null;
     private $productDescription = null;
     private $_user;
+    private $stock;
+    private $stockInSales;
 
     public function __construct($productData, $user)
     {

@@ -75,12 +75,11 @@ class OrderFeed extends XmlFeed
             $this->_queue->page     = 0;
             $this->_queue->max_page = 0;
             echo "DELETED ORDERS, RECOMMENCING" . PHP_EOL;
-            die("!");
+            throw new \Exception('Orders date range reset — recommencing from ' . $dateFrom);
         }
         $check = Ordersv2::find()->where(['user_id' => $this->_user->id])->andWhere(['<', 'created_on', $dateFrom])->limit(1)->one();
         if ($check) {
             var_dump($check);
-            // die("WHYYY");
             Ordersv2::deleteAll(['and',
                 ['user_id' => $this->_user->id],
                 ['<', 'created_on', $dateFrom],
@@ -90,7 +89,7 @@ class OrderFeed extends XmlFeed
             $this->_queue->page     = 0;
             $this->_queue->max_page = 0;
             echo "DELETED ORDERS2, RECOMMENCING" . PHP_EOL;
-            die("!");
+            throw new \Exception('Orders v2 date range reset — recommencing from ' . $dateFrom);
         }
         // die("!!");
         // getOrdersDateFrom
@@ -190,8 +189,7 @@ class OrderFeed extends XmlFeed
 
         echo "creating (createOrderObjects)" . PHP_EOL;
         if (! $this->_user->getApiKey()) {
-            echo "no api key";
-            return false;
+            throw new \Exception('No API key configured');
         }
         $this->_client = new ApiClient($this->_user->username, $this->_user->getApiKey());
         // die("!");
@@ -260,25 +258,21 @@ class OrderFeed extends XmlFeed
                 }
 
                 if (! isset($response)) {
-                    var_dump($response);
                     echo "no res";
                     $this->_queue->increasePage();
-                    return true;
+                    return 1;
                 }
 
             } catch (\yii\base\ErrorException $e) {
                 echo "exception";
-                echo $e->getMessage();
-                return 0;
+                throw $e;
             } catch (\Exception $e) {
                 echo "exception";
-                echo $e->getMessage();
-                return 0;
+                throw $e;
             }
 
             if (isset($response['errors']) && ! empty($response['errors']['faultString'])) {
-                echo "respo nse errors";
-                return false;
+                throw new \Exception('API fault: ' . $response['errors']['faultString']);
             }
 
             // Mapping order statuses from
@@ -378,10 +372,10 @@ class OrderFeed extends XmlFeed
             }
             $this->_queue->increasePage();
 
-            return true;
+            return 1;
         } catch (\Exception $e) {
-            echo $e;
-            return false;
+            echo $e->getMessage() . PHP_EOL;
+            throw $e;
         }
     }
 
@@ -532,10 +526,8 @@ class OrderFeed extends XmlFeed
             // die ("JUZ !!!!!");
             echo "FINISHED ";
             return $this->createOrderXml($file, $temp);
-
-            return 10;
         }
-        return true;
+        return 1;
     }
 
     private function createOrderXml(string $file, string $temp)

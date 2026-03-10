@@ -25,8 +25,7 @@ class CustomerFeed extends XmlFeed
     public function generate($what = null): int
     {
         if (! $this->_user->getApiKey()) {
-            echo "no api key";
-            return false;
+            throw new \Exception('No API key configured');
         }
 
         $this->_client = new ApiClient($this->_user->username, $this->_user->getApiKey());
@@ -107,7 +106,7 @@ class CustomerFeed extends XmlFeed
             $this->_queue->integrated = 0;
             $this->_queue->save();
             echo "DELETED customers, RECOMMENCING" . PHP_EOL;
-            die("!");
+            throw new \Exception('Customers date range reset — recommencing from ' . $dateFrom);
         }
 
         // die("!!");
@@ -166,11 +165,7 @@ class CustomerFeed extends XmlFeed
             $response               = $this->_client->get($this->apiMethod, $request);
 
             if (isset($response['errors']) && ! empty($response['errors']['faultString'])) {
-                var_dump($request);
-                var_dump($response['errors']);
-                // vaR_dump($response);
-                die("!!@");
-                return false;
+                throw new \Exception('API fault: ' . $response['errors']['faultString']);
             }
 
             if (! $approvalsShopId = $this->_user->config->get('customer_default_approvals_shop_id')) {
@@ -222,19 +217,11 @@ class CustomerFeed extends XmlFeed
 
             $this->_queue->increasePage();
 
-//            } while ( $page <= $response->resultsNumberPage);
-            // die;
-
-            return true;
+            return 1;
 
         } catch (\Exception $e) {
-//            $viewData->errorMessage = 'Error while executing API Orders: ' . $e->getMessage();
-            echo 'Error while executing API Orders: ' . $e->getMessage() . PHP_EOL;
-            // var_dump($request);
-            echo PHP_EOL;
-            $this->_queue->increasePage();
-            // die ("FULL STOP!!!");
-            return false;
+            echo 'Error while executing API: ' . $e->getMessage() . PHP_EOL;
+            throw $e;
         }
     }
 
@@ -586,11 +573,8 @@ class CustomerFeed extends XmlFeed
             }
         } catch (\Exception $e) {
             echo "ERROR WITH DATA " . PHP_EOL;
-//            $viewData->errorMessage = 'Error while executing API Orders: ' . $e->getMessage();
-            echo $e->getMessage();
-            die("!!!");
-            return false;
-
+            echo $e->getMessage() . PHP_EOL;
+            throw $e;
         }
 
         $page++;
@@ -602,16 +586,11 @@ class CustomerFeed extends XmlFeed
         $this->_queue->save();
 
         if ($page > (int) $integrationDataMaxPage) {
-            // echo $page.PHP_EOL;
-            // echo $integrationDataMaxPage.PHP_EOL;
-            // die ("JUZ !!!!!");
             echo "FINISHED ";
-            // $this->createCustomerXml($file, $temp);
-
             return 1;
         }
 
-        return true;
+        return 1;
     }
 
     private function getFeedParams($customer)
@@ -682,7 +661,4 @@ class CustomerFeed extends XmlFeed
         file_put_contents($temp, '');
         return is_file($file) ? 10 : 0;
     }
-}
-{
-
 }

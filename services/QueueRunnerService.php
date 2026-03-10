@@ -42,13 +42,15 @@ class QueueRunnerService
         if ($queue->integrated === Queue::RUNNING && $config['forceId'] == 0) {
             echo " job still in progress " . PHP_EOL;
             echo "from " . $queue->executed_at . PHP_EOL;
-            $date          = new \DateTime($queue->executed_at);
-            $date2         = new \DateTime(date('Y-m-d H:i:s'));
-            $diffInSeconds = $date2->getTimestamp() - $date->getTimestamp();
-            echo "in seconds: " . $diffInSeconds . PHP_EOL;
-            if ($diffInSeconds > 3600) {
-                echo 'over hour - resetting' . PHP_EOL;
-                $queue->setPendingStatus();
+            if ($queue->executed_at) {
+                $date          = new \DateTime($queue->executed_at);
+                $date2         = new \DateTime(date('Y-m-d H:i:s'));
+                $diffInSeconds = $date2->getTimestamp() - $date->getTimestamp();
+                echo "in seconds: " . $diffInSeconds . PHP_EOL;
+                if ($diffInSeconds > 3600) {
+                    echo 'over hour - resetting' . PHP_EOL;
+                    $queue->setPendingStatus();
+                }
             }
             return ExitCode::OK;
         }
@@ -59,12 +61,12 @@ class QueueRunnerService
             return ExitCode::OK;
         }
 
-        $queue->setRunningStatus();
-
         if (!$user) {
             $queue->delete();
             return ExitCode::UNSPECIFIED_ERROR;
         }
+
+        $queue->setRunningStatus();
 
         $xml_generator = new XmlFeed();
         $xml_generator->setType($type);
@@ -85,12 +87,10 @@ class QueueRunnerService
             $generated = $xml_generator->generate($what);
 
             if (!$generated) {
-                $queue->setErrorStatus();
                 throw new Exception('Cannot generate ' . $type . ' feed. Cannot save file');
             }
 
             if (isset($config['forcePage'])) {
-                $queue->setErrorStatus();
                 echo "page forced - stopping" . PHP_EOL;
                 return ExitCode::OK;
             }

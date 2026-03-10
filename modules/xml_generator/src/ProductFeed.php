@@ -38,8 +38,7 @@ class ProductFeed extends XmlFeed
 
         if ($what == 'objects') {
             if (! $this->_user->getApiKey()) {
-                echo "no api key";
-                return false;
+                throw new \Exception('No API key configured');
             }
             $this->_client = new ApiClient($this->_user->username, $this->_user->getApiKey());
             return $this->createOrAddTempProductXml($temp);
@@ -186,7 +185,7 @@ class ProductFeed extends XmlFeed
                 echo "throwable! ";
                 echo $e->getMessage();
                 var_dump($request);
-                return true;
+                return 1;
             }
 
             // $this->_queue->setMaxPages($response->resultsNumberPage);
@@ -202,8 +201,7 @@ class ProductFeed extends XmlFeed
             }
             // print_r($response['resultsPage']);die;
             if (isset($response['errors']) && ! empty($response['errors']['faultString'])) {
-                echo "fault " . $response['errors']['faultString'];
-                return false;
+                throw new \Exception('API fault: ' . $response['errors']['faultString']);
             }
 
             $selectedLanguage             = $this->_user->config->get('selected_language');
@@ -239,11 +237,11 @@ class ProductFeed extends XmlFeed
             }
             $this->fillOmnibusPrices($productIds);
             $this->_queue->increasePage();
-            return true;
+            return 1;
         } catch (\Exception $e) {
             echo "main error" . PHP_EOL;
-            echo $e->getMessage();
-            return false;
+            echo $e->getMessage() . PHP_EOL;
+            throw $e;
         }
     }
 
@@ -342,8 +340,6 @@ class ProductFeed extends XmlFeed
             // die ("JUZ !!!!!");
             echo "FINISHED ";
             return $this->createProductsXml($file, $temp);
-
-            return 10;
         }
         return 1;
     }
