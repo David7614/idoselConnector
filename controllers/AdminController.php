@@ -472,6 +472,7 @@ class AdminController extends Controller
            . ' &nbsp;|&nbsp; <a href="' . Url::to(['admin/view', 'id' => $userId]) . '" style="color:#569cd6;" target="_parent">Wróć do kolejki</a>'
            . '</div>';
         echo '</body></html>';
+        Yii::$app->response->isSent = true;
         Yii::$app->end();
     }
 

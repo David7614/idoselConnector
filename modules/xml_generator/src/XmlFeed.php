@@ -94,6 +94,20 @@ class XmlFeed implements FeedGenerator
     }
 
     /**
+     * Returns writable base path for feed files.
+     * On Heroku (read-only filesystem) set FEEDS_PATH=/tmp/feeds env var.
+     * Defaults to @runtime/feeds (runtime/ must be writable).
+     */
+    public static function getFeedsBasePath(): string
+    {
+        $env = getenv('FEEDS_PATH');
+        if ($env !== false && $env !== '') {
+            return rtrim($env, '/');
+        }
+        return \Yii::getAlias('@runtime') . '/feeds';
+    }
+
+    /**
      * @param bool $get_file_path
      * @param bool $temp
      *
@@ -107,18 +121,12 @@ class XmlFeed implements FeedGenerator
             $ext = '.xml';
         }
 
-        $file_path = __DIR__ . '/feeds/' . $this->_type . '/' . $this->_user->uuid . '/' . $this->_type . $ext;
+        $base      = self::getFeedsBasePath();
+        $dir       = $base . '/' . $this->_type . '/' . $this->_user->uuid;
+        $file_path = $dir . '/' . $this->_type . $ext;
 
-        if (! is_dir(__DIR__ . '/feeds/')) {
-            mkdir(__DIR__ . '/feeds/');
-        }
-
-        if (! is_dir(__DIR__ . '/feeds/' . $this->_type)) {
-            mkdir(__DIR__ . '/feeds/' . $this->_type);
-        }
-
-        if (! is_dir(__DIR__ . '/feeds/' . $this->_type . '/' . $this->_user->uuid . '/')) {
-            mkdir(__DIR__ . '/feeds/' . $this->_type . '/' . $this->_user->uuid . '/');
+        if (! is_dir($dir)) {
+            mkdir($dir, 0755, true);
         }
 
         if ($get_file_path) {
