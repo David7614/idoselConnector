@@ -550,6 +550,35 @@ class XmlGeneratorController extends Controller
         return ExitCode::OK;
     }
 
+    public function actionTestFilesystem()
+    {
+        $base = \app\modules\xml_generator\src\XmlFeed::getFeedsBasePath();
+        $dir  = $base . '/test';
+        $file = $dir . '/test.tmp';
+
+        echo "Base path: $base" . PHP_EOL;
+
+        if (!is_dir($dir)) {
+            $ok = mkdir($dir, 0755, true);
+            echo "mkdir: " . ($ok ? 'OK' : 'FAILED') . PHP_EOL;
+        } else {
+            echo "dir already exists" . PHP_EOL;
+        }
+
+        $written = file_put_contents($file, 'hello heroku');
+        echo "write: " . ($written !== false ? "$written bytes" : 'FAILED') . PHP_EOL;
+
+        $read = file_get_contents($file);
+        echo "read: " . ($read !== false ? "'$read'" : 'FAILED') . PHP_EOL;
+
+        echo "file_exists: " . (file_exists($file) ? 'YES' : 'NO') . PHP_EOL;
+        echo "filesize: " . filesize($file) . PHP_EOL;
+
+        unlink($file);
+        rmdir($dir);
+        echo "cleanup OK" . PHP_EOL;
+    }
+
     private function establishQueue(string $type, array $config = []): int
     {
         return (new QueueRunnerService())->run($type, $config);

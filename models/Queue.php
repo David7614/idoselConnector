@@ -137,6 +137,9 @@ class Queue extends \yii\db\ActiveRecord
     public function setCountErrors($count){
         $parameters=$this->additionalParameters;
         $parameters['tokenerrors']=$count;
+        if ($count == 0) {
+            unset($parameters['error_msg']);
+        }
         $this->additionalParameters=$parameters;
         $this->save();
     }
