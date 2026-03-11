@@ -45,7 +45,7 @@ class ProductFeed extends XmlFeed
 
         if (! $this->isFinished()) {
             $created = $this->prepareProductXml($temp);
-        } elseif (!file_exists($temp) || filesize($temp) === 0) {
+        } elseif (!file_exists($temp)) {
             echo "temp file missing - resetting xml phase" . PHP_EOL;
             $this->_queue->page     = 0;
             $this->_queue->max_page = 0;
@@ -306,6 +306,7 @@ class ProductFeed extends XmlFeed
     private function prepareProductXml($temp)
     {
         echo "FUNCTION prepareProductXml" . PHP_EOL;
+        touch($temp);
         $aggregate_groups_as_variants = $this->_user->config->get('aggregate_groups_as_variants');
         $products                     = new \SimpleXMLElement('<PRODUCTS/>');
         $integrationDataCurrentPage   = $this->_queue->page;

@@ -41,7 +41,7 @@ class CustomerFeed extends XmlFeed
         echo "creating file" . PHP_EOL;
         if (! $this->isFinished()) {
             $created = $this->createOrAddTempCustomerXml($temp);
-        } elseif (!file_exists($temp) || filesize($temp) === 0) {
+        } elseif (!file_exists($temp)) {
             echo "temp file missing - resetting xml phase" . PHP_EOL;
             $this->_queue->page     = 0;
             $this->_queue->max_page = 0;
@@ -397,6 +397,7 @@ class CustomerFeed extends XmlFeed
     protected function createOrAddTempCustomerXml($temp)
     {
         echo "CREATING XML" . PHP_EOL;
+        touch($temp);
 
 //         $string='504 98289&';
         // $phone=preg_replace("/[^0-9]/", "", $string);

@@ -33,7 +33,7 @@ class CategoryFeed extends XmlFeed
 
         if (! $this->isFinished()) {
             $created = $this->createOrAddCategoryTempXml($temp);
-        } elseif (!file_exists($temp) || filesize($temp) === 0) {
+        } elseif (!file_exists($temp)) {
             echo "temp file missing - resetting xml phase" . PHP_EOL;
             $this->_queue->page     = 0;
             $this->_queue->max_page = 0;
@@ -87,7 +87,7 @@ class CategoryFeed extends XmlFeed
 
     public function createOrAddCategoryTempXml($temp)
     {
-
+        touch($temp);
         try {
             $this->checkQueueConstraints();
             $this->request_parameters['results_limit'] = self::API_RESULT_COUNT;
