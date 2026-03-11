@@ -143,6 +143,9 @@ class Customers extends \yii\db\ActiveRecord
         if ($customer->last_modification_date == '0000-00-00 00:00:00'){
             $customer->last_modification_date = NULL;
         }
+        if ($customer->registration == '0000-00-00 00:00:00'){
+            $customer->registration = NULL;
+        }
         if ($customer->save(false)) {
             echo "CUSTOMER SAVED";
             return $customer;
