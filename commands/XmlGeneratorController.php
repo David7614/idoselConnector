@@ -557,26 +557,34 @@ class XmlGeneratorController extends Controller
         $file = $dir . '/test.tmp';
 
         echo "Base path: $base" . PHP_EOL;
+        echo "Dyno/hostname: " . gethostname() . PHP_EOL;
+        echo "PID: " . getmypid() . PHP_EOL;
+        echo "Time: " . date('Y-m-d H:i:s') . PHP_EOL;
+        echo "---" . PHP_EOL;
 
         if (!is_dir($dir)) {
             $ok = mkdir($dir, 0755, true);
             echo "mkdir: " . ($ok ? 'OK' : 'FAILED') . PHP_EOL;
-        } else {
-            echo "dir already exists" . PHP_EOL;
         }
 
-        $written = file_put_contents($file, 'hello heroku');
-        echo "write: " . ($written !== false ? "$written bytes" : 'FAILED') . PHP_EOL;
+        if (file_exists($file)) {
+            $content = file_get_contents($file);
+            echo "PLIK ISTNIEJE z poprzedniej sesji:" . PHP_EOL;
+            echo "  zawartosc: '$content'" . PHP_EOL;
+            echo "  rozmiar: " . filesize($file) . " bytes" . PHP_EOL;
+            echo "  ostatnia modyfikacja: " . date('Y-m-d H:i:s', filemtime($file)) . PHP_EOL;
+            echo "  => filesystem PAMIĘTA między sesjami" . PHP_EOL;
+        } else {
+            echo "Pliku nie ma — pierwsze uruchomienie lub filesystem nie pamięta." . PHP_EOL;
+        }
 
-        $read = file_get_contents($file);
-        echo "read: " . ($read !== false ? "'$read'" : 'FAILED') . PHP_EOL;
-
-        echo "file_exists: " . (file_exists($file) ? 'YES' : 'NO') . PHP_EOL;
-        echo "filesize: " . filesize($file) . PHP_EOL;
-
-        unlink($file);
-        rmdir($dir);
-        echo "cleanup OK" . PHP_EOL;
+        echo "---" . PHP_EOL;
+        $payload  = 'written=' . date('Y-m-d H:i:s') . ' host=' . gethostname();
+        $written  = file_put_contents($file, $payload);
+        echo "Zapis: " . ($written !== false ? "$written bytes OK" : 'FAILED') . PHP_EOL;
+        echo "Odczyt po zapisie: '" . file_get_contents($file) . "'" . PHP_EOL;
+        echo "---" . PHP_EOL;
+        echo "Odpal jeszcze raz żeby sprawdzić czy plik przetrwa." . PHP_EOL;
     }
 
     private function establishQueue(string $type, array $config = []): int
