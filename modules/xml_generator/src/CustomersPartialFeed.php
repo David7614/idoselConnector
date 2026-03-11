@@ -74,6 +74,9 @@ class CustomersPartialFeed extends XmlFeed
         $request->addParam('resultsLimit', 1);
         $response = $this->_client->get($request->getRequest());
         // var_dump($response);
+        if (!$response || !is_object($response)) {
+            throw new \Exception('Gateway did not respond (checkQueueConstraints)');
+        }
         if (!$response->resultsNumberAll){
             echo "no results".PHP_EOL;
             return false;

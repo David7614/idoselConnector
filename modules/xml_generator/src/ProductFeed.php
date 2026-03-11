@@ -91,6 +91,9 @@ class ProductFeed extends XmlFeed
         // var_dump($request);
         // var_dump($response['resultsNumberAll']);
         // die("!!!");
+        if (empty($response) || !is_array($response)) {
+            throw new \Exception('Gateway did not respond (checkQueueConstraints)');
+        }
         if (! $response['resultsNumberAll']) {
             // echo "Res no: ";
             var_dump($response);

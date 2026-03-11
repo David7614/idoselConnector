@@ -62,6 +62,9 @@ class CategoryFeed extends XmlFeed
         $response                 = $this->_client->get($this->gate, $request);
         // var_dump($response);
         // die();
+        if (empty($response) || !is_array($response)) {
+            throw new \Exception('Gateway did not respond (checkQueueConstraints)');
+        }
         if (! $response['results_number_all']) {
             echo "no results" . PHP_EOL;
             return false;

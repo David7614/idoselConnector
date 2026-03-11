@@ -68,6 +68,10 @@ class CustomerFeed extends XmlFeed
         $request['resultsLimit'] = 1;
         $response                = $this->_client->get($this->apiMethod, $request);
 
+        if (empty($response) || !is_array($response)) {
+            throw new \Exception('Gateway did not respond (checkQueueConstraints)');
+        }
+
         if (! $response['resultsNumberAll']) {
             echo "no results" . PHP_EOL;
             return false;

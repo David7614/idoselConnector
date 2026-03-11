@@ -113,6 +113,10 @@ class OrderFeed extends XmlFeed
         $response = $this->_client->post($this->apiMethod, $request);
         var_dump($response);
 
+        if (empty($response) || !is_array($response)) {
+            throw new \Exception('Gateway did not respond (checkQueueConstraints)');
+        }
+
         if (isset($response['errors']) && $response['errors']['faultCode'] == 2) {
             echo "api fault code 2" . PHP_EOL;
             return 10;
