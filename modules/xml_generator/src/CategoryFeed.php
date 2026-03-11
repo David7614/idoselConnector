@@ -33,6 +33,12 @@ class CategoryFeed extends XmlFeed
 
         if (! $this->isFinished()) {
             $created = $this->createOrAddCategoryTempXml($temp);
+        } elseif (!file_exists($temp) || filesize($temp) === 0) {
+            echo "temp file missing - resetting xml phase" . PHP_EOL;
+            $this->_queue->page     = 0;
+            $this->_queue->max_page = 0;
+            $this->_queue->save();
+            $created = $this->createOrAddCategoryTempXml($temp);
         } else {
             $created = $this->createCategoryXml($file, $temp);
         }
