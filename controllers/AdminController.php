@@ -5,6 +5,7 @@ use app\services\QueueRunnerService;
 use app\services\SettingsService;
 use app\models\IntegrationData;
 use app\models\User;
+use app\models\AppConfig;
 use app\models\Queue;
 use app\modules\IAI\Application\Config;
 use app\modules\idosellv3\models\ApiClient;
@@ -542,7 +543,6 @@ class AdminController extends Controller
     public function actionIndex()
     {
         $user = User::findIdentity(Yii::$app->user->id);
-
         // $connection = new Connection($user);
         // $gate='http://'.$user->username.'/api/?gate=systemconfig/get/162/soap/wsdl&lang=eng';
         // $client=new \app\modules\xml_generator\src\IdioselClient($gate, $connection->getToken()->getToken());

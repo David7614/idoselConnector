@@ -66,6 +66,7 @@ class CustomerFeed extends XmlFeed
         }
         $request                 = $this->request_parameters;
         $request['resultsLimit'] = 1;
+        var_dump($request);
         $response                = $this->_client->get($this->apiMethod, $request);
 
         if (empty($response) || !is_array($response)) {
@@ -89,29 +90,29 @@ class CustomerFeed extends XmlFeed
     public function checkCustomersDateFrom()
     {
         return true;
-        $dateFrom = $this->_user->getConfig()->getOrdersDateFrom();
-        if (! $dateFrom) {
-            return true;
-        }
-        $dateFrom = date('Y-m-d', strtotime($dateFrom . ' -10 day'));
-        echo $dateFrom . PHP_EOL;
-        $check = Customers::find()->where(['user_id' => $this->_user->id])->andWhere(['<', 'registration', $dateFrom])->limit(1)->one();
-        if ($check) {
-            var_dump($check);
-            Customers::deleteAll(['and',
-                ['user_id' => $this->_user->id],
-                ['<', 'registration', $dateFrom],
-            ]);
-            // Orders::deleteAll(['user_id'=>$this->_user->id]);
-            // IntegrationData::setData('INITIAL_ORDERS_DONE', 1, $this->_user->id);
-            IntegrationData::setData('last_customer_integration_date', $this->_user->getConfig()->getOrdersDateFrom(), $this->_user->id);
-            $this->_queue->page       = 0;
-            $this->_queue->max_page   = 0;
-            $this->_queue->integrated = 0;
-            $this->_queue->save();
-            echo "DELETED customers, RECOMMENCING" . PHP_EOL;
-            throw new \Exception('Customers date range reset — recommencing from ' . $dateFrom);
-        }
+        // $dateFrom = $this->_user->getConfig()->getOrdersDateFrom();
+        // if (! $dateFrom) {
+        //     return true;
+        // }
+        // $dateFrom = date('Y-m-d', strtotime($dateFrom . ' -10 day'));
+        // echo $dateFrom . PHP_EOL;
+        // $check = Customers::find()->where(['user_id' => $this->_user->id])->andWhere(['<', 'registration', $dateFrom])->limit(1)->one();
+        // if ($check) {
+        //     var_dump($check);
+        //     Customers::deleteAll(['and',
+        //         ['user_id' => $this->_user->id],
+        //         ['<', 'registration', $dateFrom],
+        //     ]);
+        //     // Orders::deleteAll(['user_id'=>$this->_user->id]);
+        //     // IntegrationData::setData('INITIAL_ORDERS_DONE', 1, $this->_user->id);
+        //     IntegrationData::setData('last_customer_integration_date', $this->_user->getConfig()->getOrdersDateFrom(), $this->_user->id);
+        //     $this->_queue->page       = 0;
+        //     $this->_queue->max_page   = 0;
+        //     $this->_queue->integrated = 0;
+        //     $this->_queue->save();
+        //     echo "DELETED customers, RECOMMENCING" . PHP_EOL;
+        //     throw new \Exception('Customers date range reset — recommencing from ' . $dateFrom);
+        // }
 
         // die("!!");
         // getOrdersDateFrom
@@ -120,7 +121,7 @@ class CustomerFeed extends XmlFeed
     private function createCustomerObjects()
     {
 
-        if ($this->_user->config->get('export_type') == 1) { // incremental
+        if ($this->_user->getIncrementalFeedFlag()) { // incremental
             if ($this->_queue->page == 0) {
                 Customers::deleteAll(['user_id' => $this->_user->id]); // delete all obsolete entries
             }

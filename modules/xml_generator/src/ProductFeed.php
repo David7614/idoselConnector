@@ -66,7 +66,7 @@ class ProductFeed extends XmlFeed
     private function checkQueueConstraints()
     {
         // incremental
-        //if ($this->_user->config->get('export_type') == 1) {
+        //if ($this->_user->getIncrementalFeedFlag()) {
         //    $obsoleteDate = date('Y-m-d', strtotime('-7 days'));
 	//
         //    Product::deleteAll([

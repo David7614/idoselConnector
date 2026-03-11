@@ -179,7 +179,7 @@ class OrderFeed extends XmlFeed
     private function createOrderObjects()
     {
 
-        if ($this->_user->config->get('export_type') == 1) { // incremental
+        if ($this->_user->getIncrementalFeedFlag()) { // incremental
             if ($this->_queue->page == 0) {
                 Orders::deleteAll(['user_id' => $this->_user->id]);   // delete all obsolete entries
                 Ordersv2::deleteAll(['user_id' => $this->_user->id]); // delete all obsolete entries
