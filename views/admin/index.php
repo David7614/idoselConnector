@@ -93,6 +93,30 @@ $allUrl    = Url::current(['active' => 'all']);
                 },
             ],
             [
+                'label'          => 'Feedy',
+                'format'         => 'raw',
+                'headerOptions'  => ['style' => 'width:130px; text-align:center'],
+                'contentOptions' => ['style' => 'text-align:center'],
+                'value'          => function ($model) {
+                    $ready = $model->getReadyFeeds();
+                    if (empty($ready)) {
+                        return '<span class="sync-none">—</span>';
+                    }
+                    $labels = [
+                        'product'  => 'P',
+                        'order'    => 'O',
+                        'customer' => 'K',
+                        'category' => 'C',
+                    ];
+                    $badges = [];
+                    foreach ($ready as $type) {
+                        $label    = $labels[$type] ?? $type;
+                        $badges[] = '<span title="' . $type . '" style="display:inline-block;background:#2e7d32;color:#fff;border-radius:3px;padding:1px 5px;font-size:11px;margin:1px;">' . $label . '</span>';
+                    }
+                    return implode(' ', $badges);
+                },
+            ],
+            [
                 'label'  => 'Akcje',
                 'format' => 'raw',
                 'value'  => function ($model) {

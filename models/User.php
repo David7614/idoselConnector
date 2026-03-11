@@ -2,6 +2,7 @@
 namespace app\models;
 
 use app\modules\idosellv3\models\ApiClient;
+use app\modules\xml_generator\src\XmlFeed;
 use Yii;
 use yii\helpers\Url;
 use yii\web\IdentityInterface;
@@ -296,6 +297,20 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
     public function getCustomersUrl()
     {
         return Url::to(['/xml/' . $this->uuid . '/customers.xml'], true);
+    }
+
+    public function getReadyFeeds(): array
+    {
+        $base  = XmlFeed::getFeedsBasePath();
+        $types = [XmlFeed::PRODUCT, XmlFeed::ORDER, XmlFeed::CUSTOMER, XmlFeed::CATEGORY];
+        $ready = [];
+        foreach ($types as $type) {
+            $file = $base . '/' . $type . '/' . $this->uuid . '/' . $type . '.xml';
+            if (file_exists($file) && filesize($file) > 0) {
+                $ready[] = $type;
+            }
+        }
+        return $ready;
     }
 
     public function getUrl()
