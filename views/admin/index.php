@@ -20,6 +20,14 @@ $allUrl    = Url::current(['active' => 'all']);
 .admin-index .sync-none { color: #aaa; }
 .admin-index .badge-active   { display:inline-block; width:10px; height:10px; border-radius:50%; background:#4caf50; margin-right:4px; }
 .admin-index .badge-inactive { display:inline-block; width:10px; height:10px; border-radius:50%; background:#ccc; margin-right:4px; }
+.fc-badge  { display:inline-flex; align-items:center; gap:3px; padding:2px 6px 2px 5px;
+             border-radius:4px; font-size:11px; margin:1px; background:#eee; color:#444; }
+.fc-badge.has  { background:#e8f5e9; color:#2e7d32; }
+.fc-badge.none { background:#fafafa; color:#bbb; }
+.fc-count  { font-weight:600; }
+.fc-refresh { background:none; border:none; padding:0 2px; cursor:pointer; color:#aaa; font-size:13px; line-height:1; }
+.fc-refresh:hover { color:#1e88e5; }
+.fc-age { font-size:10px; color:#bbb; margin-left:2px; }
 </style>
 
 <div class="admin-index" style="margin: 20px;">
@@ -95,25 +103,36 @@ $allUrl    = Url::current(['active' => 'all']);
             [
                 'label'          => 'Feedy',
                 'format'         => 'raw',
-                'headerOptions'  => ['style' => 'width:130px; text-align:center'],
-                'contentOptions' => ['style' => 'text-align:center'],
-                'value'          => function ($model) {
-                    $ready = $model->getReadyFeeds();
-                    if (empty($ready)) {
-                        return '<span class="sync-none">—</span>';
+                'headerOptions'  => ['style' => 'width:180px;'],
+                'value'          => function ($model) use ($countsMap) {
+                    $types  = ['product' => 'P', 'order' => 'O', 'customer' => 'K', 'category' => 'C'];
+                    $titles = ['product' => 'Produkty', 'order' => 'Zamówienia', 'customer' => 'Klienci', 'category' => 'Kategorie'];
+                    $c      = $countsMap[$model->id] ?? null;
+                    $ts     = $c['ts'] ?? null;
+                    $stale  = !$ts || (time() - $ts) > 3600;
+
+                    $badges = '';
+                    foreach ($types as $type => $lbl) {
+                        $count = $c[$type] ?? null;
+                        $cls   = $count > 0 ? 'has' : ($count === null ? 'none' : 'fc-badge');
+                        $num   = $count === null ? '?' : number_format($count, 0, '.', ' ');
+                        $badges .= '<span class="fc-badge ' . $cls . '" title="' . $titles[$type] . '">'
+                            . $lbl . ' <span class="fc-count">' . $num . '</span></span>';
                     }
-                    $labels = [
-                        'product'  => 'P',
-                        'order'    => 'O',
-                        'customer' => 'K',
-                        'category' => 'C',
-                    ];
-                    $badges = [];
-                    foreach ($ready as $type) {
-                        $label    = $labels[$type] ?? $type;
-                        $badges[] = '<span title="' . $type . '" style="display:inline-block;background:#2e7d32;color:#fff;border-radius:3px;padding:1px 5px;font-size:11px;margin:1px;">' . $label . '</span>';
+
+                    $ageHtml = '';
+                    if ($ts && !$stale) {
+                        $mins    = round((time() - $ts) / 60);
+                        $ageHtml = '<span class="fc-age">' . ($mins < 2 ? 'przed chwilą' : $mins . ' min temu') . '</span>';
                     }
-                    return implode(' ', $badges);
+
+                    $needsRefresh = $stale ? '1' : '0';
+
+                    return '<div class="fc-wrap" data-user-id="' . $model->id . '" data-needs-refresh="' . $needsRefresh . '">'
+                        . $badges
+                        . ' <button class="fc-refresh" title="Odśwież liczniki">↻</button>'
+                        . $ageHtml
+                        . '</div>';
                 },
             ],
             [
@@ -144,3 +163,63 @@ $allUrl    = Url::current(['active' => 'all']);
     ]) ?>
 
 </div>
+
+<script>
+(function () {
+    const endpoint  = <?= json_encode(\yii\helpers\Url::to(['admin/refresh-feed-counts'])) ?>;
+    const csrfToken = <?= json_encode(Yii::$app->request->csrfToken) ?>;
+    const types     = ['product','order','customer','category'];
+    const labels    = {product:'P', order:'O', customer:'K', category:'C'};
+    const titles    = {product:'Produkty', order:'Zam\u00f3wienia', customer:'Klienci', category:'Kategorie'};
+
+    function formatCount(n) {
+        if (n === null || n === undefined) return '?';
+        return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, '\u00a0');
+    }
+
+    function renderBadges(counts) {
+        return types.map(t => {
+            const n   = counts[t] ?? null;
+            const cls = n > 0 ? 'has' : (n === null ? 'none' : '');
+            return `<span class="fc-badge ${cls}" title="${titles[t]}">${labels[t]} <span class="fc-count">${formatCount(n)}</span></span>`;
+        }).join('');
+    }
+
+    function refresh(wrap) {
+        const userId = wrap.dataset.userId;
+        const btn    = wrap.querySelector('.fc-refresh');
+        if (btn) { btn.textContent = '…'; btn.disabled = true; }
+
+        fetch(endpoint, {
+            method:  'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body:    '_csrf=' + encodeURIComponent(csrfToken) + '&userId=' + encodeURIComponent(userId),
+        })
+        .then(r => r.json())
+        .then(data => {
+            if (!data.ok) return;
+            const c    = data.counts;
+            const mins = Math.round((Date.now() / 1000 - c.ts) / 60);
+            const age  = mins < 2 ? 'przed chwil\u0105' : mins + ' min temu';
+            wrap.innerHTML = renderBadges(c)
+                + ' <button class="fc-refresh" title="Od\u015bwie\u017c liczniki">\u21bb</button>'
+                + '<span class="fc-age">' + age + '</span>';
+            wrap.dataset.needsRefresh = '0';
+        })
+        .catch(() => { if (btn) { btn.textContent = '\u21bb'; btn.disabled = false; } });
+    }
+
+    // Manual refresh on button click
+    document.addEventListener('click', function (e) {
+        const btn = e.target.closest('.fc-refresh');
+        if (btn) {
+            e.preventDefault();
+            refresh(btn.closest('.fc-wrap'));
+        }
+    });
+
+    // Auto-refresh stale/missing entries on page load — sequentially, 300 ms apart
+    const stale = Array.from(document.querySelectorAll('.fc-wrap[data-needs-refresh="1"]'));
+    stale.forEach((wrap, i) => setTimeout(() => refresh(wrap), i * 300));
+})();
+</script>

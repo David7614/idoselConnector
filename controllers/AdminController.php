@@ -29,10 +29,10 @@ class AdminController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only'  => ['index', 'view', 'run-queue-output', 'restart-queue-output', 'update', 'queues', 'queues-sections', 'save-queues-autorefresh', 'prepare-queue-output', 'app-settings', 'admins'],
+                'only'  => ['index', 'view', 'run-queue-output', 'restart-queue-output', 'update', 'queues', 'queues-sections', 'save-queues-autorefresh', 'refresh-feed-counts', 'prepare-queue-output', 'app-settings', 'admins'],
                 'rules' => [
                     [
-                        'actions' => ['index', 'view', 'run-queue-output', 'restart-queue-output', 'update', 'queues', 'queues-sections', 'save-queues-autorefresh', 'prepare-queue-output', 'app-settings', 'admins'],
+                        'actions' => ['index', 'view', 'run-queue-output', 'restart-queue-output', 'update', 'queues', 'queues-sections', 'save-queues-autorefresh', 'refresh-feed-counts', 'prepare-queue-output', 'app-settings', 'admins'],
                         'allow'   => true,
                         'roles'   => ['admin'],
                     ],
@@ -717,20 +717,58 @@ class AdminController extends Controller
         ]);
     }
 
+    public function actionRefreshFeedCounts()
+    {
+        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+
+        $userId = (int) Yii::$app->request->post('userId');
+        $user   = User::findOne($userId);
+        if (!$user) {
+            return ['ok' => false, 'error' => 'not found'];
+        }
+
+        $tagMap  = ['product' => 'PRODUCT', 'order' => 'ORDER', 'customer' => 'CUSTOMER', 'category' => 'ITEM'];
+        $counts  = ['ts' => time()];
+        $storage = \app\services\FeedStorageService::isConfigured()
+            ? \app\services\FeedStorageService::create()
+            : null;
+
+        foreach ($tagMap as $type => $tag) {
+            if ($storage) {
+                $key = $type . '/' . $user->uuid . '/' . $type . '.xml';
+                if ($storage->exists($key)) {
+                    $counts[$type] = substr_count($storage->get($key), '<' . $tag . '>');
+                } else {
+                    $counts[$type] = null;
+                }
+            } else {
+                $base = \app\modules\xml_generator\src\XmlFeed::getFeedsBasePath();
+                $file = $base . '/' . $type . '/' . $user->uuid . '/' . $type . '.xml';
+                $counts[$type] = file_exists($file)
+                    ? substr_count(file_get_contents($file), '<' . $tag . '>')
+                    : null;
+            }
+        }
+
+        $user->setUserDataValue('feed_counts', json_encode($counts));
+
+        return ['ok' => true, 'userId' => $userId, 'counts' => $counts];
+    }
+
     public function actionIndex()
     {
         $user = User::findIdentity(Yii::$app->user->id);
-        // $connection = new Connection($user);
-        // $gate='http://'.$user->username.'/api/?gate=systemconfig/get/162/soap/wsdl&lang=eng';
-        // $client=new \app\modules\xml_generator\src\IdioselClient($gate, $connection->getToken()->getToken());
-        // $request=new \app\modules\xml_generator\src\SoapRequest();
-        // $response = $client->get($request->getRequest());
+
+        // Load cached feed counts for all users — single DB query
+        $rows      = \app\models\UserData::find()->where(['name' => 'feed_counts'])->all();
+        $countsMap = [];
+        foreach ($rows as $row) {
+            $countsMap[$row->user_id] = json_decode($row->value, true);
+        }
 
         return $this->render('index', [
-            'user' => $user,
-            // 'shops' => $response->shops,
-            // 'languages' => $response->languages,
-            // 'stocks' => isset($response->stocks)?$response->stocks:null
+            'user'      => $user,
+            'countsMap' => $countsMap,
         ]);
     }
 
