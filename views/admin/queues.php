@@ -43,6 +43,9 @@ table.q-table tr:hover td { background:#fafafa; }
 .type-chip.run  { background:#e3f2fd; color:#1565c0; }
 
 .qs-section { min-height: 4px; }
+.section-title { cursor: default; }
+.qs-collapse-btn { transition: transform .2s; }
+.qs-collapse-btn.collapsed { transform: rotate(-90deg); }
 .qs-spinner { display:inline-block; width:14px; height:14px; border:2px solid #ddd;
               border-top-color:#888; border-radius:50%; animation:qs-spin .6s linear infinite;
               vertical-align:middle; margin-right:6px; }
@@ -118,23 +121,55 @@ table.q-table tr:hover td { background:#fafafa; }
 
 <script>
 (function () {
-    const endpoint      = <?= json_encode(Url::to(['admin/queues-sections'])) ?>;
-    const saveEndpoint  = <?= json_encode(Url::to(['admin/save-queues-autorefresh'])) ?>;
-    const csrfToken     = <?= json_encode(Yii::$app->request->csrfToken) ?>;
-    const allSections   = ['health','running','recent_hour','recent_started','errors','disabled','overdue','users'];
-    const INTERVAL      = 30;
-    const savedStates   = <?= json_encode($initialStates) ?>;   // null or {section: bool, ...}
+    const endpoint             = <?= json_encode(Url::to(['admin/queues-sections'])) ?>;
+    const saveEndpoint         = <?= json_encode(Url::to(['admin/save-queues-autorefresh'])) ?>;
+    const saveCollapsedEndpoint = <?= json_encode(Url::to(['admin/save-queues-collapsed'])) ?>;
+    const csrfToken            = <?= json_encode(Yii::$app->request->csrfToken) ?>;
+    const allSections          = ['health','running','recent_hour','recent_started','errors','disabled','overdue','users'];
+    const INTERVAL             = 30;
+    const savedStates          = <?= json_encode($initialStates) ?>;
+    const savedCollapsed       = <?= json_encode($collapsedSections) ?>;
 
     const spinner         = document.getElementById('qs-spinner');
     const lastUpdated     = document.getElementById('qs-last-updated');
     const globalToggleBtn = document.getElementById('qs-auto-toggle');
 
-    // Per-section state — init from DB-saved value, default true
+    // Per-section auto-refresh state
     const states = {};
     allSections.forEach(s => {
         const active = savedStates && (s in savedStates) ? savedStates[s] : true;
         states[s] = { active, secondsLeft: INTERVAL };
     });
+
+    // Per-section collapsed state
+    const collapsedStates = {};
+    allSections.forEach(s => {
+        collapsedStates[s] = savedCollapsed && (s in savedCollapsed) ? savedCollapsed[s] : false;
+    });
+
+    // ── collapse ──────────────────────────────────────────────────
+    function applyCollapsed(sections) {
+        sections.forEach(s => {
+            const body = document.querySelector('.qs-section-body[data-section="' + s + '"]');
+            const btn  = document.querySelector('.qs-collapse-btn[data-section="' + s + '"]');
+            const collapsed = collapsedStates[s] || false;
+            if (body) body.style.display = collapsed ? 'none' : '';
+            if (btn)  btn.classList.toggle('collapsed', collapsed);
+        });
+    }
+
+    let saveCollapsedTimer = null;
+    function scheduleSaveCollapsed() {
+        clearTimeout(saveCollapsedTimer);
+        saveCollapsedTimer = setTimeout(() => {
+            fetch(saveCollapsedEndpoint, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: '_csrf=' + encodeURIComponent(csrfToken)
+                    + '&collapsed=' + encodeURIComponent(JSON.stringify(collapsedStates)),
+            }).catch(() => {});
+        }, 600);
+    }
 
     // ── persist ───────────────────────────────────────────────────
     let saveTimer = null;
@@ -223,6 +258,7 @@ table.q-table tr:hover td { background:#fafafa; }
             }
             lastUpdated.textContent = new Date().toLocaleTimeString('pl-PL');
             updateAll();
+            applyCollapsed(names);
         })
         .catch(err => console.error('Błąd ładowania sekcji:', err))
         .finally(hideSpinner);
@@ -230,6 +266,17 @@ table.q-table tr:hover td { background:#fafafa; }
 
     // ── events ────────────────────────────────────────────────────
     document.addEventListener('click', function (e) {
+        // Collapse toggle
+        const collapseBtn = e.target.closest('.qs-collapse-btn[data-section]');
+        if (collapseBtn) {
+            e.preventDefault();
+            const s = collapseBtn.dataset.section;
+            collapsedStates[s] = !collapsedStates[s];
+            applyCollapsed([s]);
+            scheduleSaveCollapsed();
+            return;
+        }
+
         // Per-section manual refresh
         const refreshBtn = e.target.closest('.qs-refresh-btn[data-section]');
         if (refreshBtn) {
@@ -325,5 +372,6 @@ table.q-table tr:hover td { background:#fafafa; }
     // ── init ──────────────────────────────────────────────────────
     loadSections(null);
     updateAll();
+    // collapsed applied after loadSections injects HTML (inside loadSections callback)
 })();
 </script>

@@ -29,10 +29,10 @@ class AdminController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only'  => ['index', 'view', 'run-queue-output', 'restart-queue-output', 'update', 'queues', 'queues-sections', 'save-queues-autorefresh', 'refresh-feed-counts', 'prepare-queue-output', 'app-settings', 'admins'],
+                'only'  => ['index', 'view', 'run-queue-output', 'restart-queue-output', 'update', 'queues', 'queues-sections', 'save-queues-autorefresh', 'save-queues-collapsed', 'refresh-feed-counts', 'prepare-queue-output', 'app-settings', 'admins'],
                 'rules' => [
                     [
-                        'actions' => ['index', 'view', 'run-queue-output', 'restart-queue-output', 'update', 'queues', 'queues-sections', 'save-queues-autorefresh', 'refresh-feed-counts', 'prepare-queue-output', 'app-settings', 'admins'],
+                        'actions' => ['index', 'view', 'run-queue-output', 'restart-queue-output', 'update', 'queues', 'queues-sections', 'save-queues-autorefresh', 'save-queues-collapsed', 'refresh-feed-counts', 'prepare-queue-output', 'app-settings', 'admins'],
                         'allow'   => true,
                         'roles'   => ['admin'],
                     ],
@@ -399,13 +399,42 @@ class AdminController extends Controller
 
     public function actionQueues()
     {
-        $admin        = User::findIdentity(Yii::$app->user->id);
-        $saved        = $admin ? $admin->getUserDataValue('admin_queues_autorefresh') : null;
-        $initialStates = $saved ? json_decode($saved, true) : null;
+        $admin             = User::findIdentity(Yii::$app->user->id);
+        $saved             = $admin ? $admin->getUserDataValue('admin_queues_autorefresh') : null;
+        $initialStates     = $saved ? json_decode($saved, true) : null;
+        $savedCollapsed    = $admin ? $admin->getUserDataValue('admin_queues_collapsed') : null;
+        $collapsedSections = $savedCollapsed ? json_decode($savedCollapsed, true) : null;
 
         return $this->render('queues', [
-            'initialStates' => $initialStates,
+            'initialStates'     => $initialStates,
+            'collapsedSections' => $collapsedSections,
         ]);
+    }
+
+    public function actionSaveQueuesCollapsed()
+    {
+        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+
+        $raw     = Yii::$app->request->post('collapsed');
+        $decoded = json_decode($raw, true);
+        if (!is_array($decoded)) {
+            return ['ok' => false];
+        }
+
+        $valid  = ['health', 'running', 'recent_hour', 'recent_started', 'errors', 'disabled', 'overdue', 'users'];
+        $toSave = [];
+        foreach ($valid as $s) {
+            $toSave[$s] = isset($decoded[$s]) ? (bool)$decoded[$s] : false;
+        }
+
+        $admin = User::findIdentity(Yii::$app->user->id);
+        if (!$admin) {
+            return ['ok' => false];
+        }
+
+        $admin->setUserDataValue('admin_queues_collapsed', json_encode($toSave));
+
+        return ['ok' => true];
     }
 
     public function actionSaveQueuesAutorefresh()
