@@ -74,12 +74,13 @@ $healthOk    = !$hasErrors && !$hasOverdue;
 <?php endif ?>
 
 <?php /* ── RUNNING ─────────────────────────────────────────── */ ?>
-<?php if ($section === 'running' && $running): ?>
+<?php if ($section === 'running'): ?>
 <div class="section-title">
     <span class="dot dot-run"></span>W trakcie wykonywania
     <span class="badge" style="background:#1e88e5;"><?= count($running) ?></span>
     <?= $refreshBtn('running') ?>
 </div>
+<?php if ($running): ?>
 <table class="q-table">
     <thead><tr>
         <th>Użytkownik</th><th>Typ</th><th>Postęp</th><th>Uruchomione</th><th>Czas trwania</th><th>Akcja</th>
@@ -118,6 +119,9 @@ $healthOk    = !$hasErrors && !$hasOverdue;
     <?php endforeach ?>
     </tbody>
 </table>
+<?php else: ?>
+<p style="color:#aaa; font-size:13px; margin:6px 0 16px;">Brak aktywnych zadań.</p>
+<?php endif ?>
 <?php endif ?>
 
 <?php /* ── RECENT HOUR ─────────────────────────────────────── */ ?>
@@ -125,12 +129,12 @@ $healthOk    = !$hasErrors && !$hasOverdue;
     $hourAgo    = strtotime('-1 hour', strtotime($now));
     $recentHour = array_filter($recentDone, fn($i) => $i->finished_at && strtotime($i->finished_at) >= $hourAgo);
 ?>
-<?php if ($recentHour): ?>
 <div class="section-title">
     <span class="dot dot-ok"></span>Wykonane w ostatniej godzinie
     <span class="badge" style="background:#43a047;"><?= count($recentHour) ?></span>
     <?= $refreshBtn('recent_hour') ?>
 </div>
+<?php if ($recentHour): ?>
 <table class="q-table">
     <thead><tr>
         <th>Użytkownik</th><th>Typ</th><th>Zakończono</th><th>Postęp</th><th>Akcja</th>
@@ -147,11 +151,13 @@ $healthOk    = !$hasErrors && !$hasOverdue;
     <?php endforeach ?>
     </tbody>
 </table>
+<?php else: ?>
+<p style="color:#aaa; font-size:13px; margin:6px 0 16px;">Brak ukończonych zadań w ciągu ostatniej godziny.</p>
 <?php endif ?>
 <?php endif ?>
 
 <?php /* ── RECENT STARTED ──────────────────────────────────── */ ?>
-<?php if ($section === 'recent_started' && $recentStarted):
+<?php if ($section === 'recent_started'):
 $statusLabel = [
     Queue::PENDING  => ['label' => 'Oczekuje',  'color' => '#888'],
     Queue::RUNNING  => ['label' => 'W trakcie', 'color' => '#1e88e5'],
@@ -166,6 +172,7 @@ $statusLabel = [
     <span class="badge" style="background:#546e7a;"><?= count($recentStarted) ?></span>
     <?= $refreshBtn('recent_started') ?>
 </div>
+<?php if ($recentStarted): ?>
 <table class="q-table">
     <thead><tr>
         <th>Użytkownik</th><th>Typ</th><th>Status</th><th>Uruchomione</th><th>Postęp</th><th>Akcja</th>
@@ -186,15 +193,19 @@ $statusLabel = [
     <?php endforeach ?>
     </tbody>
 </table>
+<?php else: ?>
+<p style="color:#aaa; font-size:13px; margin:6px 0 16px;">Brak zadań uruchomionych w ciągu ostatnich 20 minut.</p>
+<?php endif ?>
 <?php endif ?>
 
 <?php /* ── ERRORS ──────────────────────────────────────────── */ ?>
-<?php if ($section === 'errors' && $errors): ?>
+<?php if ($section === 'errors'): ?>
 <div class="section-title">
     <span class="dot dot-err"></span>Błędy
     <span class="badge" style="background:#e53935;"><?= count($errors) ?></span>
     <?= $refreshBtn('errors') ?>
 </div>
+<?php if ($errors): ?>
 <table class="q-table">
     <thead><tr>
         <th>Użytkownik</th><th>Typ</th><th>Ostatnia próba</th><th>Komunikat błędu</th><th>Akcja</th>
@@ -218,16 +229,20 @@ $statusLabel = [
     <?php endforeach ?>
     </tbody>
 </table>
+<?php else: ?>
+<p style="color:#aaa; font-size:13px; margin:6px 0 16px;">Brak błędów.</p>
+<?php endif ?>
 <?php endif ?>
 
 <?php /* ── DISABLED ─────────────────────────────────────────── */ ?>
-<?php if ($section === 'disabled' && $disabled): ?>
+<?php if ($section === 'disabled'): ?>
 <div class="section-title">
     <span class="dot dot-warn"></span>Wyłączone feedy
     <span class="badge" style="background:#fb8c00;"><?= count($disabled) ?></span>
     <small style="color:#999; font-weight:normal; margin-left:8px;">celowo wyłączone — nie są błędami</small>
     <?= $refreshBtn('disabled') ?>
 </div>
+<?php if ($disabled): ?>
 <table class="q-table">
     <thead><tr>
         <th>Użytkownik</th><th>Typ</th><th>Komunikat</th><th>Akcja</th>
@@ -248,16 +263,20 @@ $statusLabel = [
     <?php endforeach ?>
     </tbody>
 </table>
+<?php else: ?>
+<p style="color:#aaa; font-size:13px; margin:6px 0 16px;">Brak wyłączonych feedów.</p>
+<?php endif ?>
 <?php endif ?>
 
 <?php /* ── OVERDUE ──────────────────────────────────────────── */ ?>
-<?php if ($section === 'overdue' && $overdue): ?>
+<?php if ($section === 'overdue'): ?>
 <div class="section-title">
     <span class="dot dot-warn"></span>Zaległe zadania
     <span class="badge" style="background:#fb8c00;"><?= count($overdue) ?></span>
     <small style="color:#999; font-weight:normal; margin-left:8px;">pending, planowane na przeszłość</small>
     <?= $refreshBtn('overdue') ?>
 </div>
+<?php if ($overdue): ?>
 <table class="q-table">
     <thead><tr>
         <th>Użytkownik</th><th>Typ</th><th>Planowane na</th><th>Opóźnienie</th><th>Akcja</th>
@@ -281,6 +300,9 @@ $statusLabel = [
     <?php endforeach ?>
     </tbody>
 </table>
+<?php else: ?>
+<p style="color:#aaa; font-size:13px; margin:6px 0 16px;">Brak zaległych zadań.</p>
+<?php endif ?>
 <?php endif ?>
 
 <?php /* ── USERS ────────────────────────────────────────────── */ ?>
