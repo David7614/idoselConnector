@@ -128,7 +128,6 @@
                             </tr>
                         </table>
                     </div>
-                    <?php print_r($filesInfo); ?>
                 </div>
             </div>
         </div>

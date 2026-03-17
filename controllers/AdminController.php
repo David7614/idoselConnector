@@ -29,10 +29,10 @@ class AdminController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only'  => ['index', 'view', 'run-queue-output', 'restart-queue-output', 'update', 'queues', 'prepare-queue-output'],
+                'only'  => ['index', 'view', 'run-queue-output', 'restart-queue-output', 'update', 'queues', 'prepare-queue-output', 'app-settings'],
                 'rules' => [
                     [
-                        'actions' => ['index', 'view', 'run-queue-output', 'restart-queue-output', 'update', 'queues', 'prepare-queue-output'],
+                        'actions' => ['index', 'view', 'run-queue-output', 'restart-queue-output', 'update', 'queues', 'prepare-queue-output', 'app-settings'],
                         'allow'   => true,
                         'roles'   => ['admin'],
                     ],
@@ -178,40 +178,49 @@ class AdminController extends Controller
             return $this->redirect(Url::toRoute(['admin/dashboard', 'id' => $user->id]));
         }
 
+        // key => [storageType, xml tag]
+        $feedMeta = [
+            'products' => ['product',  'PRODUCT'],
+            'customer' => ['customer', 'CUSTOMER'],
+            'order'    => ['order',    'ORDER'],
+            'category' => ['category', 'ITEM'],
+        ];
+
         $xml_generator = new XmlFeed();
         $xml_generator->setType('product');
         $xml_generator->setUser($user);
-        $urls             = [];
-        $urls['products'] = $xml_generator->getFile(true, false);
+        $localPaths             = [];
+        $localPaths['products'] = $xml_generator->getFile(true, false);
         $xml_generator->setType('customer');
-        $urls['customer'] = $xml_generator->getFile(true, false);
+        $localPaths['customer'] = $xml_generator->getFile(true, false);
         $xml_generator->setType('order');
-        $urls['order'] = $xml_generator->getFile(true, false);
+        $localPaths['order']    = $xml_generator->getFile(true, false);
         $xml_generator->setType('category');
-        $urls['category'] = $xml_generator->getFile(true, false);
+        $localPaths['category'] = $xml_generator->getFile(true, false);
 
-        foreach ($urls as $type => $fileName) {
-            // echo "**** TYP ".$type.PHP_EOL;
-            // echo "plik ".$fileName.PHP_EOL;
-            // echo "Element��w w bazie: ".$user->countDatabaseElements($type).PHP_EOL;
-            $filesInfo[$type]           = [];
-            $filesInfo[$type]['status'] = 'gotowy';
-            if (! is_file($fileName)) {
-                $filesInfo[$type]['status']   = 'Nie gotowy';
-                $filesInfo[$type]['elements'] = 0;
-                // echo "BRAK PLIKU ".$fileName.PHP_EOL;
-            }  else {
-                $xml     = file_get_contents($fileName);
-                $tagName = strtoupper($type);
-                if ($type == 'products') {
-                    $tagName = 'PRODUCT';
-                }
-                if ($type == 'category') {
-                    $tagName = 'ITEM';
-                }
-                $tag_count                    = substr_count($xml, "<" . $tagName . ">");
-                $filesInfo[$type]['elements'] = $tag_count;
+        $filesInfo  = [];
+        $useStorage = \app\services\FeedStorageService::isConfigured();
+        $storage    = $useStorage ? \app\services\FeedStorageService::create() : null;
 
+        foreach ($feedMeta as $key => [$storageType, $tag]) {
+            $filesInfo[$key] = ['status' => 'gotowy', 'elements' => 0];
+
+            if ($useStorage) {
+                $storageKey = $storageType . '/' . $user->uuid . '/' . $storageType . '.xml';
+                if (!$storage->exists($storageKey)) {
+                    $filesInfo[$key]['status'] = 'Nie gotowy';
+                } else {
+                    $xml = $storage->get($storageKey);
+                    $filesInfo[$key]['elements'] = substr_count($xml, '<' . $tag . '>');
+                }
+            } else {
+                $fileName = $localPaths[$key];
+                if (!is_file($fileName)) {
+                    $filesInfo[$key]['status'] = 'Nie gotowy';
+                } else {
+                    $xml = file_get_contents($fileName);
+                    $filesInfo[$key]['elements'] = substr_count($xml, '<' . $tag . '>');
+                }
             }
         }
 
@@ -292,6 +301,22 @@ class AdminController extends Controller
            . '</div>';
         echo '</body></html>';
         Yii::$app->end();
+    }
+
+    public function actionAppSettings()
+    {
+        $saved = false;
+
+        if (Yii::$app->request->isPost) {
+            $forceIncremental = (int) Yii::$app->request->post('force_all_incremental', 0);
+            AppConfig::setValue(AppConfig::FORCE_ALL_INCREMENTAL, $forceIncremental);
+            $saved = true;
+        }
+
+        return $this->render('app-settings', [
+            'forceAllIncremental' => (int) AppConfig::getValue(AppConfig::FORCE_ALL_INCREMENTAL),
+            'saved'               => $saved,
+        ]);
     }
 
     public function actionQueues()
