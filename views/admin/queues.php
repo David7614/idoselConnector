@@ -47,6 +47,40 @@ table.q-table tr:hover td { background:#fafafa; }
               border-top-color:#888; border-radius:50%; animation:qs-spin .6s linear infinite;
               vertical-align:middle; margin-right:6px; }
 @keyframes qs-spin { to { transform:rotate(360deg); } }
+
+/* ── sticky section nav ── */
+#qs-sidenav {
+    position: fixed;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    z-index: 900;
+    background: rgba(44,62,80,.92);
+    border-radius: 8px 0 0 8px;
+    padding: 6px 0;
+    box-shadow: -2px 0 12px rgba(0,0,0,.18);
+    min-width: 34px;
+    transition: min-width .2s;
+}
+#qs-sidenav:hover { min-width: 160px; }
+#qs-sidenav a {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 5px 10px 5px 10px;
+    color: rgba(255,255,255,.6);
+    text-decoration: none;
+    font-size: 12px;
+    white-space: nowrap;
+    overflow: hidden;
+    transition: color .15s, background .15s;
+    border-left: 3px solid transparent;
+}
+#qs-sidenav a:hover   { color: #fff; background: rgba(255,255,255,.08); }
+#qs-sidenav a.active  { color: #fff; border-left-color: #3498db; background: rgba(52,152,219,.15); }
+#qs-sidenav a .sn-dot { flex-shrink: 0; width: 8px; height: 8px; border-radius: 50%; }
+#qs-sidenav a .sn-lbl { opacity: 0; transition: opacity .2s; font-weight: 500; }
+#qs-sidenav:hover a .sn-lbl { opacity: 1; }
 </style>
 
 <div class="queues-page">
@@ -68,6 +102,8 @@ table.q-table tr:hover td { background:#fafafa; }
             ]) ?>
         </div>
     </div>
+
+    <nav id="qs-sidenav" aria-label="Sekcje"></nav>
 
     <div id="qs-health"         class="qs-section"></div>
     <div id="qs-running"        class="qs-section"></div>
@@ -233,6 +269,57 @@ table.q-table tr:hover td { background:#fafafa; }
             updateAll();
             scheduleSave();
         }
+    });
+
+    // ── side nav ──────────────────────────────────────────────────
+    const sectionMeta = {
+        health:         { label: 'Stan systemu',       dot: '#43a047' },
+        running:        { label: 'W trakcie',          dot: '#1e88e5' },
+        recent_hour:    { label: 'Ostatnia godzina',   dot: '#43a047' },
+        recent_started: { label: 'Ostatnie 20 min',    dot: '#546e7a' },
+        errors:         { label: 'Błędy',              dot: '#e53935' },
+        disabled:       { label: 'Wyłączone feedy',    dot: '#fb8c00' },
+        overdue:        { label: 'Zaległe',            dot: '#fb8c00' },
+        users:          { label: 'Użytkownicy',        dot: '#78909c' },
+    };
+
+    const sidenav = document.getElementById('qs-sidenav');
+
+    // Build nav links
+    allSections.forEach(s => {
+        const m   = sectionMeta[s];
+        const a   = document.createElement('a');
+        a.href    = '#qs-' + s;
+        a.dataset.section = s;
+        a.innerHTML =
+            `<span class="sn-dot" style="background:${m.dot}"></span>`
+            + `<span class="sn-lbl">${m.label}</span>`;
+        a.addEventListener('click', e => {
+            e.preventDefault();
+            document.getElementById('qs-' + s)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+        sidenav.appendChild(a);
+    });
+
+    // Scrollspy via IntersectionObserver
+    const navLinks = {};
+    sidenav.querySelectorAll('a[data-section]').forEach(a => { navLinks[a.dataset.section] = a; });
+
+    const visibleSections = new Set();
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+            const s = e.target.id.replace('qs-', '');
+            if (e.isIntersecting) visibleSections.add(s);
+            else                  visibleSections.delete(s);
+        });
+        // Highlight topmost visible section
+        const active = allSections.find(s => visibleSections.has(s));
+        Object.entries(navLinks).forEach(([s, a]) => a.classList.toggle('active', s === active));
+    }, { threshold: 0.1 });
+
+    allSections.forEach(s => {
+        const el = document.getElementById('qs-' + s);
+        if (el) observer.observe(el);
     });
 
     // ── init ──────────────────────────────────────────────────────
