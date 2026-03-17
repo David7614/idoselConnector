@@ -29,10 +29,10 @@ class AdminController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only'  => ['index', 'view', 'run-queue-output', 'restart-queue-output', 'update', 'queues', 'prepare-queue-output', 'app-settings', 'admins'],
+                'only'  => ['index', 'view', 'run-queue-output', 'restart-queue-output', 'update', 'queues', 'queues-sections', 'prepare-queue-output', 'app-settings', 'admins'],
                 'rules' => [
                     [
-                        'actions' => ['index', 'view', 'run-queue-output', 'restart-queue-output', 'update', 'queues', 'prepare-queue-output', 'app-settings', 'admins'],
+                        'actions' => ['index', 'view', 'run-queue-output', 'restart-queue-output', 'update', 'queues', 'queues-sections', 'prepare-queue-output', 'app-settings', 'admins'],
                         'allow'   => true,
                         'roles'   => ['admin'],
                     ],
@@ -399,6 +399,23 @@ class AdminController extends Controller
 
     public function actionQueues()
     {
+        return $this->render('queues');
+    }
+
+    public function actionQueuesSections()
+    {
+        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+
+        $raw       = Yii::$app->request->get('sections', 'all');
+        $validAll  = ['health', 'running', 'recent_hour', 'recent_started', 'errors', 'disabled', 'overdue', 'users'];
+        $requested = $raw === 'all'
+            ? $validAll
+            : array_intersect(array_map('trim', explode(',', $raw)), $validAll);
+
+        if (!$requested) {
+            return ['sections' => []];
+        }
+
         $now = date('Y-m-d H:i:s');
 
         $running = Queue::find()
@@ -422,35 +439,52 @@ class AdminController extends Controller
             ->orderBy(['finished_at' => SORT_DESC])
             ->all();
 
-        // Per-user summary: last executed per type
-        $recentWindow = date('Y-m-d H:i:s', strtotime('-24 hours'));
         $recentDone = Queue::find()
             ->where(['integrated' => Queue::EXECUTED])
-            ->andWhere(['>=', 'finished_at', $recentWindow])
+            ->andWhere(['>=', 'finished_at', date('Y-m-d H:i:s', strtotime('-24 hours'))])
             ->orderBy(['finished_at' => SORT_DESC])
             ->all();
 
-        // Users involved in any problem
-        $problemUserIds = array_unique(array_merge(
-            ArrayHelper::getColumn($overdue, 'current_integrate_user'),
-            ArrayHelper::getColumn($errors,  'current_integrate_user')
-        ));
+        $recentStarted = Queue::find()
+            ->andWhere(['>=', 'executed_at', date('Y-m-d H:i:s', strtotime('-20 minutes'))])
+            ->orderBy(['executed_at' => SORT_DESC])
+            ->all();
 
         $users = User::find()
             ->where(['active' => 1])
             ->indexBy('id')
             ->all();
 
-        return $this->render('queues', [
-            'running'         => $running,
-            'overdue'         => $overdue,
-            'errors'          => $errors,
-            'disabled'        => $disabled,
-            'recentDone'      => $recentDone,
-            'users'           => $users,
-            'problemUserIds'  => $problemUserIds,
-            'now'             => $now,
-        ]);
+        $typeLabel = [
+            'product'          => 'Produkty',
+            'order'            => 'Zamówienia',
+            'customer'         => 'Klienci',
+            'category'         => 'Kategorie',
+            'subscribers'      => 'Subskrybenci',
+            'phone_subscriber' => 'SMS sub.',
+            'phonesubscribers' => 'SMS sub.',
+            'tag'              => 'Tagi',
+            'countries'        => 'Kraje',
+        ];
+
+        $shared = [
+            'typeLabel'     => $typeLabel,
+            'users'         => $users,
+            'now'           => $now,
+            'running'       => $running,
+            'overdue'       => $overdue,
+            'errors'        => $errors,
+            'disabled'      => $disabled,
+            'recentDone'    => $recentDone,
+            'recentStarted' => $recentStarted,
+        ];
+
+        $result = [];
+        foreach ($requested as $section) {
+            $result[$section] = $this->renderPartial('_queues_content', array_merge($shared, ['section' => $section]));
+        }
+
+        return ['sections' => $result];
     }
 
     public function actionUpdate($id)
