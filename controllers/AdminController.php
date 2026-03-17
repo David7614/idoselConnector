@@ -29,10 +29,10 @@ class AdminController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only'  => ['index', 'view', 'run-queue-output', 'restart-queue-output', 'update', 'queues', 'queues-sections', 'prepare-queue-output', 'app-settings', 'admins'],
+                'only'  => ['index', 'view', 'run-queue-output', 'restart-queue-output', 'update', 'queues', 'queues-sections', 'save-queues-autorefresh', 'prepare-queue-output', 'app-settings', 'admins'],
                 'rules' => [
                     [
-                        'actions' => ['index', 'view', 'run-queue-output', 'restart-queue-output', 'update', 'queues', 'queues-sections', 'prepare-queue-output', 'app-settings', 'admins'],
+                        'actions' => ['index', 'view', 'run-queue-output', 'restart-queue-output', 'update', 'queues', 'queues-sections', 'save-queues-autorefresh', 'prepare-queue-output', 'app-settings', 'admins'],
                         'allow'   => true,
                         'roles'   => ['admin'],
                     ],
@@ -399,7 +399,40 @@ class AdminController extends Controller
 
     public function actionQueues()
     {
-        return $this->render('queues');
+        $admin        = User::findIdentity(Yii::$app->user->id);
+        $saved        = $admin ? $admin->getUserDataValue('admin_queues_autorefresh') : null;
+        $initialStates = $saved ? json_decode($saved, true) : null;
+
+        return $this->render('queues', [
+            'initialStates' => $initialStates,
+        ]);
+    }
+
+    public function actionSaveQueuesAutorefresh()
+    {
+        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+
+        $raw     = Yii::$app->request->post('states');
+        $decoded = json_decode($raw, true);
+
+        if (!is_array($decoded)) {
+            return ['ok' => false, 'error' => 'invalid'];
+        }
+
+        $valid   = ['health', 'running', 'recent_hour', 'recent_started', 'errors', 'disabled', 'overdue', 'users'];
+        $toSave  = [];
+        foreach ($valid as $s) {
+            $toSave[$s] = isset($decoded[$s]) ? (bool)$decoded[$s] : true;
+        }
+
+        $admin = User::findIdentity(Yii::$app->user->id);
+        if (!$admin) {
+            return ['ok' => false, 'error' => 'no user'];
+        }
+
+        $admin->setUserDataValue('admin_queues_autorefresh', json_encode($toSave));
+
+        return ['ok' => true];
     }
 
     public function actionQueuesSections()

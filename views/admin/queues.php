@@ -82,69 +82,94 @@ table.q-table tr:hover td { background:#fafafa; }
 
 <script>
 (function () {
-    const endpoint    = <?= json_encode(Url::to(['admin/queues-sections'])) ?>;
-    const allSections = ['health','running','recent_hour','recent_started','errors','disabled','overdue','users'];
-    const INTERVAL    = 30; // seconds
+    const endpoint      = <?= json_encode(Url::to(['admin/queues-sections'])) ?>;
+    const saveEndpoint  = <?= json_encode(Url::to(['admin/save-queues-autorefresh'])) ?>;
+    const csrfToken     = <?= json_encode(Yii::$app->request->csrfToken) ?>;
+    const allSections   = ['health','running','recent_hour','recent_started','errors','disabled','overdue','users'];
+    const INTERVAL      = 30;
+    const savedStates   = <?= json_encode($initialStates) ?>;   // null or {section: bool, ...}
 
-    const spinner     = document.getElementById('qs-spinner');
-    const lastUpdated = document.getElementById('qs-last-updated');
-    const toggleBtn   = document.getElementById('qs-auto-toggle');
+    const spinner         = document.getElementById('qs-spinner');
+    const lastUpdated     = document.getElementById('qs-last-updated');
+    const globalToggleBtn = document.getElementById('qs-auto-toggle');
 
-    let autoActive    = true;
-    let secondsLeft   = INTERVAL;
-    let autoTimer     = null;
-    let countdownTimer = null;
+    // Per-section state — init from DB-saved value, default true
+    const states = {};
+    allSections.forEach(s => {
+        const active = savedStates && (s in savedStates) ? savedStates[s] : true;
+        states[s] = { active, secondsLeft: INTERVAL };
+    });
 
-    // ── countdown spans ───────────────────────────────────────────
-    function updateCountdowns() {
-        document.querySelectorAll('.qs-countdown').forEach(el => {
-            if (autoActive) {
-                el.textContent = 'za ' + secondsLeft + 's';
-                el.style.display = '';
+    // ── persist ───────────────────────────────────────────────────
+    let saveTimer = null;
+    function scheduleSave() {
+        clearTimeout(saveTimer);
+        saveTimer = setTimeout(() => {
+            const payload = {};
+            allSections.forEach(s => { payload[s] = states[s].active; });
+            fetch(saveEndpoint, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: '_csrf=' + encodeURIComponent(csrfToken)
+                    + '&states=' + encodeURIComponent(JSON.stringify(payload)),
+            }).catch(() => {});
+        }, 600);
+    }
+
+    // ── DOM updaters ──────────────────────────────────────────────
+    function updateSection(s) {
+        const st = states[s];
+
+        const cdEl = document.querySelector('.qs-countdown[data-section="' + s + '"]');
+        if (cdEl) {
+            if (st.active) {
+                cdEl.textContent = 'za ' + st.secondsLeft + 's';
+                cdEl.style.display = '';
             } else {
-                el.textContent = '';
-                el.style.display = 'none';
+                cdEl.textContent = '';
+                cdEl.style.display = 'none';
+            }
+        }
+
+        const tbEl = document.querySelector('.qs-section-toggle[data-section="' + s + '"]');
+        if (tbEl) {
+            tbEl.textContent = st.active ? '⏸' : '▶';
+            tbEl.title       = st.active ? 'Zatrzymaj auto-refresh tej sekcji' : 'Wznów auto-refresh tej sekcji';
+            tbEl.style.color = st.active ? '#888' : '#1e88e5';
+        }
+    }
+
+    function updateGlobalBtn() {
+        const anyActive = allSections.some(s => states[s].active);
+        globalToggleBtn.textContent = anyActive ? '⏸ Pauza' : '▶ Auto-refresh';
+    }
+
+    function updateAll() {
+        allSections.forEach(updateSection);
+        updateGlobalBtn();
+    }
+
+    // ── single global ticker ──────────────────────────────────────
+    setInterval(() => {
+        allSections.forEach(s => {
+            const st = states[s];
+            if (!st.active) return;
+            st.secondsLeft--;
+            if (st.secondsLeft <= 0) {
+                st.secondsLeft = INTERVAL;
+                loadSections([s]);   // fires load, resets secondsLeft inside
             }
         });
-    }
-
-    function resetCountdown() {
-        secondsLeft = INTERVAL;
-        updateCountdowns();
-    }
-
-    function startCountdownTick() {
-        clearInterval(countdownTimer);
-        countdownTimer = setInterval(() => {
-            if (secondsLeft > 0) secondsLeft--;
-            updateCountdowns();
-        }, 1000);
-    }
-
-    // ── auto-refresh ──────────────────────────────────────────────
-    function startAutoRefresh() {
-        clearInterval(autoTimer);
-        autoTimer = setInterval(() => loadSections(null), INTERVAL * 1000);
-        autoActive = true;
-        toggleBtn.textContent = '⏸ Pauza';
-        resetCountdown();
-        startCountdownTick();
-    }
-
-    function stopAutoRefresh() {
-        clearInterval(autoTimer);
-        clearInterval(countdownTimer);
-        autoActive = false;
-        toggleBtn.textContent = '▶ Auto-refresh';
-        updateCountdowns();
-    }
+        updateAll();
+    }, 1000);
 
     // ── data loading ──────────────────────────────────────────────
     function showSpinner() { spinner.style.display = 'inline-block'; }
     function hideSpinner() { spinner.style.display = 'none'; }
 
     function loadSections(sections) {
-        const param = (sections || allSections).join(',');
+        const names = sections || allSections;
+        const param = names.join(',');
         showSpinner();
 
         fetch(endpoint + '?sections=' + encodeURIComponent(param), {
@@ -156,11 +181,12 @@ table.q-table tr:hover td { background:#fafafa; }
                 Object.entries(data.sections).forEach(([name, html]) => {
                     const el = document.getElementById('qs-' + name);
                     if (el) el.innerHTML = html;
+                    // Reset this section's countdown after successful load
+                    if (states[name]) states[name].secondsLeft = INTERVAL;
                 });
             }
             lastUpdated.textContent = new Date().toLocaleTimeString('pl-PL');
-            // Reset countdown after every successful load (manual or auto)
-            if (autoActive) resetCountdown();
+            updateAll();
         })
         .catch(err => console.error('Błąd ładowania sekcji:', err))
         .finally(hideSpinner);
@@ -168,28 +194,49 @@ table.q-table tr:hover td { background:#fafafa; }
 
     // ── events ────────────────────────────────────────────────────
     document.addEventListener('click', function (e) {
-        // Per-section refresh
-        const btn = e.target.closest('.qs-refresh-btn[data-section]');
-        if (btn) {
+        // Per-section manual refresh
+        const refreshBtn = e.target.closest('.qs-refresh-btn[data-section]');
+        if (refreshBtn) {
             e.preventDefault();
-            loadSections([btn.dataset.section]);
+            loadSections([refreshBtn.dataset.section]);
             return;
         }
-        // Refresh all
+
+        // Per-section auto-refresh toggle
+        const sectionToggle = e.target.closest('.qs-section-toggle[data-section]');
+        if (sectionToggle) {
+            e.preventDefault();
+            const s = sectionToggle.dataset.section;
+            states[s].active = !states[s].active;
+            if (states[s].active) states[s].secondsLeft = INTERVAL;
+            updateSection(s);
+            updateGlobalBtn();
+            scheduleSave();
+            return;
+        }
+
+        // Refresh all (manual)
         if (e.target.closest('#qs-refresh-all')) {
             e.preventDefault();
             loadSections(null);
             return;
         }
-        // Start/stop toggle
+
+        // Global toggle — flip all to same state
         if (e.target.closest('#qs-auto-toggle')) {
             e.preventDefault();
-            autoActive ? stopAutoRefresh() : startAutoRefresh();
+            const anyActive = allSections.some(s => states[s].active);
+            allSections.forEach(s => {
+                states[s].active = !anyActive;
+                if (!anyActive) states[s].secondsLeft = INTERVAL;
+            });
+            updateAll();
+            scheduleSave();
         }
     });
 
     // ── init ──────────────────────────────────────────────────────
     loadSections(null);
-    startAutoRefresh();
+    updateAll();
 })();
 </script>

@@ -31,8 +31,9 @@ $runningByUser  = [];
 foreach ($running  as $i) { $runningByUser[$i->current_integrate_user][$i->integration_type][]  = $i; }
 
 $refreshBtn = fn(string $s) =>
-    "<button class='qs-refresh-btn btn btn-xs btn-link' data-section='{$s}' title='Odśwież sekcję' style='padding:0 4px; vertical-align:middle;'>↻</button>"
-    . "<span class='qs-countdown' style='font-size:11px; color:#aaa; margin-left:3px;'></span>";
+    "<button class='qs-refresh-btn btn btn-xs btn-link' data-section='{$s}' title='Odśwież sekcję' style='padding:0 2px; vertical-align:middle;'>↻</button>"
+    . "<button class='qs-section-toggle btn btn-xs btn-link' data-section='{$s}' title='Auto-refresh tej sekcji' style='padding:0 2px; vertical-align:middle; font-size:12px;'>⏸</button>"
+    . "<span class='qs-countdown' data-section='{$s}' style='font-size:11px; color:#aaa; margin-left:2px; vertical-align:middle;'></span>";
 ?>
 
 <?php /* ── HEALTH ──────────────────────────────────────────── */ ?>
