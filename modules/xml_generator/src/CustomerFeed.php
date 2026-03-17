@@ -5,6 +5,7 @@ use app\models\Customers;
 use app\models\IntegrationData;
 use app\models\Queue;
 use app\modules\idosellv3\models\ApiClient;
+use app\services\FeedStorageService;
 use phpDocumentor\Reflection\File;
 
 class CustomerFeed extends XmlFeed
@@ -29,16 +30,21 @@ class CustomerFeed extends XmlFeed
         }
 
         $this->_client = new ApiClient($this->_user->username, $this->_user->getApiKey());
-        $temp          = $this->getFile(true, true);
-        $file          = $this->getFile(true, false);
 
         if ($what == 'objects') {
             echo "creating objects" . PHP_EOL;
             return $this->createCustomerObjects();
-
         }
 
         echo "creating file" . PHP_EOL;
+
+        if (FeedStorageService::isConfigured()) {
+            return $this->generateViaStorage();
+        }
+
+        $temp = $this->getFile(true, true);
+        $file = $this->getFile(true, false);
+
         if (! $this->isFinished()) {
             $created = $this->createOrAddTempCustomerXml($temp);
         } elseif (!file_exists($temp)) {
@@ -62,6 +68,170 @@ class CustomerFeed extends XmlFeed
     public function getFile(bool $get_file_path = false, bool $temp = false): string
     {
         return parent::getFile($get_file_path, $temp);
+    }
+
+    private function getStorageKey(bool $temp = false): string
+    {
+        $ext = $temp ? '.xml.tmp' : '.xml';
+        return 'customer/' . $this->_user->uuid . '/customer' . $ext;
+    }
+
+    private function generateViaStorage(): int
+    {
+        $storage = FeedStorageService::create();
+        $tempKey = $this->getStorageKey(true);
+        $fileKey = $this->getStorageKey(false);
+
+        if (!$this->isFinished()) {
+            return $this->createOrAddTempCustomerXmlViaStorage($storage, $tempKey);
+        } elseif (!$storage->exists($tempKey)) {
+            echo "temp missing in storage - resetting xml phase" . PHP_EOL;
+            $this->_queue->page     = 0;
+            $this->_queue->max_page = 0;
+            $this->_queue->save();
+            return $this->createOrAddTempCustomerXmlViaStorage($storage, $tempKey);
+        } else {
+            return $this->createCustomerXmlViaStorage($storage, $fileKey, $tempKey);
+        }
+    }
+
+    private function createOrAddTempCustomerXmlViaStorage(FeedStorageService $storage, string $tempKey): int
+    {
+        echo "CREATING XML (storage)" . PHP_EOL;
+
+        $integrationDataCurrentPage = $this->_queue->page;
+        $integrationDataMaxPage     = $this->_queue->max_page;
+        $page_size                  = self::XML_PAGE_SIZE;
+
+        if (! $approvalsShopId = $this->_user->config->get('customer_default_approvals_shop_id')) {
+            $customers_query = Customers::find()->where(['user_id' => $this->_queue->getCurrentUser()->id]);
+        } else {
+            $customers_query = Customers::find()->where(['user_id' => $this->_queue->getCurrentUser()->id, 'shop_id' => $approvalsShopId]);
+        }
+
+        $page = $integrationDataCurrentPage;
+
+        if ($integrationDataMaxPage == 0) {
+            $customers_all          = $customers_query->count();
+            $pages                  = ceil($customers_all / $page_size);
+            $this->_queue->max_page = $pages;
+            $integrationDataMaxPage = $pages;
+            $this->_queue->page     = $page;
+            $this->_queue->save();
+        }
+
+        echo " PAGE " . $page . " of " . $integrationDataMaxPage . PHP_EOL;
+
+        $fields_to_integrate = [];
+        if ($this->_user->config->get('customer_feed_registration'))  { $fields_to_integrate[] = 'customer_feed_registration'; }
+        if ($this->_user->config->get('customer_feed_first_name'))    { $fields_to_integrate[] = 'customer_feed_first_name'; }
+        if ($this->_user->config->get('customer_feed_last_name'))     { $fields_to_integrate[] = 'customer_feed_last_name'; }
+        if ($this->_user->config->get('customer_zip_code'))           { $fields_to_integrate[] = 'customer_zip_code'; }
+        if ($this->_user->config->get('customer_phone'))              { $fields_to_integrate[] = 'customer_phone'; }
+        if ($this->_user->config->get('customer_feed_email'))         { $fields_to_integrate[] = 'email'; }
+
+        $customers_db = $customers_query->limit($page_size)->offset($page * $page_size)->all();
+
+        // Download existing temp content once, collect new rows in buffer
+        $existingContent = $storage->exists($tempKey) ? $storage->get($tempKey) : '';
+        $buffer = '';
+
+        try {
+            foreach ($customers_db as $customer) {
+                if (Queue::isDisallowedEmail($customer['email'])) {
+                    continue;
+                }
+
+                if ($customer->isCustomerValidForXml() == false) {
+                    echo $customer['customer_id'] . " pass customer - not valid" . PHP_EOL;
+                    continue;
+                }
+
+                $custChild = new \SimpleXMLElement('<CUSTOMER/>');
+                $custChild->addChild('CUSTOMER_ID', $customer['customer_id']);
+
+                if (in_array('email', $fields_to_integrate)) {
+                    $custChild->addChild('EMAIL', $customer['email']);
+                }
+
+                $registration = $customer['registration'];
+                if ($registration == '0000-00-00 00:00:00' || $registration == null) {
+                    $registration = '2000-01-01 00:00:00';
+                }
+
+                if (in_array('customer_feed_registration', $fields_to_integrate)) {
+                    $custChild->addChild('REGISTRATION', $this->getCorrectSambaDate($registration));
+                }
+
+                if (in_array('customer_feed_first_name', $fields_to_integrate) && !empty($customer['first_name'])) {
+                    $custChild->addChild('FIRST_NAME', $customer['first_name']);
+                }
+
+                if (in_array('customer_feed_last_name', $fields_to_integrate) && !empty($customer['lastname'])) {
+                    $custChild->addChild('LAST_NAME', $customer['lastname']);
+                }
+
+                if (in_array('customer_zip_code', $fields_to_integrate) && !empty($customer['zip_code'])) {
+                    $custChild->addChild('ZIP_CODE', $customer['zip_code']);
+                }
+
+                if (in_array('customer_phone', $fields_to_integrate) && !empty($customer['phone'])) {
+                    $custChild->addChild('PHONE', $this->getXmlPhone($customer['phone']));
+                }
+
+                if ($customer['is_wholesaler']) {
+                    $custChild->addChild('PRICE_CATEGORY', 'Wholesaler');
+                }
+
+                $custChild->addChild('NEWSLETTER_FREQUENCY', $customer['newsletter_frequency']);
+                $custChild->addChild('SMS_FREQUENCY', $customer['sms_frequency']);
+                $custChild->addChild('DATA_PERMISSION', $customer['data_permission']);
+
+                if ($customer['newsletter_frequency'] !== null && $customer['newsletter_frequency'] !== 'never') {
+                    $nlf_time = $customer['nlf_time'];
+                    if ($customer['nlf_time'] === null || $customer['nlf_time'] === '0000-00-00 00:00:00') {
+                        $nlf_time = $registration;
+                    }
+                    $custChild->addChild('NLF_TIME', $this->getCorrectSambaDate($nlf_time));
+                }
+
+                $this->setFeedParams($custChild, $customer);
+
+                // Strip XML declaration from individual element
+                $xml = $custChild->asXML();
+                $xml = preg_replace('/<\?xml[^?]*\?>\s*/i', '', $xml);
+                $buffer .= $xml;
+            }
+        } catch (\Exception $e) {
+            echo "ERROR WITH DATA" . PHP_EOL;
+            echo $e->getMessage() . PHP_EOL;
+            throw $e;
+        }
+
+        // Single upload: existing content + new rows
+        $storage->put($tempKey, $existingContent . $buffer);
+
+        $page++;
+        $this->_queue->page = $page;
+        $this->_queue->save();
+
+        return 1;
+    }
+
+    private function createCustomerXmlViaStorage(FeedStorageService $storage, string $fileKey, string $tempKey): int
+    {
+        echo "FINALIZING XML (storage)" . PHP_EOL;
+
+        $tempContent = $storage->get($tempKey);
+        $wrapper     = new \SimpleXMLElement('<CUSTOMERS/>');
+        $wrapper->addChild('CUSTOMER');
+        $finalXml = str_replace('<CUSTOMER/>', $tempContent, $wrapper->asXML());
+
+        $storage->put($fileKey, $finalXml, 'application/xml');
+        $storage->delete($tempKey);
+
+        echo "XML uploaded to storage: " . $fileKey . PHP_EOL;
+        return 10;
     }
 
     private function checkQueueConstraints()
