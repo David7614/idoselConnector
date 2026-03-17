@@ -21,7 +21,9 @@ $allUrl    = Url::current(['active' => 'all']);
 .admin-index .badge-active   { display:inline-block; width:10px; height:10px; border-radius:50%; background:#4caf50; margin-right:4px; }
 .admin-index .badge-inactive { display:inline-block; width:10px; height:10px; border-radius:50%; background:#ccc; margin-right:4px; }
 .fc-badge  { display:inline-flex; align-items:center; gap:3px; padding:2px 6px 2px 5px;
-             border-radius:4px; font-size:11px; margin:1px; background:#eee; color:#444; }
+             border-radius:4px; font-size:11px; margin:1px; background:#eee; color:#444;
+             text-decoration:none; }
+.fc-badge:hover { filter:brightness(.93); text-decoration:none; }
 .fc-badge.has  { background:#e8f5e9; color:#2e7d32; }
 .fc-badge.none { background:#fafafa; color:#bbb; }
 .fc-count  { font-weight:600; }
@@ -107,6 +109,13 @@ $allUrl    = Url::current(['active' => 'all']);
                 'value'          => function ($model) use ($countsMap) {
                     $types  = ['product' => 'P', 'order' => 'O', 'customer' => 'K', 'category' => 'C'];
                     $titles = ['product' => 'Produkty', 'order' => 'Zamówienia', 'customer' => 'Klienci', 'category' => 'Kategorie'];
+                    $xmlFiles = [
+                        'product'  => 'products.xml',
+                        'order'    => 'orders.xml',
+                        'customer' => 'customers.xml',
+                        'category' => 'categories.xml',
+                    ];
+                    $base   = \yii\helpers\Url::home(true) . 'xml/' . $model->uuid . '/';
                     $c      = $countsMap[$model->id] ?? null;
                     $ts     = $c['ts'] ?? null;
                     $stale  = !$ts || (time() - $ts) > 3600;
@@ -114,10 +123,11 @@ $allUrl    = Url::current(['active' => 'all']);
                     $badges = '';
                     foreach ($types as $type => $lbl) {
                         $count = $c[$type] ?? null;
-                        $cls   = $count > 0 ? 'has' : ($count === null ? 'none' : 'fc-badge');
-                        $num   = $count === null ? '?' : number_format($count, 0, '.', ' ');
-                        $badges .= '<span class="fc-badge ' . $cls . '" title="' . $titles[$type] . '">'
-                            . $lbl . ' <span class="fc-count">' . $num . '</span></span>';
+                        $cls   = $count > 0 ? 'has' : ($count === null ? 'none' : '');
+                        $num   = $count === null ? '?' : number_format($count, 0, '.', "\u{00A0}");
+                        $url   = $base . $xmlFiles[$type];
+                        $badges .= '<a href="' . $url . '" target="_blank" class="fc-badge ' . $cls . '" title="' . $titles[$type] . ' — pobierz XML">'
+                            . $lbl . ' <span class="fc-count">' . $num . '</span></a>';
                     }
 
                     $ageHtml = '';
@@ -126,9 +136,7 @@ $allUrl    = Url::current(['active' => 'all']);
                         $ageHtml = '<span class="fc-age">' . ($mins < 2 ? 'przed chwilą' : $mins . ' min temu') . '</span>';
                     }
 
-                    $needsRefresh = $stale ? '1' : '0';
-
-                    return '<div class="fc-wrap" data-user-id="' . $model->id . '" data-needs-refresh="' . $needsRefresh . '">'
+                    return '<div class="fc-wrap" data-user-id="' . $model->id . '" data-uuid="' . $model->uuid . '" data-needs-refresh="' . ($stale ? '1' : '0') . '">'
                         . $badges
                         . ' <button class="fc-refresh" title="Odśwież liczniki">↻</button>'
                         . $ageHtml
@@ -168,25 +176,29 @@ $allUrl    = Url::current(['active' => 'all']);
 (function () {
     const endpoint  = <?= json_encode(\yii\helpers\Url::to(['admin/refresh-feed-counts'])) ?>;
     const csrfToken = <?= json_encode(Yii::$app->request->csrfToken) ?>;
-    const types     = ['product','order','customer','category'];
-    const labels    = {product:'P', order:'O', customer:'K', category:'C'};
-    const titles    = {product:'Produkty', order:'Zam\u00f3wienia', customer:'Klienci', category:'Kategorie'};
+    const types    = ['product','order','customer','category'];
+    const labels   = {product:'P', order:'O', customer:'K', category:'C'};
+    const titles   = {product:'Produkty', order:'Zam\u00f3wienia', customer:'Klienci', category:'Kategorie'};
+    const xmlFiles = {product:'products.xml', order:'orders.xml', customer:'customers.xml', category:'categories.xml'};
+    const baseUrl  = <?= json_encode(\yii\helpers\Url::home(true) . 'xml/') ?>;
 
     function formatCount(n) {
         if (n === null || n === undefined) return '?';
         return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, '\u00a0');
     }
 
-    function renderBadges(counts) {
+    function renderBadges(counts, uuid) {
         return types.map(t => {
             const n   = counts[t] ?? null;
             const cls = n > 0 ? 'has' : (n === null ? 'none' : '');
-            return `<span class="fc-badge ${cls}" title="${titles[t]}">${labels[t]} <span class="fc-count">${formatCount(n)}</span></span>`;
+            const url = baseUrl + uuid + '/' + xmlFiles[t];
+            return `<a href="${url}" target="_blank" class="fc-badge ${cls}" title="${titles[t]} \u2014 pobierz XML">${labels[t]} <span class="fc-count">${formatCount(n)}</span></a>`;
         }).join('');
     }
 
     function refresh(wrap) {
         const userId = wrap.dataset.userId;
+        const uuid   = wrap.dataset.uuid;
         const btn    = wrap.querySelector('.fc-refresh');
         if (btn) { btn.textContent = '…'; btn.disabled = true; }
 
@@ -201,7 +213,7 @@ $allUrl    = Url::current(['active' => 'all']);
             const c    = data.counts;
             const mins = Math.round((Date.now() / 1000 - c.ts) / 60);
             const age  = mins < 2 ? 'przed chwil\u0105' : mins + ' min temu';
-            wrap.innerHTML = renderBadges(c)
+            wrap.innerHTML = renderBadges(c, uuid)
                 + ' <button class="fc-refresh" title="Od\u015bwie\u017c liczniki">\u21bb</button>'
                 + '<span class="fc-age">' + age + '</span>';
             wrap.dataset.needsRefresh = '0';
