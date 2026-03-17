@@ -32,6 +32,7 @@ $timeDiff = function (?string $date) use ($now): string {
 $hasErrors   = count($errors) > 0;
 $hasOverdue  = count($overdue) > 0;
 $hasRunning  = count($running) > 0;
+$hasDisabled = count($disabled) > 0;
 $healthOk    = !$hasErrors && !$hasOverdue;
 
 // Deduplikacja zaległych per user+type (liczymy unikalne pary)
@@ -42,6 +43,10 @@ foreach ($overdue as $item) {
 $errorsByUser = [];
 foreach ($errors as $item) {
     $errorsByUser[$item->current_integrate_user][$item->integration_type][] = $item;
+}
+$disabledByUser = [];
+foreach ($disabled as $item) {
+    $disabledByUser[$item->current_integrate_user][$item->integration_type][] = $item;
 }
 $runningByUser = [];
 foreach ($running as $item) {
@@ -131,6 +136,10 @@ table.q-table tr:hover td { background:#fafafa; }
             <h3><?= count($errorsByUser) ?></h3>
             <p>Użytkowników z błędami</p>
         </div>
+        <div class="health-card <?= $hasDisabled ? 'hc-warn' : 'hc-neutral' ?>">
+            <h3><?= count($disabledByUser) ?></h3>
+            <p>Wyłączone feedy</p>
+        </div>
         <div class="health-card hc-ok">
             <h3><?= count(array_unique(array_column($recentDone, 'current_integrate_user'))) ?></h3>
             <p>Aktywnych (ostatnie 24h)</p>
@@ -183,6 +192,34 @@ table.q-table tr:hover td { background:#fafafa; }
     </table>
     <?php endif ?>
 
+    <!-- Wykonane w ostatniej godzinie -->
+    <?php
+    $hourAgo      = strtotime('-1 hour', strtotime($now));
+    $recentHour   = array_filter($recentDone, fn($i) => $i->finished_at && strtotime($i->finished_at) >= $hourAgo);
+    ?>
+    <?php if ($recentHour): ?>
+    <div class="section-title">
+        <span class="dot dot-ok"></span>Wykonane w ostatniej godzinie
+        <span class="badge" style="background:#43a047;"><?= count($recentHour) ?></span>
+    </div>
+    <table class="q-table">
+        <thead><tr>
+            <th>Użytkownik</th><th>Typ</th><th>Zakończono</th><th>Postęp</th><th>Akcja</th>
+        </tr></thead>
+        <tbody>
+        <?php foreach ($recentHour as $item): ?>
+        <tr>
+            <td><?= $userName($item->current_integrate_user) ?></td>
+            <td><span class="type-chip ok"><?= Html::encode($typeLabel[$item->integration_type] ?? $item->integration_type) ?></span></td>
+            <td title="<?= Html::encode($item->finished_at) ?>"><?= $timeDiff($item->finished_at) ?></td>
+            <td><?= $item->max_page > 0 ? "<small style='color:#999'>{$item->page}/{$item->max_page} str.</small>" : '—' ?></td>
+            <td><?= Html::a('Kolejka', Url::to(['admin/view', 'id' => $item->current_integrate_user]), ['class' => 'btn btn-xs btn-default']) ?></td>
+        </tr>
+        <?php endforeach ?>
+        </tbody>
+    </table>
+    <?php endif ?>
+
     <!-- Błędy -->
     <?php if ($errors): ?>
     <div class="section-title">
@@ -207,6 +244,35 @@ table.q-table tr:hover td { background:#fafafa; }
                 <?= Html::a('Kolejka', Url::to(['admin/view', 'id' => $item->current_integrate_user, 'status' => 'error']), ['class' => 'btn btn-xs btn-danger']) ?>
                 <?= Html::a('▶', Url::to(['admin/run-queue-output', 'queueId' => $item->id]), ['class' => 'btn btn-xs btn-success', 'target' => '_blank', 'title' => 'Uruchom ponownie']) ?>
                 <?= Html::a('↺ Reset', Url::to(['admin/reset-queue', 'queueId' => $item->id]), ['class' => 'btn btn-xs btn-warning', 'title' => 'Ustaw na pending — automat odpali ponownie']) ?>
+            </td>
+        </tr>
+        <?php endforeach ?>
+        </tbody>
+    </table>
+    <?php endif ?>
+
+    <!-- Wyłączone -->
+    <?php if ($disabled): ?>
+    <div class="section-title">
+        <span class="dot dot-warn"></span>Wyłączone feedy
+        <span class="badge" style="background:#fb8c00;"><?= count($disabled) ?></span>
+        <small style="color:#999; font-weight:normal; margin-left:8px;">celowo wyłączone — nie są błędami</small>
+    </div>
+    <table class="q-table">
+        <thead><tr>
+            <th>Użytkownik</th><th>Typ</th><th>Komunikat</th><th>Akcja</th>
+        </tr></thead>
+        <tbody>
+        <?php foreach ($disabled as $item):
+            $params = $item->additionalParameters;
+            $msg    = $params['error_msg'] ?? '—';
+        ?>
+        <tr>
+            <td><?= $userName($item->current_integrate_user) ?></td>
+            <td><span class="type-chip warn"><?= Html::encode($typeLabel[$item->integration_type] ?? $item->integration_type) ?></span></td>
+            <td style="color:#b26a00;"><?= Html::encode($msg) ?></td>
+            <td>
+                <?= Html::a('Kolejka', Url::to(['admin/view', 'id' => $item->current_integrate_user, 'status' => 'disabled']), ['class' => 'btn btn-xs btn-default']) ?>
             </td>
         </tr>
         <?php endforeach ?>
@@ -258,6 +324,7 @@ table.q-table tr:hover td { background:#fafafa; }
             <th>Ostatnie wykonanie (24h)</th>
             <th>W trakcie</th>
             <th>Błędy</th>
+            <th>Wyłączone</th>
             <th>Zaległe</th>
             <th></th>
         </tr></thead>
@@ -266,6 +333,7 @@ table.q-table tr:hover td { background:#fafafa; }
             $hasErr  = isset($errorsByUser[$uid]);
             $hasOvd  = isset($overdueByUser[$uid]);
             $hasRun  = isset($runningByUser[$uid]);
+            $hasDis  = isset($disabledByUser[$uid]);
             $isProblem = $hasErr || $hasOvd;
 
             // Typy wykonane w 24h dla tego użytkownika
@@ -302,6 +370,13 @@ table.q-table tr:hover td { background:#fafafa; }
                         <span class="type-chip err"><?= Html::encode($typeLabel[$t] ?? $t) ?></span>
                     <?php endforeach ?>
                 <?php else: ?><span style="color:#4caf50">✔</span><?php endif ?>
+            </td>
+            <td>
+                <?php if ($hasDis): ?>
+                    <?php foreach (array_keys($disabledByUser[$uid]) as $t): ?>
+                        <span class="type-chip warn"><?= Html::encode($typeLabel[$t] ?? $t) ?></span>
+                    <?php endforeach ?>
+                <?php else: ?><span style="color:#bbb">—</span><?php endif ?>
             </td>
             <td>
                 <?php if ($hasOvd): ?>

@@ -22,11 +22,12 @@ class Queue extends \yii\db\ActiveRecord
 {
     private $_user;
 
-    const PENDING = 0;
-    const RUNNING = 1;
+    const PENDING  = 0;
+    const RUNNING  = 1;
     const EXECUTED = 2;
-    const MISSED = 5;
-    const ERROR = 99;
+    const MISSED   = 5;
+    const DISABLED = 98;
+    const ERROR    = 99;
 
 
     const QUEUE_FOR_DAYS=3;
@@ -162,6 +163,15 @@ class Queue extends \yii\db\ActiveRecord
         $parameters['error_msg']=$msg;
         $this->additionalParameters=$parameters;
         $this->integrated = self::ERROR;
+        return $this->save();
+    }
+
+    public function setDisabledStatus($msg='')
+    {
+        $parameters=$this->additionalParameters;
+        $parameters['error_msg']=$msg;
+        $this->additionalParameters=$parameters;
+        $this->integrated = self::DISABLED;
         return $this->save();
     }
 

@@ -59,7 +59,7 @@ class QueueRunnerService
 
         if (!$queue->checkQueueConstraints()) {
             echo " job should not run " . PHP_EOL;
-            $queue->setErrorStatus('job disabled');
+            $queue->setDisabledStatus('job disabled');
             return ExitCode::OK;
         }
 
@@ -111,7 +111,7 @@ class QueueRunnerService
 
         } catch (FeedDisabledException $e) {
             echo "FEED DISABLED — cancelling queue and removing future entries." . PHP_EOL;
-            $queue->setErrorStatus($e->getMessage());
+            $queue->setDisabledStatus($e->getMessage());
             Queue::deleteFutureQueuesForUser($queue->current_integrate_user, $type);
             return ExitCode::OK;
 

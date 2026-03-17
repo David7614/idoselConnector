@@ -314,6 +314,11 @@ class AdminController extends Controller
             ->orderBy(['finished_at' => SORT_DESC])
             ->all();
 
+        $disabled = Queue::find()
+            ->where(['integrated' => Queue::DISABLED])
+            ->orderBy(['finished_at' => SORT_DESC])
+            ->all();
+
         // Per-user summary: last executed per type
         $recentWindow = date('Y-m-d H:i:s', strtotime('-24 hours'));
         $recentDone = Queue::find()
@@ -337,6 +342,7 @@ class AdminController extends Controller
             'running'         => $running,
             'overdue'         => $overdue,
             'errors'          => $errors,
+            'disabled'        => $disabled,
             'recentDone'      => $recentDone,
             'users'           => $users,
             'problemUserIds'  => $problemUserIds,
@@ -520,6 +526,7 @@ class AdminController extends Controller
                     'running'  => Queue::RUNNING,
                     'executed' => Queue::EXECUTED,
                     'missed'   => Queue::MISSED,
+                    'disabled' => Queue::DISABLED,
                     'error'    => Queue::ERROR,
                 ];
                 if (isset($statusMap[$filterStatus])) {
