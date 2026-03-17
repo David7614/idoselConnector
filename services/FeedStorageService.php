@@ -14,6 +14,9 @@ class FeedStorageService
     private S3Client $s3;
     private string $bucket;
 
+    /** @var array<string,true>|null  Request-level cache of existing keys */
+    private static ?array $keysCache = null;
+
     public function __construct(S3Client $s3, string $bucket)
     {
         $this->s3 = $s3;
@@ -56,6 +59,44 @@ class FeedStorageService
     public function exists(string $key): bool
     {
         return $this->s3->doesObjectExist($this->bucket, $key);
+    }
+
+    /**
+     * Cached version of exists() — loads all feed keys once per request.
+     * Use this when checking many keys in a loop (e.g. admin user list).
+     */
+    public function existsCached(string $key): bool
+    {
+        if (self::$keysCache === null) {
+            $this->warmCache();
+        }
+        return isset(self::$keysCache[$key]);
+    }
+
+    /**
+     * Invalidate the request-level cache (call after put/delete in the same request).
+     */
+    public function invalidateCache(): void
+    {
+        self::$keysCache = null;
+    }
+
+    private function warmCache(): void
+    {
+        self::$keysCache = [];
+        $types = ['product', 'order', 'customer', 'category'];
+
+        foreach ($types as $type) {
+            $params = ['Bucket' => $this->bucket, 'Prefix' => $type . '/'];
+
+            do {
+                $result = $this->s3->listObjectsV2($params);
+                foreach ($result['Contents'] ?? [] as $object) {
+                    self::$keysCache[$object['Key']] = true;
+                }
+                $params['ContinuationToken'] = $result['NextContinuationToken'] ?? null;
+            } while ($result['IsTruncated']);
+        }
     }
 
     public function get(string $key): string

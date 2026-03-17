@@ -3,6 +3,7 @@ namespace app\models;
 
 use app\modules\idosellv3\models\ApiClient;
 use app\modules\xml_generator\src\XmlFeed;
+use app\services\FeedStorageService;
 use Yii;
 use yii\helpers\Url;
 use yii\web\IdentityInterface;
@@ -301,10 +302,20 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
 
     public function getReadyFeeds(): array
     {
-        $base  = XmlFeed::getFeedsBasePath();
-        $types = [XmlFeed::PRODUCT, XmlFeed::ORDER, XmlFeed::CUSTOMER, XmlFeed::CATEGORY];
-        $ready = [];
+        $base    = XmlFeed::getFeedsBasePath();
+        $types   = [XmlFeed::PRODUCT, XmlFeed::ORDER, XmlFeed::CUSTOMER, XmlFeed::CATEGORY];
+        $ready   = [];
+        $storage = FeedStorageService::isConfigured() ? FeedStorageService::create() : null;
+
         foreach ($types as $type) {
+            if ($storage) {
+                $key = $type . '/' . $this->uuid . '/' . $type . '.xml';
+                if ($storage->existsCached($key)) {
+                    $ready[] = $type;
+                }
+                continue;
+            }
+
             $file = $base . '/' . $type . '/' . $this->uuid . '/' . $type . '.xml';
             if (file_exists($file) && filesize($file) > 0) {
                 $ready[] = $type;

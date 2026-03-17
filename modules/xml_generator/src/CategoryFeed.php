@@ -2,6 +2,7 @@
 namespace app\modules\xml_generator\src;
 
 use app\modules\idosellv3\models\ApiClient;
+use app\services\FeedStorageService;
 
 class CategoryFeed extends XmlFeed
 {
@@ -21,15 +22,19 @@ class CategoryFeed extends XmlFeed
         if ($this->_user->config->get('product_feed_disable') == 1) {
             throw new \app\services\FeedDisabledException('Product feed disabled');
         }
-        $temp = $this->getFile(true, true);
-        $file = $this->getFile(true, false);
-
         if (! $this->_user->getApiKey()) {
             echo "no api key";
             return false;
         }
 
         $this->_client = new ApiClient($this->_user->username, $this->_user->getApiKey());
+
+        if (FeedStorageService::isConfigured()) {
+            return $this->generateViaStorage();
+        }
+
+        $temp = $this->getFile(true, true);
+        $file = $this->getFile(true, false);
 
         if (! $this->isFinished()) {
             $created = $this->createOrAddCategoryTempXml($temp);
@@ -55,6 +60,120 @@ class CategoryFeed extends XmlFeed
     public function getFile(bool $get_file_path = false, bool $temp = false): string
     {
         return parent::getFile($get_file_path, $temp);
+    }
+
+    private function getStorageKey(bool $temp = false): string
+    {
+        $ext = $temp ? '.xml.tmp' : '.xml';
+        return 'category/' . $this->_user->uuid . '/category' . $ext;
+    }
+
+    private function generateViaStorage(): int
+    {
+        $storage = FeedStorageService::create();
+        $tempKey = $this->getStorageKey(true);
+        $fileKey = $this->getStorageKey(false);
+
+        if (!$this->isFinished()) {
+            return $this->createOrAddCategoryTempXmlViaStorage($storage, $tempKey, $fileKey);
+        } elseif (!$storage->exists($tempKey)) {
+            echo "temp missing in storage - resetting xml phase" . PHP_EOL;
+            $this->_queue->page     = 0;
+            $this->_queue->max_page = 0;
+            $this->_queue->save();
+            return $this->createOrAddCategoryTempXmlViaStorage($storage, $tempKey, $fileKey);
+        } else {
+            return $this->createCategoryXmlViaStorage($storage, $fileKey, $tempKey);
+        }
+    }
+
+    private function createOrAddCategoryTempXmlViaStorage(FeedStorageService $storage, string $tempKey, string $fileKey): int
+    {
+        try {
+            $this->checkQueueConstraints();
+            $this->request_parameters['results_limit'] = self::API_RESULT_COUNT;
+            $request                                   = $this->request_parameters;
+            $request['returnProducts']                 = 'active';
+            $request['resultsPage']                    = $this->_queue->page;
+            $response                                  = $this->_client->get($this->gate, $request);
+
+            if ($this->_queue->page >= $this->_queue->max_page) {
+                echo "max page exceeded";
+                return 10;
+            }
+
+            if (isset($response['errors']) && ! empty($response['errors']['faultString'])) {
+                echo $response['errors']['faultString'];
+                return false;
+            }
+
+            $categories_array = [];
+            $replace_from     = ['/', ' ', '"', '″', ',', 'ą', 'ę', 'ź', 'ć', 'ż', 'ł', 'ó', 'ń'];
+            $replace_to       = ['-', '-', '-', '-', '-', 'a', 'e', 'z', 'c', 'z', 'l', 'o', 'n'];
+
+            foreach ($response['categories'] as $category) {
+                $prepared_data = strtolower($category['lang_data'][0]['plural_name']);
+                $prepared_data = str_replace($replace_from, $replace_to, $prepared_data);
+                $prepared_data = str_replace('--', '-', $prepared_data);
+                $url           = 'https://' . $this->_user->username . '/pl/categories/' . $prepared_data . '-' . $category['id'] . '.html';
+
+                $categories_array[$category['id']] = [
+                    'id'     => $category['id'],
+                    'parent' => $category['parent_id'],
+                    'TITLE'  => $category['lang_data'][0]['plural_name'],
+                    'URL'    => $url,
+                ];
+            }
+
+            print_r($categories_array);
+
+            $catOrdered = $this->makeRecursive($categories_array);
+            $buffer     = '';
+
+            if (count($catOrdered) > 0) {
+                $wrapper = new \SimpleXMLElement('<CATEGORIES/>');
+                foreach ($catOrdered as $entry) {
+                    $child = $wrapper->addChild('ITEM');
+                    $child->addChild('TITLE', htmlspecialchars($entry['TITLE']));
+                    $child->addChild('URL', htmlspecialchars($entry['URL']));
+                    if (isset($entry['children']) && ! empty($entry['children'])) {
+                        $child->addChild('ITEM', $this->makeXml($entry['children'], $child));
+                    }
+                    $xml = $child->asXml();
+                    $xml = preg_replace('/<\?xml[^?]*\?>\s*/i', '', $xml);
+                    $buffer .= $xml;
+                }
+            }
+
+            $existingContent = $storage->exists($tempKey) ? $storage->get($tempKey) : '';
+            $storage->put($tempKey, $existingContent . $buffer);
+
+            $this->_queue->increasePage();
+
+            if ($this->_queue->page >= $this->_queue->max_page) {
+                return $this->createCategoryXmlViaStorage($storage, $fileKey, $tempKey);
+            }
+
+            return true;
+
+        } catch (\Exception $e) {
+            echo $e->getMessage();
+            $this->_queue->setErrorStatus($e->getMessage());
+            die();
+        }
+    }
+
+    private function createCategoryXmlViaStorage(FeedStorageService $storage, string $fileKey, string $tempKey): int
+    {
+        echo "FINALIZING XML (storage)" . PHP_EOL;
+        $tempContent = $storage->get($tempKey);
+        $category    = new \SimpleXMLElement('<CATEGORIES/>');
+        $category->addChild('ITEM');
+        $finalXml = str_replace('<ITEM/>', $tempContent, $category->asXml());
+        $storage->put($fileKey, $finalXml, 'application/xml');
+        $storage->delete($tempKey);
+        echo "XML uploaded to storage: " . $fileKey . PHP_EOL;
+        return 10;
     }
 
     private function checkQueueConstraints()

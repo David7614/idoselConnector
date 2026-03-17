@@ -4,6 +4,7 @@ namespace app\modules\xml_generator\src;
 use app\models\IntegrationData;
 use app\models\Product;
 use app\modules\idosellv3\models\ApiClient;
+use app\services\FeedStorageService;
 use app\services\SettingsService;
 
 class ProductFeed extends XmlFeed
@@ -29,8 +30,6 @@ class ProductFeed extends XmlFeed
         }
 
 
-        $temp = $this->getFile(true, true);
-        $file = $this->getFile(true, false);
         echo "*** ";
         var_dump($this->isFinished());
         echo "*** ";
@@ -40,8 +39,15 @@ class ProductFeed extends XmlFeed
                 throw new \Exception('No API key configured');
             }
             $this->_client = new ApiClient($this->_user->username, $this->_user->getApiKey());
-            return $this->createOrAddTempProductXml($temp);
+            return $this->createOrAddTempProductXml($this->getFile(true, true));
         }
+
+        if (FeedStorageService::isConfigured()) {
+            return $this->generateXmlViaStorage();
+        }
+
+        $temp = $this->getFile(true, true);
+        $file = $this->getFile(true, false);
 
         if (! $this->isFinished()) {
             $created = $this->prepareProductXml($temp);
@@ -67,6 +73,93 @@ class ProductFeed extends XmlFeed
     public function getFile(bool $get_file_path = false, bool $temp = false): string
     {
         return parent::getFile($get_file_path, $temp);
+    }
+
+    private function getStorageKey(bool $temp = false): string
+    {
+        $ext = $temp ? '.xml.tmp' : '.xml';
+        return 'product/' . $this->_user->uuid . '/product' . $ext;
+    }
+
+    private function generateXmlViaStorage(): int
+    {
+        $storage = FeedStorageService::create();
+        $tempKey = $this->getStorageKey(true);
+        $fileKey = $this->getStorageKey(false);
+
+        if (!$this->isFinished()) {
+            return $this->prepareProductXmlViaStorage($storage, $tempKey, $fileKey);
+        } elseif (!$storage->exists($tempKey)) {
+            echo "temp missing in storage - resetting xml phase" . PHP_EOL;
+            $this->_queue->page     = 0;
+            $this->_queue->max_page = 0;
+            $this->_queue->save();
+            return $this->prepareProductXmlViaStorage($storage, $tempKey, $fileKey);
+        } else {
+            return $this->createProductsXmlViaStorage($storage, $fileKey, $tempKey);
+        }
+    }
+
+    private function prepareProductXmlViaStorage(FeedStorageService $storage, string $tempKey, string $fileKey): int
+    {
+        echo "FUNCTION prepareProductXmlViaStorage" . PHP_EOL;
+
+        $aggregate_groups_as_variants = $this->_user->config->get('aggregate_groups_as_variants');
+        $integrationDataCurrentPage   = $this->_queue->page;
+        $integrationDataMaxPage       = $this->_queue->max_page;
+        $page_size                    = self::XML_PAGE_SIZE;
+
+        $query = Product::find()->where(['user_id' => $this->_queue->getCurrentUser()->id]);
+
+        $page = $integrationDataCurrentPage;
+        if ($integrationDataMaxPage == 0) {
+            $customers_all          = $query->count();
+            $pages                  = ceil($customers_all / $page_size);
+            $this->_queue->max_page = $pages;
+            $integrationDataMaxPage = $pages;
+            $this->_queue->page     = $page;
+            $this->_queue->save();
+        }
+
+        echo " PAGE " . $page . " of " . $integrationDataMaxPage . PHP_EOL;
+
+        $res          = $query->limit($page_size)->offset($page * $page_size)->all();
+        $products_str = '';
+        foreach ($res as $product) {
+            if ($product->response == '-') {
+                $par['aggregate_groups_as_variants'] = $aggregate_groups_as_variants;
+                $products_str .= $product->getXmlEntity($par);
+            } else {
+                $products_str .= unserialize($product->response);
+            }
+        }
+
+        $existingContent = $storage->exists($tempKey) ? $storage->get($tempKey) : '';
+        $storage->put($tempKey, $existingContent . $products_str);
+
+        $page++;
+        $this->_queue->page = $page;
+        $this->_queue->save();
+
+        if ($page > (int) $integrationDataMaxPage) {
+            echo "FINISHED ";
+            return $this->createProductsXmlViaStorage($storage, $fileKey, $tempKey);
+        }
+
+        return 1;
+    }
+
+    private function createProductsXmlViaStorage(FeedStorageService $storage, string $fileKey, string $tempKey): int
+    {
+        echo "FINALIZING XML (storage)" . PHP_EOL;
+        $tempContent = $storage->get($tempKey);
+        $products    = new \SimpleXMLElement('<PRODUCTS/>');
+        $products->addChild('PRODUCT');
+        $finalXml = str_replace('<PRODUCT/>', $tempContent, $products->asXML());
+        $storage->put($fileKey, $finalXml, 'application/xml');
+        $storage->delete($tempKey);
+        echo "XML uploaded to storage: " . $fileKey . PHP_EOL;
+        return 10;
     }
 
     private function checkQueueConstraints()

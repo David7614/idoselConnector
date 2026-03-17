@@ -8,6 +8,7 @@ use app\modules\api\src\KeyStorage;
 use app\modules\IAI\Application\Config;
 use app\modules\IAI\Authorization\Oauth2Client;
 use app\modules\xml_generator\src\XmlFeed;
+use app\services\FeedStorageService;
 use SoapClient;
 use yii\web\Controller;
 use Yii;
@@ -38,6 +39,28 @@ class OrdersController extends Controller
             }
             return 'Not ready yet';
         }
+        if (FeedStorageService::isConfigured()) {
+            try {
+                $storage = FeedStorageService::create();
+                $key     = 'order/' . $_user->uuid . '/order.xml';
+
+                if (!$storage->exists($key)) {
+                    header('Content-type: application/xml; charset=utf-8');
+                    echo '<?xml version="1.0"?><INFO><NOTICE>Feed is generating. Please try later.</NOTICE></INFO>';
+                    die;
+                }
+
+                $content = $storage->get($key);
+                header('Content-type: application/xml; charset=utf-8');
+                header('Content-Disposition: attachment; filename="orders.xml"');
+                header('Content-Length: ' . strlen($content));
+                echo $content;
+                die;
+            } catch (\Exception $e) {
+                return $e->getMessage();
+            }
+        }
+
         try {
             $orders = new XmlFeed();
             $orders->setType(XmlFeed::ORDER);
@@ -46,14 +69,12 @@ class OrdersController extends Controller
         } catch (\Exception $e) {
             return $e->getMessage();
         }
-        $filename='orders.xml';
+        $filename = 'orders.xml';
         header('Content-type: application/xml; charset=utf-8');
-        // echo $orders_file_path;
-        header("Content-Length: ".filesize(trim($orders_file_path)));
-                header("Content-Disposition: attachment; filename=\"$filename\"");
-                // Force the download           
-                header("Content-Transfer-Encoding: binary");            
-                @readfile($orders_file_path);       
+        header("Content-Length: " . filesize(trim($orders_file_path)));
+        header("Content-Disposition: attachment; filename=\"$filename\"");
+        header("Content-Transfer-Encoding: binary");
+        @readfile($orders_file_path);
         die;
     }
 }

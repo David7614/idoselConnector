@@ -6,6 +6,7 @@ use app\models\Orders;
 use app\models\Ordersv2;
 use app\models\Queue;
 use app\modules\idosellv3\models\ApiClient;
+use app\services\FeedStorageService;
 use Cassandra\Date;
 use yii;
 
@@ -25,14 +26,17 @@ class OrderFeed extends XmlFeed
 
     public function generate($what = null): int
     {
-        $temp = $this->getFile(true, true);
-        $file = $this->getFile(true, false);
-
         if ($what == 'objects') {
             echo "creating objects" . PHP_EOL;
             return $this->createOrderObjects();
-
         }
+
+        if (FeedStorageService::isConfigured()) {
+            return $this->generateViaStorage();
+        }
+
+        $temp = $this->getFile(true, true);
+        $file = $this->getFile(true, false);
 
         if (! $this->isFinished()) {
             $created = $this->createOrAddTempOrderXml($temp);
@@ -47,6 +51,156 @@ class OrderFeed extends XmlFeed
         }
 
         return $created;
+    }
+
+    private function getStorageKey(bool $temp = false): string
+    {
+        $ext = $temp ? '.xml.tmp' : '.xml';
+        return 'order/' . $this->_user->uuid . '/order' . $ext;
+    }
+
+    private function generateViaStorage(): int
+    {
+        $storage = FeedStorageService::create();
+        $tempKey = $this->getStorageKey(true);
+        $fileKey = $this->getStorageKey(false);
+
+        if (!$this->isFinished()) {
+            return $this->createOrAddTempOrderXmlViaStorage($storage, $tempKey, $fileKey);
+        } elseif (!$storage->exists($tempKey)) {
+            echo "temp missing in storage - resetting xml phase" . PHP_EOL;
+            $this->_queue->page     = 0;
+            $this->_queue->max_page = 0;
+            $this->_queue->save();
+            return $this->createOrAddTempOrderXmlViaStorage($storage, $tempKey, $fileKey);
+        } else {
+            return $this->createOrderXmlViaStorage($storage, $fileKey, $tempKey);
+        }
+    }
+
+    private function createOrAddTempOrderXmlViaStorage(FeedStorageService $storage, string $tempKey, string $fileKey): int
+    {
+        echo "creating file (storage)" . PHP_EOL;
+
+        $integrationDataCurrentPage = $this->_queue->page;
+        $integrationDataMaxPage     = $this->_queue->max_page;
+        $page_size                  = self::XML_PAGE_SIZE;
+
+        $ordersQuery   = Orders::find()->where(['user_id' => $this->_queue->getCurrentUser()->id]);
+        $ordersQueryv2 = Ordersv2::find()->where(['user_id' => $this->_queue->getCurrentUser()->id]);
+
+        $page = $integrationDataCurrentPage;
+
+        if ($integrationDataMaxPage == 0) {
+            $ordersQueryAll   = $ordersQuery->count();
+            $ordersv2QueryAll = $ordersQueryv2->count();
+            $pages            = ceil($ordersQueryAll / $page_size);
+            $pagesv2          = ceil($ordersv2QueryAll / $page_size);
+            if ($pagesv2 > $pages) {
+                $pages = $pagesv2;
+            }
+            $this->_queue->max_page = $pages;
+            $integrationDataMaxPage = $pages;
+            $this->_queue->page     = $page;
+            $this->_queue->save();
+        }
+
+        echo " PAGE " . $page . " of " . $integrationDataMaxPage . PHP_EOL;
+
+        $existingContent = $storage->exists($tempKey) ? $storage->get($tempKey) : '';
+        $buffer = '';
+
+        $orders_db = $ordersQuery->limit($page_size)->offset($page * $page_size)->all();
+        if (count($orders_db) > 0) {
+            echo "ORDERS DB ";
+            foreach ($orders_db as $order) {
+                echo ".";
+                if (Queue::isDisallowedEmail($order->email)) {
+                    continue;
+                }
+                $ordChild = new \SimpleXMLElement('<ORDER/>');
+                $ordChild->addChild('ORDER_ID', $order->order_id);
+                $ordChild->addChild('CUSTOMER_ID', $order->customer_id);
+                $ordChild->addChild('CREATED_ON', $this->getCorrectSambaDate($order->created_on));
+                if ($order->status == 'finished') {
+                    $ordChild->addChild('FINISHED_ON', $this->getCorrectSambaDate($order->finished_on));
+                }
+                $ordChild->addChild('STATUS', $order->status);
+                $ordChild->addChild('EMAIL', $order->email);
+                $ordChild->addChild('PHONE', str_replace(' ', '', $order->phone));
+                $ordChild->addChild('ZIP_CODE', $order->zip_code);
+                $ordChild->addChild('COUNTRY_CODE', $order->country_code);
+                $ordItems = $ordChild->addChild('ITEMS');
+                foreach ($order->getPositions() as $product) {
+                    $prodItem = $ordItems->addChild('ITEM');
+                    $prodItem->addChild('PRODUCT_ID', $product['product_id']);
+                    $prodItem->addChild('AMOUNT', $product['amount']);
+                    $prodItem->addChild('PRICE', $product['amount'] * $product['price']);
+                }
+                $xml = $ordChild->asXml();
+                $xml = preg_replace('/<\?xml[^?]*\?>\s*/i', '', $xml);
+                $buffer .= $xml;
+            }
+        }
+
+        $orders_dbv2 = $ordersQueryv2->limit($page_size)->offset($page * $page_size)->all();
+        if (count($orders_dbv2) > 0) {
+            echo "ORDERS DB 2 ";
+            foreach ($orders_dbv2 as $order) {
+                echo ".";
+                if (Queue::isDisallowedEmail($order->email)) {
+                    continue;
+                }
+                $ordChild = new \SimpleXMLElement('<ORDER/>');
+                $ordChild->addChild('ORDER_ID', $order->order_id);
+                $ordChild->addChild('CUSTOMER_ID', $order->customer_id);
+                $ordChild->addChild('CREATED_ON', $this->getCorrectSambaDate($order->created_on));
+                if ($order->status == 'finished') {
+                    $ordChild->addChild('FINISHED_ON', $this->getCorrectSambaDate($order->finished_on));
+                }
+                $ordChild->addChild('STATUS', $order->status);
+                $ordChild->addChild('EMAIL', $order->email);
+                $phone = (int) str_replace(' ', '', $order->phone);
+                $ordChild->addChild('PHONE', $phone);
+                $ordChild->addChild('ZIP_CODE', $order->zip_code);
+                $ordChild->addChild('COUNTRY_CODE', $order->country_code);
+                $ordItems = $ordChild->addChild('ITEMS');
+                foreach ($order->getPositions() as $product) {
+                    $prodItem = $ordItems->addChild('ITEM');
+                    $prodItem->addChild('PRODUCT_ID', $product['product_id']);
+                    $prodItem->addChild('AMOUNT', $product['amount']);
+                    $prodItem->addChild('PRICE', $product['amount'] * $product['price']);
+                }
+                $xml = $ordChild->asXml();
+                $xml = preg_replace('/<\?xml[^?]*\?>\s*/i', '', $xml);
+                $buffer .= $xml;
+            }
+        }
+
+        echo "----";
+        $page++;
+        $this->_queue->page = $page;
+        $this->_queue->save();
+
+        $storage->put($tempKey, $existingContent . $buffer);
+
+        if ($page > (int) $integrationDataMaxPage) {
+            echo "FINISHED ";
+            return $this->createOrderXmlViaStorage($storage, $fileKey, $tempKey);
+        }
+
+        return 1;
+    }
+
+    private function createOrderXmlViaStorage(FeedStorageService $storage, string $fileKey, string $tempKey): int
+    {
+        echo "FINALIZING XML (storage)" . PHP_EOL;
+        $tempContent = $storage->get($tempKey);
+        $finalXml    = '<?xml version="1.0"?><ORDERS>' . $tempContent . '</ORDERS>';
+        $storage->put($fileKey, $finalXml, 'application/xml');
+        $storage->delete($tempKey);
+        echo "XML uploaded to storage: " . $fileKey . PHP_EOL;
+        return 10;
     }
 
     /**
