@@ -29,10 +29,10 @@ class AdminController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only'  => ['index', 'view', 'run-queue-output', 'restart-queue-output', 'update', 'queues', 'prepare-queue-output', 'app-settings'],
+                'only'  => ['index', 'view', 'run-queue-output', 'restart-queue-output', 'update', 'queues', 'prepare-queue-output', 'app-settings', 'admins'],
                 'rules' => [
                     [
-                        'actions' => ['index', 'view', 'run-queue-output', 'restart-queue-output', 'update', 'queues', 'prepare-queue-output', 'app-settings'],
+                        'actions' => ['index', 'view', 'run-queue-output', 'restart-queue-output', 'update', 'queues', 'prepare-queue-output', 'app-settings', 'admins'],
                         'allow'   => true,
                         'roles'   => ['admin'],
                     ],
@@ -301,6 +301,84 @@ class AdminController extends Controller
            . '</div>';
         echo '</body></html>';
         Yii::$app->end();
+    }
+
+    public function actionAdmins()
+    {
+        $error   = null;
+        $success = null;
+
+        $auth      = Yii::$app->authManager;
+        $adminRole = $auth->getRole('admin');
+
+        if (Yii::$app->request->isPost) {
+            $action = Yii::$app->request->post('action');
+            $userId = (int) Yii::$app->request->post('user_id');
+
+            if ($action === 'add') {
+                $username = trim(Yii::$app->request->post('username', ''));
+                $email    = trim(Yii::$app->request->post('email', ''));
+                $password = Yii::$app->request->post('password', '');
+
+                if (!$username || !$email || !$password) {
+                    $error = 'Wypełnij wszystkie pola.';
+                } elseif (User::findOne(['username' => $username])) {
+                    $error = 'Użytkownik o tej nazwie już istnieje.';
+                } else {
+                    $admin                = new User();
+                    $admin->id            = (int)(User::find()->max('id')) + 1;
+                    $admin->username      = $username;
+                    $admin->email         = $email;
+                    $admin->password      = password_hash($password, PASSWORD_BCRYPT);
+                    $admin->user_type     = 'admin';
+                    $admin->client_id     = sha1($username . $email);
+                    $admin->client_secret = md5(hash('sha256', $admin->client_id . $username));
+                    $admin->active        = 1;
+                    if ($admin->save(false)) {
+                        if (!$auth->getAssignment('admin', $admin->id)) {
+                            $auth->assign($adminRole, $admin->id);
+                        }
+                        $success = 'Administrator ' . $username . ' został dodany.';
+                    } else {
+                        $error = 'Błąd zapisu: ' . implode(', ', $admin->getFirstErrors());
+                    }
+                }
+
+            } elseif ($action === 'password') {
+                $password = Yii::$app->request->post('password', '');
+                $admin    = User::findOne(['id' => $userId, 'user_type' => 'admin']);
+                if (!$admin) {
+                    $error = 'Nie znaleziono administratora.';
+                } elseif (strlen($password) < 6) {
+                    $error = 'Hasło musi mieć co najmniej 6 znaków.';
+                } else {
+                    $admin->password = password_hash($password, PASSWORD_BCRYPT);
+                    $admin->save(false);
+                    $success = 'Hasło dla ' . $admin->username . ' zostało zmienione.';
+                }
+
+            } elseif ($action === 'remove') {
+                $admin = User::findOne(['id' => $userId, 'user_type' => 'admin']);
+                if (!$admin) {
+                    $error = 'Nie znaleziono administratora.';
+                } elseif ($admin->id === Yii::$app->user->id) {
+                    $error = 'Nie możesz usunąć własnego konta.';
+                } else {
+                    $name = $admin->username;
+                    $auth->revoke($adminRole, $admin->id);
+                    $admin->delete();
+                    $success = 'Administrator ' . $name . ' został usunięty.';
+                }
+            }
+        }
+
+        $admins = User::find()->where(['user_type' => 'admin'])->orderBy('username')->all();
+
+        return $this->render('admins', [
+            'admins'  => $admins,
+            'error'   => $error,
+            'success' => $success,
+        ]);
     }
 
     public function actionAppSettings()

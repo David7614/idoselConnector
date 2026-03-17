@@ -42,6 +42,7 @@ $navItems = [
     ['label' => 'Użytkownicy',       'url' => ['admin/index'],        'action' => 'index'],
     ['label' => 'Monitor kolejek',   'url' => ['admin/queues'],       'action' => 'queues'],
     ['label' => 'Ustawienia aplik.', 'url' => ['admin/app-settings'], 'action' => 'app-settings'],
+    ['label' => 'Administratorzy',   'url' => ['admin/admins'],       'action' => 'admins'],
 ];
 ?>
 <nav style="background:#2c3e50; padding:0 20px; margin-bottom:0;">
@@ -60,6 +61,15 @@ $navItems = [
             <?= $item['label'] ?>
         </a>
         <?php endforeach ?>
+        <div style="margin-left:auto;">
+            <a href="<?= \yii\helpers\Url::to(['authorization/logout']) ?>"
+               style="display:block; padding:9px 14px; font-size:12px; text-decoration:none;
+                      color:#bdc3c7; border:1px solid #445; border-radius:4px;
+                      white-space:nowrap;"
+               onclick="return confirm('Wylogować się?')">
+                Wyloguj
+            </a>
+        </div>
     </div>
 </nav>
 
