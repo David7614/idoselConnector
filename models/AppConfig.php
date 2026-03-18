@@ -13,9 +13,18 @@ use Yii;
  */
 class AppConfig extends \yii\db\ActiveRecord
 {
-    const FORCE_ALL_INCREMENTAL='FORCE_ALL_INCREMENTAL';
-    const DISPLAY_DEBUG='DISPLAY_DEBUG';
-    const DEFAULT_ORDERS_YEARS_BACK='DEFAULT_ORDERS_YEARS_BACK';
+    const FORCE_ALL_INCREMENTAL       = 'FORCE_ALL_INCREMENTAL';
+    const DISPLAY_DEBUG               = 'DISPLAY_DEBUG';
+    const DEFAULT_ORDERS_YEARS_BACK   = 'DEFAULT_ORDERS_YEARS_BACK';
+
+    const STOP_FEED_ORDER             = 'STOP_FEED_ORDER';
+    const STOP_FEED_PRODUCT           = 'STOP_FEED_PRODUCT';
+    const STOP_FEED_CUSTOMER          = 'STOP_FEED_CUSTOMER';
+    const STOP_FEED_CATEGORY          = 'STOP_FEED_CATEGORY';
+    const STOP_FEED_SUBSCRIBERS       = 'STOP_FEED_SUBSCRIBERS';
+    const STOP_FEED_PHONESUBSCRIBERS  = 'STOP_FEED_PHONESUBSCRIBERS';
+    const STOP_FEED_SUBSCRIBERSIMPORT = 'STOP_FEED_SUBSCRIBERSIMPORT';
+    const STOP_FEED_CUSTOMERSPARTIAL  = 'STOP_FEED_CUSTOMERSPARTIAL';
 
     /**
      * {@inheritdoc}
@@ -67,5 +76,25 @@ class AppConfig extends \yii\db\ActiveRecord
             return null;
         }
         return $obj->value;
+    }
+
+    static public function isTypeStopped(string $type): bool
+    {
+        $map = [
+            'order'            => self::STOP_FEED_ORDER,
+            'product'          => self::STOP_FEED_PRODUCT,
+            'customer'         => self::STOP_FEED_CUSTOMER,
+            'category'         => self::STOP_FEED_CATEGORY,
+            'subscribers'      => self::STOP_FEED_SUBSCRIBERS,
+            'phonesubscribers' => self::STOP_FEED_PHONESUBSCRIBERS,
+            'subscribersimport'=> self::STOP_FEED_SUBSCRIBERSIMPORT,
+            'customerspartial' => self::STOP_FEED_CUSTOMERSPARTIAL,
+        ];
+
+        if (!isset($map[$type])) {
+            return false;
+        }
+
+        return self::getValue($map[$type]) == 1;
     }
 }

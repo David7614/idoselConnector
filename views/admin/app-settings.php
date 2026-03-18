@@ -75,6 +75,40 @@ $this->title = 'Ustawienia aplikacji';
         </div>
     </div>
 
+    <div class="panel panel-default">
+        <div class="panel-heading" style="font-weight:600;">Zatrzymanie feedów</div>
+        <div class="panel-body">
+            <p style="font-size:12px;color:#888;margin:0 0 12px;">
+                Gdy feed jest zatrzymany, pętle bash działają normalnie ale kolejki tego typu są pomijane (status pozostaje "pending").
+                Po odwołaniu zatrzymania przetwarzanie wznawia się automatycznie.
+            </p>
+            <?php
+            $feedLabels = [
+                'order'             => 'Zamówienia (order)',
+                'product'           => 'Produkty (product)',
+                'customer'          => 'Klienci (customer)',
+                'category'          => 'Kategorie (category)',
+                'subscribers'       => 'Subskrybenci (subscribers)',
+                'phonesubscribers'  => 'Subskrybenci tel. (phonesubscribers)',
+                'subscribersimport' => 'Import subskrybentów (subscribersimport)',
+                'customerspartial'  => 'Klienci częściowi (customerspartial)',
+            ];
+            foreach ($feedLabels as $type => $label): ?>
+            <div class="setting-row">
+                <div class="setting-info">
+                    <strong><?= Html::encode($label) ?></strong>
+                </div>
+                <div class="setting-ctrl">
+                    <?= Html::dropDownList('stop_feed[' . $type . ']', $stoppedFeeds[$type] ?? 0, [
+                        0 => 'Aktywny',
+                        1 => 'Zatrzymany',
+                    ], ['class' => 'form-control input-sm' . (($stoppedFeeds[$type] ?? 0) ? ' bg-danger' : '')]) ?>
+                </div>
+            </div>
+            <?php endforeach ?>
+        </div>
+    </div>
+
     <?= Html::submitButton('Zapisz ustawienia', ['class' => 'btn btn-primary']) ?>
 
     <?= Html::endForm() ?>

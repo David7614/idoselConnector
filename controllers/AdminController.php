@@ -385,6 +385,17 @@ class AdminController extends Controller
     {
         $saved = false;
 
+        $feedConstMap = [
+            'order'             => AppConfig::STOP_FEED_ORDER,
+            'product'           => AppConfig::STOP_FEED_PRODUCT,
+            'customer'          => AppConfig::STOP_FEED_CUSTOMER,
+            'category'          => AppConfig::STOP_FEED_CATEGORY,
+            'subscribers'       => AppConfig::STOP_FEED_SUBSCRIBERS,
+            'phonesubscribers'  => AppConfig::STOP_FEED_PHONESUBSCRIBERS,
+            'subscribersimport' => AppConfig::STOP_FEED_SUBSCRIBERSIMPORT,
+            'customerspartial'  => AppConfig::STOP_FEED_CUSTOMERSPARTIAL,
+        ];
+
         if (Yii::$app->request->isPost) {
             $forceIncremental = (int) Yii::$app->request->post('force_all_incremental', 0);
             AppConfig::setValue(AppConfig::FORCE_ALL_INCREMENTAL, $forceIncremental);
@@ -392,13 +403,25 @@ class AdminController extends Controller
             AppConfig::setValue(AppConfig::DISPLAY_DEBUG, $displayDebug);
             $yearsBack = max(1, (int) Yii::$app->request->post('default_orders_years_back', 10));
             AppConfig::setValue(AppConfig::DEFAULT_ORDERS_YEARS_BACK, $yearsBack);
+
+            $stopFeed = Yii::$app->request->post('stop_feed', []);
+            foreach ($feedConstMap as $type => $const) {
+                AppConfig::setValue($const, isset($stopFeed[$type]) && $stopFeed[$type] == 1 ? 1 : 0);
+            }
+
             $saved = true;
+        }
+
+        $stoppedFeeds = [];
+        foreach ($feedConstMap as $type => $const) {
+            $stoppedFeeds[$type] = (int) AppConfig::getValue($const);
         }
 
         return $this->render('app-settings', [
             'forceAllIncremental'    => (int) AppConfig::getValue(AppConfig::FORCE_ALL_INCREMENTAL),
             'displayDebug'           => (int) AppConfig::getValue(AppConfig::DISPLAY_DEBUG),
             'defaultOrdersYearsBack' => (int) (AppConfig::getValue(AppConfig::DEFAULT_ORDERS_YEARS_BACK) ?? 10),
+            'stoppedFeeds'           => $stoppedFeeds,
             'saved'                  => $saved,
         ]);
     }

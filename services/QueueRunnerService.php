@@ -2,6 +2,7 @@
 
 namespace app\services;
 
+use app\models\AppConfig;
 use app\models\Queue;
 use app\modules\xml_generator\src\XmlFeed;
 use Exception;
@@ -66,6 +67,11 @@ class QueueRunnerService
         if (!$user) {
             $queue->delete();
             return ExitCode::UNSPECIFIED_ERROR;
+        }
+
+        if (AppConfig::isTypeStopped($type)) {
+            echo "Feed type '$type' is globally stopped — skipping." . PHP_EOL;
+            return ExitCode::OK;
         }
 
         $queue->setRunningStatus();
