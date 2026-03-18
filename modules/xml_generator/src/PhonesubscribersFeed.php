@@ -83,7 +83,7 @@ class PhonesubscribersFeed extends XmlFeed
         return true; 
     }
 
-    private function getSubscribersBeginDate(): string
+    private function getPhoneSubscribersBeginDate(): string
     {
         if ($this->_user->getIncrementalFeedFlag()) {
             return date('Y-m-d H:i:s', strtotime('-2 weeks'));
