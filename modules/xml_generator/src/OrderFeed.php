@@ -345,13 +345,16 @@ class OrderFeed extends XmlFeed
                 Ordersv2::deleteAll(['user_id' => $this->_user->id]); // delete all obsolete entries
             }
             $date2weeksago = date('Y-m-d', strtotime('-2 weeks'));
-            // echo $date2weeksago;
+            echo "DATE 2 WEEKS AGO ".$date2weeksago.PHP_EOL;
             // die();
             IntegrationData::setLastOrdersIntegrationDate($date2weeksago, $this->_user->id);
             // die ("!i");
         }
 
         echo "creating (createOrderObjects)" . PHP_EOL;
+
+
+
         if (! $this->_user->getApiKey()) {
             throw new \Exception('No API key configured');
         }
@@ -367,6 +370,7 @@ class OrderFeed extends XmlFeed
         }
 
         echo "BEGIN DATE: " . $begin . PHP_EOL;
+
             if ($begin) {
                 $this->request_parameters['params']['ordersRange'] = [
                     'ordersDateRange' => [
@@ -375,7 +379,8 @@ class OrderFeed extends XmlFeed
                     ],
                 ];
             }
-
+            var_dump($this->request_parameters);
+        die ("SERVICE ORDERS");
         if ($selectedShopId = $this->_user->config->get('customer_set_shop_id')) {
             $this->request_parameters['params']['orderSource'] ['shopsIds'] = $selectedShopId;
 
