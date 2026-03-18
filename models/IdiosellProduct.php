@@ -678,6 +678,8 @@ class IdiosellProduct
             $variantModel->user_id               = $productModel->user_id;
             $variantModel->translation           = $productModel->translation;
 
+            $variantModel->variants_names  = '';
+            $variantModel->variants_values = '';
             if ($productModel->parent_id && $productModel->variants_names && $productModel->variants_values) {
                 $variantModel->parent_id       = $productModel->parent_id;
                 $variantModel->variants_names  = $productModel->variants_names;
@@ -794,6 +796,8 @@ class IdiosellProduct
         $productModel->params_hash = $hash;
         $productModel->user_id     = $this->_user->id;
         $productModel->translation = $this->getLanguage();
+        $productModel->variants_names  = '';
+        $productModel->variants_values = '';
         if ($this->getParentId() && $this->getVariantNames() && $this->getVariantVals()) {
             $productModel->parent_id       = $this->getParentId();
             $productModel->variants_names  = $this->getVariantNames();

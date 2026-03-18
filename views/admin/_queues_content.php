@@ -94,7 +94,7 @@ $healthOk    = !$hasErrors && !$hasOverdue;
 <?php if ($running): ?>
 <table class="q-table">
     <thead><tr>
-        <th>Użytkownik</th><th>Typ</th><th>Postęp</th><th>Uruchomione</th><th>Czas trwania</th><th>Akcja</th>
+        <th style="color:#bbb;font-weight:400;">#</th><th>Użytkownik</th><th>Typ</th><th>Postęp</th><th>Uruchomione</th><th>Czas trwania</th><th>Akcja</th>
     </tr></thead>
     <tbody>
     <?php foreach ($running as $item):
@@ -105,6 +105,7 @@ $healthOk    = !$hasErrors && !$hasOverdue;
         $rowBg       = $isStuck ? 'style="background:#fff3e0;"' : ($isStuck15 ? 'style="background:#fffdf0;"' : '');
     ?>
     <tr <?= $rowBg ?>>
+        <td style="color:#bbb;font-size:11px;"><?= $item->id ?></td>
         <td><?= $userName($item->current_integrate_user) ?></td>
         <td><span class="type-chip run"><?= Html::encode($typeLabel[$item->integration_type] ?? $item->integration_type) ?></span></td>
         <td><?= $progress ?> <?= $item->max_page > 0 ? "<small style='color:#999'>({$item->page}/{$item->max_page})</small>" : '' ?></td>
@@ -150,11 +151,12 @@ $healthOk    = !$hasErrors && !$hasOverdue;
 <?php if ($recentHour): ?>
 <table class="q-table">
     <thead><tr>
-        <th>Użytkownik</th><th>Typ</th><th>Zakończono</th><th>Postęp</th><th>Akcja</th>
+        <th style="color:#bbb;font-weight:400;">#</th><th>Użytkownik</th><th>Typ</th><th>Zakończono</th><th>Postęp</th><th>Akcja</th>
     </tr></thead>
     <tbody>
     <?php foreach ($recentHour as $item): ?>
     <tr>
+        <td style="color:#bbb;font-size:11px;"><?= $item->id ?></td>
         <td><?= $userName($item->current_integrate_user) ?></td>
         <td><span class="type-chip ok"><?= Html::encode($typeLabel[$item->integration_type] ?? $item->integration_type) ?></span></td>
         <td title="<?= Html::encode($item->finished_at) ?>"><?= $timeDiff($item->finished_at) ?></td>
@@ -190,7 +192,7 @@ $statusLabel = [
 <?php if ($recentStarted): ?>
 <table class="q-table">
     <thead><tr>
-        <th>Użytkownik</th><th>Typ</th><th>Status</th><th>Uruchomione</th><th>Postęp</th><th>Akcja</th>
+        <th style="color:#bbb;font-weight:400;">#</th><th>Użytkownik</th><th>Typ</th><th>Status</th><th>Uruchomione</th><th>Postęp</th><th>Akcja</th>
     </tr></thead>
     <tbody>
     <?php foreach ($recentStarted as $item):
@@ -198,6 +200,7 @@ $statusLabel = [
         $progress = $item->max_page > 0 ? round($item->page / $item->max_page * 100) . '%' : '—';
     ?>
     <tr>
+        <td style="color:#bbb;font-size:11px;"><?= $item->id ?></td>
         <td><?= $userName($item->current_integrate_user) ?></td>
         <td><span class="type-chip"><?= Html::encode($typeLabel[$item->integration_type] ?? $item->integration_type) ?></span></td>
         <td><span style="color:<?= $sl['color'] ?>; font-weight:500;"><?= $sl['label'] ?></span></td>
@@ -225,7 +228,7 @@ $statusLabel = [
 <?php if ($errors): ?>
 <table class="q-table">
     <thead><tr>
-        <th>Użytkownik</th><th>Typ</th><th>Ostatnia próba</th><th>Komunikat błędu</th><th>Akcja</th>
+        <th style="color:#bbb;font-weight:400;">#</th><th>Użytkownik</th><th>Typ</th><th>Ostatnia próba</th><th>Komunikat błędu</th><th>Akcja</th>
     </tr></thead>
     <tbody>
     <?php foreach ($errors as $item):
@@ -233,6 +236,7 @@ $statusLabel = [
         $errMsg = $params['error_msg'] ?? '—';
     ?>
     <tr>
+        <td style="color:#bbb;font-size:11px;"><?= $item->id ?></td>
         <td><?= $userName($item->current_integrate_user) ?></td>
         <td><span class="type-chip err"><?= Html::encode($typeLabel[$item->integration_type] ?? $item->integration_type) ?></span></td>
         <td title="<?= Html::encode($item->finished_at) ?>"><?= $timeDiff($item->finished_at) ?></td>
@@ -264,7 +268,7 @@ $statusLabel = [
 <?php if ($disabled): ?>
 <table class="q-table">
     <thead><tr>
-        <th>Użytkownik</th><th>Typ</th><th>Komunikat</th><th>Akcja</th>
+        <th style="color:#bbb;font-weight:400;">#</th><th>Użytkownik</th><th>Typ</th><th>Komunikat</th><th>Akcja</th>
     </tr></thead>
     <tbody>
     <?php foreach ($disabled as $item):
@@ -272,6 +276,7 @@ $statusLabel = [
         $msg    = $params['error_msg'] ?? '—';
     ?>
     <tr>
+        <td style="color:#bbb;font-size:11px;"><?= $item->id ?></td>
         <td><?= $userName($item->current_integrate_user) ?></td>
         <td><span class="type-chip warn"><?= Html::encode($typeLabel[$item->integration_type] ?? $item->integration_type) ?></span></td>
         <td style="color:#b26a00;"><?= Html::encode($msg) ?></td>
@@ -300,7 +305,7 @@ $statusLabel = [
 <?php if ($overdue): ?>
 <table class="q-table">
     <thead><tr>
-        <th>Użytkownik</th><th>Typ</th><th>Planowane na</th><th>Opóźnienie</th><th>Akcja</th>
+        <th style="color:#bbb;font-weight:400;">#</th><th>Użytkownik</th><th>Typ</th><th>Planowane na</th><th>Opóźnienie</th><th>Akcja</th>
     </tr></thead>
     <tbody>
     <?php foreach ($overdue as $item):
@@ -309,6 +314,7 @@ $statusLabel = [
         $delayClass = $delaySecs > 7200 ? 'color:#b71c1c; font-weight:600' : 'color:#e65100';
     ?>
     <tr>
+        <td style="color:#bbb;font-size:11px;"><?= $item->id ?></td>
         <td><?= $userName($item->current_integrate_user) ?></td>
         <td><span class="type-chip warn"><?= Html::encode($typeLabel[$item->integration_type] ?? $item->integration_type) ?></span></td>
         <td title="<?= Html::encode($item->next_integration_date) ?>"><?= Html::encode($item->next_integration_date) ?></td>

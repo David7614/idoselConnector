@@ -144,6 +144,13 @@ class Product extends \yii\db\ActiveRecord
         $productModel->params_hash=$hash;
         $productModel->user_id = $user_id;
 
+        if (!$productModel->translation) {
+            $productModel->translation = '';
+        }
+        if (!$productModel->variants_values) {
+            $productModel->variants_values = '';
+        }
+
         if ($productModel->save()){
             return true;
         }

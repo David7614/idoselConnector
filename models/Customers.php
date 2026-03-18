@@ -120,9 +120,10 @@ class Customers extends \yii\db\ActiveRecord
     public static function addCustomer($customer_data, $user_id, $page): self
     {
         $hash                       = md5(json_encode($customer_data));
-        $customer_data['page']      = $page;
-        $customer_data['user_id']   = $user_id;
-        $customer_data['data_hash'] = $hash;
+        $customer_data['page']       = $page;
+        $customer_data['user_id']    = $user_id;
+        $customer_data['data_hash']  = $hash;
+        $customer_data['parameters'] = $customer_data['parameters'] ?? '';
         $customer=null;
         // var_dump($customer_data);
         if (isset($customer_data['customer_id'])){
