@@ -271,9 +271,13 @@ class IdoselSubscriptions extends \yii\db\ActiveRecord
 
     public function getCorrectDbDate($date): string
     {
-        if ($date=='0000-00-00 00:00:00'){
-            return $date;
+        if (empty($date) || $date === '0000-00-00 00:00:00') {
+            return '1970-01-01 00:00:01';
         }
-        return date('Y-m-d H:i:s', strtotime($date));
+        $ts = strtotime($date);
+        if ($ts === false || $ts <= 0) {
+            return '1970-01-01 00:00:01';
+        }
+        return date('Y-m-d H:i:s', $ts);
     }
 }
