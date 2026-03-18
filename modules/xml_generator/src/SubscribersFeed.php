@@ -83,18 +83,36 @@ class SubscribersFeed extends XmlFeed
         return true; 
     }
 
+    private function getSubscribersBeginDate(): string
+    {
+        if ($this->_user->getIncrementalFeedFlag()) {
+            return date('Y-m-d H:i:s', strtotime('-2 weeks'));
+        }
+
+        if (
+            IntegrationData::getData('INITIAL_SUBSCRIBERS_DONE', $this->_user->id) &&
+            $lastDate = IntegrationData::getDataValue('LAST_SUBSCRIBER_INTEGRATION_DATE', $this->_user->id)
+        ) {
+            return date('Y-m-d H:i:s', strtotime($lastDate . ' -1 week'));
+        }
+
+        $dateFrom = IntegrationData::getDataValue('LAST_SUBSCRIBER_INTEGRATION_DATE', $this->_user->id);
+        if ($dateFrom) {
+            return date('Y-m-d H:i:s', strtotime($dateFrom));
+        }
+
+        $yearsBack = (int) (AppConfig::getValue(AppConfig::DEFAULT_ORDERS_YEARS_BACK) ?? 10);
+        return date('Y-m-d H:i:s', strtotime("-{$yearsBack} years"));
+    }
+
 
     private function createSubscriberObjects()
     {
         echo "function createSubscriberObjects ".PHP_EOL;
-        if (IntegrationData::getData('INITIAL_SUBSCRIBERS_DONE', $this->_user->id)) {
-                // $this->_request->addParam('date', [
-                //         'from'=> IntegrationData::getDataValue('LAST_SUBSCRIBER_INTEGRATION_DATE', $this->_user->id),
-                //         'to' => date("Y-m-d", strtotime('tomorrow'))
-                // ]);
-                $this->request_parameters['params']['date']['from']=IntegrationData::getDataValue('LAST_SUBSCRIBER_INTEGRATION_DATE', $this->_user->id);
-                $this->request_parameters['params']['date']['to']=date("Y-m-d", strtotime('tomorrow'));
-            }    
+
+        $begin = $this->getSubscribersBeginDate();
+        $this->request_parameters['params']['date']['from']=$begin;
+        $this->request_parameters['params']['date']['to']=date("Y-m-d", strtotime('tomorrow'));  
 
         $this->checkQueueConstraints();
         $request=$this->request_parameters;
@@ -123,7 +141,6 @@ class SubscribersFeed extends XmlFeed
                 // die ("!!FIN!");
                 return 10;
             }
-
             $request=$this->request_parameters;
             $request['params']['results_page']=$this->_queue->page;
             $response                = $this->_client->post($this->apiMethod, $request);
