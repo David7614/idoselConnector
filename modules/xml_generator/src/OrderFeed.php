@@ -1,22 +1,19 @@
 <?php
 namespace app\modules\xml_generator\src;
 
+use app\models\AppConfig;
 use app\models\IntegrationData;
 use app\models\Orders;
 use app\models\Ordersv2;
 use app\models\Queue;
 use app\modules\idosellv3\models\ApiClient;
 use app\services\FeedStorageService;
-use Cassandra\Date;
 use yii;
 
 class OrderFeed extends XmlFeed
 {
-    /**
-     * @param null $what
-     * @return bool
-     *
-     */
+    use DebugTrait;
+
     const API_RESULT_COUNT = 100;
     const XML_PAGE_SIZE    = 50000;
 
@@ -24,10 +21,14 @@ class OrderFeed extends XmlFeed
     private $apiMethod = '/api/admin/v4/orders/orders/get';
     private $_client;
 
+    // -------------------------------------------------------------------------
+    // Entry point
+    // -------------------------------------------------------------------------
+
     public function generate($what = null): int
     {
         if ($what == 'objects') {
-            echo "creating objects" . PHP_EOL;
+            $this->debug('Phase: fetch objects from API');
             return $this->createOrderObjects();
         }
 
@@ -38,10 +39,10 @@ class OrderFeed extends XmlFeed
         $temp = $this->getFile(true, true);
         $file = $this->getFile(true, false);
 
-        if (! $this->isFinished()) {
+        if (!$this->isFinished()) {
             $created = $this->createOrAddTempOrderXml($temp);
         } elseif (!file_exists($temp)) {
-            echo "temp file missing - resetting xml phase" . PHP_EOL;
+            $this->debug('Temp file missing — resetting XML phase');
             $this->_queue->page     = 0;
             $this->_queue->max_page = 0;
             $this->_queue->save();
@@ -52,6 +53,10 @@ class OrderFeed extends XmlFeed
 
         return $created;
     }
+
+    // -------------------------------------------------------------------------
+    // Storage (MinIO) path
+    // -------------------------------------------------------------------------
 
     private function getStorageKey(bool $temp = false): string
     {
@@ -68,7 +73,7 @@ class OrderFeed extends XmlFeed
         if (!$this->isFinished()) {
             return $this->createOrAddTempOrderXmlViaStorage($storage, $tempKey, $fileKey);
         } elseif (!$storage->exists($tempKey)) {
-            echo "temp missing in storage - resetting xml phase" . PHP_EOL;
+            $this->debug('Temp missing in storage — resetting XML phase');
             $this->_queue->page     = 0;
             $this->_queue->max_page = 0;
             $this->_queue->save();
@@ -80,8 +85,6 @@ class OrderFeed extends XmlFeed
 
     private function createOrAddTempOrderXmlViaStorage(FeedStorageService $storage, string $tempKey, string $fileKey): int
     {
-        echo "creating file (storage)" . PHP_EOL;
-
         $integrationDataCurrentPage = $this->_queue->page;
         $integrationDataMaxPage     = $this->_queue->max_page;
         $page_size                  = self::XML_PAGE_SIZE;
@@ -105,16 +108,15 @@ class OrderFeed extends XmlFeed
             $this->_queue->save();
         }
 
-        echo " PAGE " . $page . " of " . $integrationDataMaxPage . PHP_EOL;
+        $this->debug(sprintf('XML via storage — page %d / %d', $page, $integrationDataMaxPage));
 
         $existingContent = $storage->exists($tempKey) ? $storage->get($tempKey) : '';
         $buffer = '';
 
         $orders_db = $ordersQuery->limit($page_size)->offset($page * $page_size)->all();
         if (count($orders_db) > 0) {
-            echo "ORDERS DB ";
+            $this->debug(sprintf('Orders v1: %d records', count($orders_db)));
             foreach ($orders_db as $order) {
-                echo ".";
                 if (Queue::isDisallowedEmail($order->email)) {
                     continue;
                 }
@@ -145,9 +147,8 @@ class OrderFeed extends XmlFeed
 
         $orders_dbv2 = $ordersQueryv2->limit($page_size)->offset($page * $page_size)->all();
         if (count($orders_dbv2) > 0) {
-            echo "ORDERS DB 2 ";
+            $this->debug(sprintf('Orders v2: %d records', count($orders_dbv2)));
             foreach ($orders_dbv2 as $order) {
-                echo ".";
                 if (Queue::isDisallowedEmail($order->email)) {
                     continue;
                 }
@@ -177,7 +178,6 @@ class OrderFeed extends XmlFeed
             }
         }
 
-        echo "----";
         $page++;
         $this->_queue->page = $page;
         $this->_queue->save();
@@ -185,7 +185,7 @@ class OrderFeed extends XmlFeed
         $storage->put($tempKey, $existingContent . $buffer);
 
         if ($page > (int) $integrationDataMaxPage) {
-            echo "FINISHED ";
+            $this->debug('All pages done — finalizing XML');
             return $this->createOrderXmlViaStorage($storage, $fileKey, $tempKey);
         }
 
@@ -194,70 +194,64 @@ class OrderFeed extends XmlFeed
 
     private function createOrderXmlViaStorage(FeedStorageService $storage, string $fileKey, string $tempKey): int
     {
-        echo "FINALIZING XML (storage)" . PHP_EOL;
+        $this->debug('Finalizing XML (storage)');
         $tempContent = $storage->get($tempKey);
         $finalXml    = '<?xml version="1.0"?><ORDERS>' . $tempContent . '</ORDERS>';
         $storage->put($fileKey, $finalXml, 'application/xml');
         $storage->delete($tempKey);
-        echo "XML uploaded to storage: " . $fileKey . PHP_EOL;
+        $this->debug('XML uploaded to storage: ' . $fileKey);
         return 10;
     }
 
-    /**
-     * @param bool $get_file_path
-     * @param bool $temp
-     *
-     * @return string
-     */
+    // -------------------------------------------------------------------------
+    // File path helper
+    // -------------------------------------------------------------------------
+
     public function getFile(bool $get_file_path = false, bool $temp = false): string
     {
         return parent::getFile($get_file_path, $temp);
     }
 
+    // -------------------------------------------------------------------------
+    // Date range checks
+    // -------------------------------------------------------------------------
+
     public function checkOrdersDateFrom()
     {
         $dateFrom = $this->_user->getConfig()->getOrdersDateFrom();
-        if (! $dateFrom) {
+        if (!$dateFrom) {
             return true;
         }
         $dateFrom = date('Y-m-d', strtotime($dateFrom . ' -10 day'));
-        echo $dateFrom . PHP_EOL;
+        $this->debug('Checking orders date boundary: ' . $dateFrom);
+
         $check = Orders::find()->where(['user_id' => $this->_user->id])->andWhere(['<', 'created_on', $dateFrom])->limit(1)->one();
         if ($check) {
-            var_dump($check);
-            Orders::deleteAll(['and',
-                ['user_id' => $this->_user->id],
-                ['<', 'created_on', $dateFrom],
-            ]);
-            // Orders::deleteAll(['user_id'=>$this->_user->id]);
+            $this->debugDump($check, 'Order v1 out of range');
+            Orders::deleteAll(['and', ['user_id' => $this->_user->id], ['<', 'created_on', $dateFrom]]);
             IntegrationData::setData('INITIAL_ORDERS_DONE', 0, $this->_user->id);
             IntegrationData::setData('last_orders_integration_date', $dateFrom, $this->_user->id);
             $this->_queue->page     = 0;
             $this->_queue->max_page = 0;
-            echo "DELETED ORDERS, RECOMMENCING" . PHP_EOL;
+            $this->debug('Deleted orders v1 older than ' . $dateFrom . ' — recommencing');
             throw new \Exception('Orders date range reset — recommencing from ' . $dateFrom);
         }
+
         $check = Ordersv2::find()->where(['user_id' => $this->_user->id])->andWhere(['<', 'created_on', $dateFrom])->limit(1)->one();
         if ($check) {
-            var_dump($check);
-            Ordersv2::deleteAll(['and',
-                ['user_id' => $this->_user->id],
-                ['<', 'created_on', $dateFrom],
-            ]);
+            $this->debugDump($check, 'Order v2 out of range');
+            Ordersv2::deleteAll(['and', ['user_id' => $this->_user->id], ['<', 'created_on', $dateFrom]]);
             IntegrationData::setData('INITIAL_ORDERS_DONE', 1, $this->_user->id);
             IntegrationData::setData('last_orders_integration_date', $dateFrom, $this->_user->id);
             $this->_queue->page     = 0;
             $this->_queue->max_page = 0;
-            echo "DELETED ORDERS2, RECOMMENCING" . PHP_EOL;
+            $this->debug('Deleted orders v2 older than ' . $dateFrom . ' — recommencing');
             throw new \Exception('Orders v2 date range reset — recommencing from ' . $dateFrom);
         }
-        // die("!!");
-        // getOrdersDateFrom
     }
 
     private function checkQueueConstraints()
     {
-
         $this->checkOrdersDateFrom();
 
         if ($this->_queue->max_page == $this->_queue->page && $this->_queue->max_page != 0) {
@@ -265,25 +259,27 @@ class OrderFeed extends XmlFeed
         }
 
         if ($this->_queue->max_page > 0) {
-            return false; // no need every time
+            return false;
         }
+
         $request                           = $this->request_parameters;
         $request['params']['resultsLimit'] = 1;
-        print_r($request);
+        $this->debugPrint($request, 'Constraints request');
+
         $response = $this->_client->post($this->apiMethod, $request);
-        var_dump($response);
+        $this->debugDump($response, 'Constraints response');
 
         if (empty($response) || !is_array($response)) {
             throw new \Exception('Gateway did not respond (checkQueueConstraints)');
         }
 
         if (isset($response['errors']) && $response['errors']['faultCode'] == 2) {
-            echo "api fault code 2" . PHP_EOL;
+            $this->debug('API fault code 2');
             return 10;
         }
-        // die();
-        if (! $response['resultsNumberAll']) {
-            echo "no results" . PHP_EOL;
+
+        if (!$response['resultsNumberAll']) {
+            $this->debug('No results from API');
             return false;
         }
 
@@ -296,6 +292,10 @@ class OrderFeed extends XmlFeed
         return true;
     }
 
+    // -------------------------------------------------------------------------
+    // Currency helpers
+    // -------------------------------------------------------------------------
+
     private function getCurrencyConversionEnabled()
     {
         return $this->_user->config->get('feature_enabled_order_currency_conversion') == 1;
@@ -304,8 +304,8 @@ class OrderFeed extends XmlFeed
     private function getCurrency($order)
     {
         if (
-            !$order['orderDetails'] || 
-            !$order['orderDetails']['payments'] || 
+            !$order['orderDetails'] ||
+            !$order['orderDetails']['payments'] ||
             !$order['orderDetails']['payments']['orderCurrency'] ||
             !$order['orderDetails']['payments']['orderCurrency']['currencyId'] ||
             !$order['orderDetails']['payments']['orderCurrency']['orderCurrencyValue'] ||
@@ -336,114 +336,104 @@ class OrderFeed extends XmlFeed
         return round($price * $currencyRate, 2);
     }
 
-    private function createOrderObjects()
-    {
+    // -------------------------------------------------------------------------
+    // Begin date resolution
+    // -------------------------------------------------------------------------
 
-        if ($this->_user->getIncrementalFeedFlag()) { // incremental
-            if ($this->_queue->page == 0) {
-                Orders::deleteAll(['user_id' => $this->_user->id]);   // delete all obsolete entries
-                Ordersv2::deleteAll(['user_id' => $this->_user->id]); // delete all obsolete entries
-            }
-            $date2weeksago = date('Y-m-d', strtotime('-2 weeks'));
-            // echo $date2weeksago;
-            // die();
-            IntegrationData::setLastOrdersIntegrationDate($date2weeksago, $this->_user->id);
-            // die ("!i");
+    private function getOrdersBeginDate(): string
+    {
+        if ($this->_user->getIncrementalFeedFlag()) {
+            return date('Y-m-d H:i:s', strtotime('-2 weeks'));
         }
 
-        echo "creating (createOrderObjects)" . PHP_EOL;
-        if (! $this->_user->getApiKey()) {
+        if (
+            IntegrationData::getData('INITIAL_ORDERS_DONE', $this->_user->id) &&
+            $lastDate = IntegrationData::getDataValue('last_orders_integration_date', $this->_user->id)
+        ) {
+            return date('Y-m-d H:i:s', strtotime($lastDate . ' -1 week'));
+        }
+
+        $dateFrom = $this->_user->getConfig()->getOrdersDateFrom();
+        if ($dateFrom) {
+            return date('Y-m-d H:i:s', strtotime($dateFrom));
+        }
+
+        $yearsBack = (int) (AppConfig::getValue(AppConfig::DEFAULT_ORDERS_YEARS_BACK) ?? 10);
+        return date('Y-m-d H:i:s', strtotime("-{$yearsBack} years"));
+    }
+
+    // -------------------------------------------------------------------------
+    // Object phase (API → DB)
+    // -------------------------------------------------------------------------
+
+    private function createOrderObjects()
+    {
+        if ($this->_user->getIncrementalFeedFlag()) {
+            if ($this->_queue->page == 0) {
+                Orders::deleteAll(['user_id' => $this->_user->id]);
+                Ordersv2::deleteAll(['user_id' => $this->_user->id]);
+                $this->debug('Incremental mode — cleared existing orders');
+            }
+            $date2weeksago = date('Y-m-d', strtotime('-2 weeks'));
+            IntegrationData::setLastOrdersIntegrationDate($date2weeksago, $this->_user->id);
+        }
+
+        if (!$this->_user->getApiKey()) {
             throw new \Exception('No API key configured');
         }
         $this->_client = new ApiClient($this->_user->username, $this->_user->getApiKey());
-        // die("!");
-        // $this->request_parameters['clientIsActive'] = 'yes';
 
-        if (IntegrationData::getData('INITIAL_ORDERS_DONE', $this->_user->id) && $lastOrderIntegrationDate = IntegrationData::getDataValue('last_orders_integration_date', $this->_user->id)) {
-            $begin = date('Y-m-d H:i:s', strtotime($lastOrderIntegrationDate . " - 1 week"));
-        }else{
-            $dateFrom = $this->_user->getConfig()->getOrdersDateFrom();
-            $begin  = date('Y-m-d H:i:s', strtotime($dateFrom));
+        $begin = $this->getOrdersBeginDate();
+        $this->debug('Begin date: ' . $begin);
+
+        if ($begin) {
+            $this->request_parameters['params']['ordersRange'] = [
+                'ordersDateRange' => [
+                    'ordersDateType'  => 'modified',
+                    'ordersDateBegin' => $begin,
+                ],
+            ];
         }
 
-        echo "BEGIN DATE: " . $begin . PHP_EOL;
-            if ($begin) {
-                $this->request_parameters['params']['ordersRange'] = [
-                    'ordersDateRange' => [
-                        'ordersDateType'  => 'modified',
-                        'ordersDateBegin' => $begin,
-                    ],
-                ];
-            }
-
         if ($selectedShopId = $this->_user->config->get('customer_set_shop_id')) {
-            $this->request_parameters['params']['orderSource'] ['shopsIds'] = $selectedShopId;
-
+            $this->request_parameters['params']['orderSource']['shopsIds'] = $selectedShopId;
         }
 
         $this->checkQueueConstraints();
 
         $this->request_parameters['params']['resultsLimit'] = self::API_RESULT_COUNT;
 
-        echo "request start";
-
         $request = $this->request_parameters;
+        $request['params']['ordersBy'] = [
+            ['elementName' => 'order_time', 'sortDirection' => 'ASC'],
+        ];
+
         try {
-
-            $request['params']['ordersBy'] = [
-                [
-                    'elementName'   => 'order_time',
-                    'sortDirection' => 'ASC',
-                ],
-            ];
-            // if ($selectedShopId = $this->_user->config->get('customer_set_shop_id')) {
-            //     $request['params']['orderSource'] ['shopsIds'] = $selectedShopId;
-
-            // }
-
-            $allItems = [];
-
             $request['params']['resultsPage'] = $this->_queue->page;
-            var_dump($request);
-            // die();
+            $this->debugPrint($request, 'API request');
+
             $response = $this->_client->post($this->apiMethod, $request);
-            var_dump($response);
-            // die();
+            $this->debugDump($response, 'API response');
 
-            try {
-                // $this->_queue->setMaxPages($response->resultsNumberPage);
-                // print_r($response->Results); die;
-
-                if ($this->_queue->page >= $this->_queue->max_page) {
-                    IntegrationData::setIsNew('ORDER', false, $this->_user->id);
-                    IntegrationData::setData('INITIAL_ORDERS_DONE', 1, $this->_user->id);
-                    // IntegrationData::setData('last_orders_integration_date', date('Y-m-d'), $this->_user->id);
-                    return 10;
-                }
-
-                if (! isset($response)) {
-                    echo "no res";
-                    $this->_queue->increasePage();
-                    return 1;
-                }
-
-            } catch (\yii\base\ErrorException $e) {
-                echo "exception";
-                throw $e;
-            } catch (\Exception $e) {
-                echo "exception";
-                throw $e;
+            if ($this->_queue->page >= $this->_queue->max_page) {
+                IntegrationData::setIsNew('ORDER', false, $this->_user->id);
+                IntegrationData::setData('INITIAL_ORDERS_DONE', 1, $this->_user->id);
+                return 10;
             }
 
-            if (isset($response['errors']) && ! empty($response['errors']['faultString'])) {
+            if (!isset($response)) {
+                $this->debug('No response — skipping page');
+                $this->_queue->increasePage();
+                return 1;
+            }
+
+            if (isset($response['errors']) && !empty($response['errors']['faultString'])) {
                 throw new \Exception('API fault: ' . $response['errors']['faultString']);
             }
 
-            // Mapping order statuses from
             $order_statuses_map = [
                 'finished_ext'       => 'finished',
                 'finished'           => 'finished',
-
                 'new'                => 'created',
                 'payment_waiting'    => 'created',
                 'delivery_waiting'   => 'created',
@@ -455,7 +445,6 @@ class OrderFeed extends XmlFeed
                 'wait_for_dispatch'  => 'created',
                 'joined'             => 'created',
                 'packed_ready'       => 'created',
-
                 'suspended'          => 'canceled',
                 'returned'           => 'canceled',
                 'missing'            => 'canceled',
@@ -468,24 +457,22 @@ class OrderFeed extends XmlFeed
             $grabOrdersdateFrom = $this->_user->getConfig()->getOrdersDateFrom();
 
             foreach ($response['Results'] as $order) {
-                echo "check " . $order['orderId'] . PHP_EOL;
+                $this->debug('Processing order: ' . $order['orderId']);
+
                 if ($order['orderDetails']['productsResults'] == null) {
-                    echo "empty order" . PHP_EOL;
+                    $this->debug('  → skipped (empty order)');
                     continue;
                 }
+
                 if ($grabOrdersdateFrom) {
                     if (strtotime($order['orderDetails']['orderAddDate']) < strtotime($grabOrdersdateFrom)) {
-                        echo $order['orderDetails']['orderAddDate']." older than date from ".$grabOrdersdateFrom . PHP_EOL;
-
+                        $this->debug(sprintf('  → skipped (%s older than date-from %s)', $order['orderDetails']['orderAddDate'], $grabOrdersdateFrom));
                         continue;
                     }
                 }
 
-                echo "process products " . PHP_EOL;
-
-                $status = isset($order_statuses_map[$order['orderDetails']['orderStatus']]) ? $order_statuses_map[$order['orderDetails']['orderStatus']] : 'created';
-                echo $status . PHP_EOL;
-                echo $order['orderDetails']['orderDispatchDate'] . PHP_EOL;
+                $status = $order_statuses_map[$order['orderDetails']['orderStatus']] ?? 'created';
+                $this->debug(sprintf('  → status: %s  dispatch: %s', $status, $order['orderDetails']['orderDispatchDate']));
 
                 $order_item                      = [];
                 $order_item['order_id']          = $order['orderId'];
@@ -493,7 +480,7 @@ class OrderFeed extends XmlFeed
                 $order_item['customer_id']       = $order['clientResult']['clientAccount']['clientId'];
                 $order_item['created_on']        = $order['orderDetails']['orderAddDate'];
                 $order_item['finished_on']       = $status == 'finished' ? $order['orderDetails']['orderDispatchDate'] : null;
-                if ($status == 'finished' && ! $order_item['finished_on']) {
+                if ($status == 'finished' && !$order_item['finished_on']) {
                     $order_item['finished_on'] = date('Y-m-d');
                 }
                 $order_item['status']       = $status;
@@ -502,9 +489,9 @@ class OrderFeed extends XmlFeed
                 $order_item['zip_code']     = $order['clientResult']['clientBillingAddress']['clientZipCode'];
                 $order_item['country_code'] = $order['clientResult']['clientBillingAddress']['clientCountryId'];
 
-                $currency = $this->getCurrency($order);
-
+                $currency  = $this->getCurrency($order);
                 $positions = [];
+
                 foreach ($order['orderDetails']['productsResults'] as $product) {
                     $price = $product['productOrderPrice'];
 
@@ -515,7 +502,7 @@ class OrderFeed extends XmlFeed
                     $productId = $product['productId'];
 
                     if (
-                        $this->_user->config->get('product_aggregate_sizes_as_products') == '1' && 
+                        $this->_user->config->get('product_aggregate_sizes_as_products') == '1' &&
                         isset($product['sizeId']) &&
                         $product['sizeId'] != 'uniw' &&
                         isset($product['sizePanelName'])
@@ -532,25 +519,26 @@ class OrderFeed extends XmlFeed
 
                 $order_item['order_positions'] = serialize($positions);
                 $order_object                  = Ordersv2::addOrder($order_item, $this->_user->id, $this->_queue->page);
-                echo "new id " . $order_object->id . PHP_EOL;
+                $this->debug('  → saved with id: ' . $order_object->id);
             }
-            $this->_queue->increasePage();
 
+            $this->_queue->increasePage();
             return 1;
+
         } catch (\Exception $e) {
-            echo $e->getMessage() . PHP_EOL;
+            $this->debug('Exception: ' . $e->getMessage());
             throw $e;
         }
     }
 
+    // -------------------------------------------------------------------------
+    // XML phase (DB → file)
+    // -------------------------------------------------------------------------
+
     private function createOrAddTempOrderXml($temp): int
     {
-        echo "creating file";
         touch($temp);
-        $orders = new \SimpleXmlElement('<ORDERS/>');
-
-        // $year = (int) date('Y');
-        // $since_year = $year - 4;
+        $file = $this->getFile(true, false);
 
         $integrationDataCurrentPage = $this->_queue->page;
         $integrationDataMaxPage     = $this->_queue->max_page;
@@ -575,44 +563,29 @@ class OrderFeed extends XmlFeed
             $this->_queue->save();
         }
 
-        echo " PAGE " . $page . " of " . $integrationDataMaxPage . PHP_EOL;
-        // $customers_db = $customers_query->limit($page_size)->offset(($page - 1) * $page_size)->all();
-        echo "offset " . ($page) * $page_size;
-        echo PHP_EOL;
-        $orders_db = $ordersQuery->limit($page_size)->offset(($page) * $page_size)->all();
-        if (count($orders_db) > 0) {
-            echo "ORDERS DB ";
-            foreach ($orders_db as $order) {
-                echo ".";
-                // if($order->customer == null){
-                //     echo "null customer";
-                //     continue;
-                // }
-                // if($order->customer->email == null){
-                //     echo "null customer email";
-                //     continue;
-                // }
-                // echo "one process";
+        $this->debug(sprintf('XML build — page %d / %d  (offset %d)', $page, $integrationDataMaxPage, $page * $page_size));
 
-                if (Queue::isDisallowedEmail($order->email)) { // omit allegro etc
+        $orders_db = $ordersQuery->limit($page_size)->offset($page * $page_size)->all();
+        if (count($orders_db) > 0) {
+            $this->debug('Orders v1: ' . count($orders_db) . ' records');
+            $orders = new \SimpleXmlElement('<ORDERS/>');
+            foreach ($orders_db as $order) {
+                if (Queue::isDisallowedEmail($order->email)) {
                     continue;
                 }
-
                 $ordChild = $orders->addChild('ORDER');
                 $ordChild->addChild('ORDER_ID', $order->order_id);
                 $ordChild->addChild('CUSTOMER_ID', $order->customer_id);
                 $ordChild->addChild('CREATED_ON', $this->getCorrectSambaDate($order->created_on));
-
                 if ($order->status == 'finished') {
                     $ordChild->addChild('FINISHED_ON', $this->getCorrectSambaDate($order->finished_on));
                 }
-
                 $ordChild->addChild('STATUS', $order->status);
                 $ordChild->addChild('EMAIL', $order->email);
                 $ordChild->addChild('PHONE', str_replace(' ', '', $order->phone));
                 $ordChild->addChild('ZIP_CODE', $order->zip_code);
                 $ordChild->addChild('COUNTRY_CODE', $order->country_code);
-                echo $order->id . PHP_EOL;
+                $this->debug('  → order id: ' . $order->id);
                 $ordItems = $ordChild->addChild('ITEMS');
                 foreach ($order->getPositions() as $product) {
                     $prodItem = $ordItems->addChild('ITEM');
@@ -620,48 +593,34 @@ class OrderFeed extends XmlFeed
                     $prodItem->addChild('AMOUNT', $product['amount']);
                     $prodItem->addChild('PRICE', $product['amount'] * $product['price']);
                 }
-
                 $file_handle = fopen($temp, 'a+');
                 fwrite($file_handle, $ordChild->asXml());
                 fclose($file_handle);
-                // echo "one processed".PHP_EOL;
             }
         }
-        $orders_dbv2 = $ordersQueryv2->limit($page_size)->offset(($page) * $page_size)->all();
-        if (count($orders_dbv2) > 0) {
-            echo "ORDERS DB 2 ";
-            foreach ($orders_dbv2 as $order) {
-                echo ".";
-                // if($order->customer == null){
-                //     echo "null customer";
-                //     continue;
-                // }
-                // if($order->customer->email == null){
-                //     echo "null customer email";
-                //     continue;
-                // }
-                // echo "one process";
 
-                if (Queue::isDisallowedEmail($order->email)) { // omit allegro etc
+        $orders_dbv2 = $ordersQueryv2->limit($page_size)->offset($page * $page_size)->all();
+        if (count($orders_dbv2) > 0) {
+            $this->debug('Orders v2: ' . count($orders_dbv2) . ' records');
+            $orders = new \SimpleXmlElement('<ORDERS/>');
+            foreach ($orders_dbv2 as $order) {
+                if (Queue::isDisallowedEmail($order->email)) {
                     continue;
                 }
-
                 $ordChild = $orders->addChild('ORDER');
                 $ordChild->addChild('ORDER_ID', $order->order_id);
                 $ordChild->addChild('CUSTOMER_ID', $order->customer_id);
                 $ordChild->addChild('CREATED_ON', $this->getCorrectSambaDate($order->created_on));
-
                 if ($order->status == 'finished') {
                     $ordChild->addChild('FINISHED_ON', $this->getCorrectSambaDate($order->finished_on));
                 }
                 $ordChild->addChild('STATUS', $order->status);
                 $ordChild->addChild('EMAIL', $order->email);
-                $phone = str_replace(' ', '', $order->phone);
-                $phone = (int) $phone;
-                $ordChild->addChild('PHONE', str_replace(' ', '', $phone));
+                $phone = (int) str_replace(' ', '', $order->phone);
+                $ordChild->addChild('PHONE', $phone);
                 $ordChild->addChild('ZIP_CODE', $order->zip_code);
                 $ordChild->addChild('COUNTRY_CODE', $order->country_code);
-                echo $order->id . PHP_EOL;
+                $this->debug('  → order id: ' . $order->id);
                 $ordItems = $ordChild->addChild('ITEMS');
                 foreach ($order->getPositions() as $product) {
                     $prodItem = $ordItems->addChild('ITEM');
@@ -669,42 +628,32 @@ class OrderFeed extends XmlFeed
                     $prodItem->addChild('AMOUNT', $product['amount']);
                     $prodItem->addChild('PRICE', $product['amount'] * $product['price']);
                 }
-
-                if ('12890215' == $order->id){
-                    var_dump($ordChild->asXml());
-                    // die();
-                }
                 $file_handle = fopen($temp, 'a+');
                 fwrite($file_handle, $ordChild->asXml());
                 fclose($file_handle);
-                // echo "one processed".PHP_EOL;
             }
         }
-        echo "----";
+
         $page++;
         $this->_queue->page = $page;
         $this->_queue->save();
 
         if ($page > (int) $integrationDataMaxPage) {
-            // echo $page.PHP_EOL;
-            // echo $integrationDataMaxPage.PHP_EOL;
-            // die ("JUZ !!!!!");
-            echo "FINISHED ";
+            $this->debug('All pages done — finalizing XML');
             return $this->createOrderXml($file, $temp);
         }
+
         return 1;
     }
 
     private function createOrderXml(string $file, string $temp)
     {
-        // $orders = new \SimpleXMLElement('<ORDERS/>');
-        // $orders->addChild('ORDER');
         file_put_contents($file, '');
         $fileContent = file_get_contents($temp);
         $file_handle = fopen($file, 'a+');
         fwrite($file_handle, '<?xml version="1.0"?> <ORDERS>');
         fwrite($file_handle, $fileContent);
-        fwrite($file_handle, "</ORDERS>");
+        fwrite($file_handle, '</ORDERS>');
         fclose($file_handle);
         file_put_contents($temp, '');
         return is_file($file) ? 10 : 0;

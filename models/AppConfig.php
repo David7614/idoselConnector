@@ -15,6 +15,7 @@ class AppConfig extends \yii\db\ActiveRecord
 {
     const FORCE_ALL_INCREMENTAL='FORCE_ALL_INCREMENTAL';
     const DISPLAY_DEBUG='DISPLAY_DEBUG';
+    const DEFAULT_ORDERS_YEARS_BACK='DEFAULT_ORDERS_YEARS_BACK';
 
     /**
      * {@inheritdoc}

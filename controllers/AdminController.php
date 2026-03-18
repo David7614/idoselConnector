@@ -388,12 +388,18 @@ class AdminController extends Controller
         if (Yii::$app->request->isPost) {
             $forceIncremental = (int) Yii::$app->request->post('force_all_incremental', 0);
             AppConfig::setValue(AppConfig::FORCE_ALL_INCREMENTAL, $forceIncremental);
+            $displayDebug = (int) Yii::$app->request->post('display_debug', 0);
+            AppConfig::setValue(AppConfig::DISPLAY_DEBUG, $displayDebug);
+            $yearsBack = max(1, (int) Yii::$app->request->post('default_orders_years_back', 10));
+            AppConfig::setValue(AppConfig::DEFAULT_ORDERS_YEARS_BACK, $yearsBack);
             $saved = true;
         }
 
         return $this->render('app-settings', [
-            'forceAllIncremental' => (int) AppConfig::getValue(AppConfig::FORCE_ALL_INCREMENTAL),
-            'saved'               => $saved,
+            'forceAllIncremental'    => (int) AppConfig::getValue(AppConfig::FORCE_ALL_INCREMENTAL),
+            'displayDebug'           => (int) AppConfig::getValue(AppConfig::DISPLAY_DEBUG),
+            'defaultOrdersYearsBack' => (int) (AppConfig::getValue(AppConfig::DEFAULT_ORDERS_YEARS_BACK) ?? 10),
+            'saved'                  => $saved,
         ]);
     }
 

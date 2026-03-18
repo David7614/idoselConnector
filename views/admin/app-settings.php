@@ -45,6 +45,33 @@ $this->title = 'Ustawienia aplikacji';
                 </div>
             </div>
 
+            <div class="setting-row">
+                <div class="setting-info">
+                    <strong>Tryb debug</strong>
+                    <span>Wyświetla dodatkowe informacje diagnostyczne podczas synchronizacji.</span>
+                </div>
+                <div class="setting-ctrl">
+                    <?= Html::dropDownList('display_debug', $displayDebug, [
+                        0 => 'Wyłączone',
+                        1 => 'Włączone',
+                    ], ['class' => 'form-control input-sm']) ?>
+                </div>
+            </div>
+
+            <div class="setting-row">
+                <div class="setting-info">
+                    <strong>Domyślny zakres historii zamówień (lata)</strong>
+                    <span>Gdy użytkownik nie ma ustawionej daty "od" dla zamówień, pobierane są dane z ostatnich X lat. Domyślnie: 10.</span>
+                </div>
+                <div class="setting-ctrl">
+                    <?= Html::input('number', 'default_orders_years_back', $defaultOrdersYearsBack, [
+                        'class' => 'form-control input-sm',
+                        'min'   => 1,
+                        'max'   => 30,
+                    ]) ?>
+                </div>
+            </div>
+
         </div>
     </div>
 
