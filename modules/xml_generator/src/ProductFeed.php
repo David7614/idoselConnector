@@ -366,27 +366,23 @@ class ProductFeed extends XmlFeed
         $result=$this->_client->get('/api/admin/v5/products/omnibusPrices', $request);
         foreach ($result['products'] as $ident => $product)
         {
-            $productId=str_replace('id:','',$ident);
-            // var_dump($product);
-            // var_dump($productId);
-            // die("OMM");
+            $productId = str_replace('id:', '', $ident);
+            $omnibusPrice = null;
             foreach ($product['shops'] as $shop)
             {
-                if ($shop['shop_id']==$selectedShopId){
-                    $omnibusPrice=$shop['omnibusPriceRetail'];
+                if ($shop['shop_id'] == $selectedShopId) {
+                    $omnibusPrice = $shop['omnibusPriceRetail'];
                 }
             }
-            $productModel = Product::findOne(['user_id' => $this->_user->id, 'PRODUCT_ID' => $productId]);
-            if ($productModel) {
-                $productModel->omnibus_price = $omnibusPrice;
-                $productModel->save(false);
-                echo "Product with ID " . $productId . " saved : " .$omnibusPrice. PHP_EOL;
-            } else {
-                echo "Product with ID " . $productId . " not found." . PHP_EOL;
+            if ($omnibusPrice === null) {
+                continue;
             }
-
+            $updated = Product::updateAll(
+                ['omnibus_price' => $omnibusPrice],
+                ['user_id' => $this->_user->id, 'PRODUCT_ID' => $productId]
+            );
+            echo "Product with ID " . $productId . ($updated ? " saved : " . $omnibusPrice : " not found.") . PHP_EOL;
         }
-        // die ("STOPMEFORNOW");
     }
 
     /**

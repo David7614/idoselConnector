@@ -12,6 +12,7 @@ class IdiosellProduct
     private $_user;
     private $stock;
     private $stockInSales;
+    private $_priceSource       = null;
 
     public function __construct($productData, $user)
     {
@@ -23,6 +24,9 @@ class IdiosellProduct
 
     private function getPriceSource()
     {
+        if ($this->_priceSource !== null) {
+            return $this->_priceSource;
+        }
         $productPriceSource = $this->productData;
         if ($selectedShopId = $this->_user->config->get('customer_set_shop_id')) {
             foreach ($this->productData['productShopsAttributes'] as $source)
@@ -34,7 +38,8 @@ class IdiosellProduct
                 }
             }
         }
-        return $productPriceSource;
+        $this->_priceSource = $productPriceSource;
+        return $this->_priceSource;
     }
 
     private function getPrice()
@@ -686,7 +691,7 @@ class IdiosellProduct
                 $variantModel->variants_values = $productModel->variants_values;
             }
 
-            if ($variantModel->save()) {
+            if ($variantModel->save(false)) {
                 echo '>--- createSizeVariants - Error' . PHP_EOL;
                 continue;
             }
@@ -731,7 +736,6 @@ class IdiosellProduct
         #    $force = true;
         #}
 	#
-        $pricesDummy = $this->getPrices();
         $variants    = $this->getVariants();
 
         $stockSaved = (int) $this->stock;
@@ -805,13 +809,10 @@ class IdiosellProduct
         }
         $product=$this->productData;
 
-        if ($productModel->save()) {
+        if ($productModel->save(false)) {
             $this->createSizeVariants($productModel);
             return true;
         }
-        // echo 'app\models\Product::'.PHP_EOL;
-        // var_dump($productModel->getAttributes());
-        // var_dump($productModel->CATEGORYTEXT);
         var_dump($productModel->getErrors());
         return false;
 
