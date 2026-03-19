@@ -4,6 +4,7 @@ namespace app\services;
 
 use app\models\AppConfig;
 use app\models\Queue;
+use app\models\QueueExecutionLog;
 use app\modules\xml_generator\src\XmlFeed;
 use Exception;
 use yii\console\ExitCode;
@@ -95,7 +96,18 @@ class QueueRunnerService
             $timeStart = microtime(true);
             $generated = $xml_generator->generate($what);
             $timeEnd   = microtime(true);
-            echo sprintf("--- TIME: %.3fs ---", $timeEnd - $timeStart) . PHP_EOL;
+            $elapsed   = $timeEnd - $timeStart;
+            echo sprintf("--- TIME: %.3fs ---", $elapsed) . PHP_EOL;
+
+            QueueExecutionLog::record(
+                $queue->id,
+                $user->id,
+                $type,
+                $what ?? 'xml',
+                $elapsed,
+                (int) $queue->page,
+                (int) $queue->max_page
+            );
 
             if (!$generated) {
                 throw new Exception('Cannot generate ' . $type . ' feed. Cannot save file');

@@ -7,6 +7,7 @@ use app\models\IntegrationData;
 use app\models\User;
 use app\models\AppConfig;
 use app\models\Queue;
+use app\models\QueueExecutionLog;
 use app\modules\IAI\Application\Config;
 use app\modules\idosellv3\models\ApiClient;
 use app\modules\xml_generator\src\XmlFeed;
@@ -558,6 +559,9 @@ class AdminController extends Controller
             'countries'        => 'Kraje',
         ];
 
+        $execLogs     = in_array('health', $requested) ? QueueExecutionLog::getRecentStats(50)  : [];
+        $execSummary  = in_array('health', $requested) ? QueueExecutionLog::getSummaryByType()    : [];
+
         $shared = [
             'typeLabel'     => $typeLabel,
             'users'         => $users,
@@ -568,6 +572,8 @@ class AdminController extends Controller
             'disabled'      => $disabled,
             'recentDone'    => $recentDone,
             'recentStarted' => $recentStarted,
+            'execLogs'      => $execLogs,
+            'execSummary'   => $execSummary,
         ];
 
         $result = [];

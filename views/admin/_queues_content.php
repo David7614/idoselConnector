@@ -80,6 +80,63 @@ $healthOk    = !$hasErrors && !$hasOverdue;
         <p>Aktywnych (ostatnie 24h)</p>
     </div>
 </div>
+
+<?php if (!empty($execSummary)): ?>
+<div style="margin-top:20px;">
+    <div style="font-size:13px; font-weight:600; margin-bottom:8px; color:#555;">Wydajność kolejek — podsumowanie</div>
+    <table class="q-table">
+        <thead><tr>
+            <th>Typ</th><th>Faza</th><th>Śr. czas</th><th>Min</th><th>Max</th><th>Śr. stron</th><th>Próbek</th>
+        </tr></thead>
+        <tbody>
+        <?php foreach ($execSummary as $row):
+            $avg = round($row['avg_time'], 2);
+            $color = $avg > 10 ? '#b71c1c' : ($avg > 3 ? '#e65100' : '#2e7d32');
+        ?>
+        <tr>
+            <td><span class="type-chip"><?= Html::encode($typeLabel[$row['integration_type']] ?? $row['integration_type']) ?></span></td>
+            <td style="color:#888; font-size:12px;"><?= Html::encode($row['phase']) ?></td>
+            <td style="font-weight:600; color:<?= $color ?>;"><?= $avg ?>s</td>
+            <td style="color:#888; font-size:12px;"><?= round($row['min_time'], 2) ?>s</td>
+            <td style="color:#888; font-size:12px;"><?= round($row['max_time'], 2) ?>s</td>
+            <td style="color:#888; font-size:12px;"><?= round($row['avg_pages'], 1) ?></td>
+            <td style="color:#bbb; font-size:11px;"><?= $row['cnt'] ?></td>
+        </tr>
+        <?php endforeach ?>
+        </tbody>
+    </table>
+</div>
+<?php endif ?>
+
+<?php if (!empty($execLogs)): ?>
+<div style="margin-top:16px;">
+    <div style="font-size:13px; font-weight:600; margin-bottom:8px; color:#555;">Ostatnie 50 wykonań</div>
+    <table class="q-table">
+        <thead><tr>
+            <th>Kiedy</th><th>Użytkownik</th><th>Typ</th><th>Faza</th><th>Czas</th><th>Iteracja</th>
+        </tr></thead>
+        <tbody>
+        <?php foreach ($execLogs as $log):
+            $t = $log->execution_time;
+            $color = $t > 10 ? '#b71c1c' : ($t > 3 ? '#e65100' : '#2e7d32');
+            $progress = $log->max_page > 0
+                ? $log->page . '/' . $log->max_page
+                : ($log->page > 0 ? $log->page : '—');
+        ?>
+        <tr>
+            <td style="color:#999; font-size:11px;" title="<?= Html::encode($log->created_at) ?>"><?= $timeDiff($log->created_at) ?></td>
+            <td><?= $userName($log->user_id) ?></td>
+            <td><span class="type-chip"><?= Html::encode($typeLabel[$log->integration_type] ?? $log->integration_type) ?></span></td>
+            <td style="color:#888; font-size:12px;"><?= Html::encode($log->phase) ?></td>
+            <td style="font-weight:600; color:<?= $color ?>;"><?= number_format($t, 2) ?>s</td>
+            <td style="color:#888; font-size:12px;"><?= $progress ?></td>
+        </tr>
+        <?php endforeach ?>
+        </tbody>
+    </table>
+</div>
+<?php endif ?>
+
 </div>
 <?php endif ?>
 
