@@ -7,7 +7,7 @@ use Yii;
  * This is the model class for table "customers".
  *
  * @property int $id
- * @property int $customer_id
+ * @property string $customer_id
  * @property string $email
  * @property string $registration
  * @property string $first_name

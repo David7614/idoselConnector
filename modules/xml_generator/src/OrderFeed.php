@@ -565,6 +565,8 @@ class OrderFeed extends XmlFeed
 
         $this->debug(sprintf('XML build — page %d / %d  (offset %d)', $page, $integrationDataMaxPage, $page * $page_size));
 
+        $file_handle = fopen($temp, 'a+');
+
         $orders_db = $ordersQuery->limit($page_size)->offset($page * $page_size)->all();
         if (count($orders_db) > 0) {
             $this->debug('Orders v1: ' . count($orders_db) . ' records');
@@ -593,9 +595,7 @@ class OrderFeed extends XmlFeed
                     $prodItem->addChild('AMOUNT', $product['amount']);
                     $prodItem->addChild('PRICE', $product['amount'] * $product['price']);
                 }
-                $file_handle = fopen($temp, 'a+');
                 fwrite($file_handle, $ordChild->asXml());
-                fclose($file_handle);
             }
         }
 
@@ -628,11 +628,11 @@ class OrderFeed extends XmlFeed
                     $prodItem->addChild('AMOUNT', $product['amount']);
                     $prodItem->addChild('PRICE', $product['amount'] * $product['price']);
                 }
-                $file_handle = fopen($temp, 'a+');
                 fwrite($file_handle, $ordChild->asXml());
-                fclose($file_handle);
             }
         }
+
+        fclose($file_handle);
 
         $page++;
         $this->_queue->page = $page;

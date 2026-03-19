@@ -149,8 +149,7 @@ class Ordersv2 extends \yii\db\ActiveRecord
         $order->order_positions=$orderItems['order_positions'];
         $order->page=$page;
 
-        $order->save(false);
-        if ($order->save()){
+        if ($order->save(false)){
             echo "saved".PHP_EOL;
         }else{
             print_r($order->getErrors());
