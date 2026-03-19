@@ -699,7 +699,7 @@ class IdiosellProduct
         // TODO hash
         $hash = md5(serialize($this->productData));
 
-        $productModel = Product::find()->where(['PRODUCT_ID' => $this->productData['productId'], 'user_id' => $this->_user->id])->one();
+        $productModel = Product::find()->where(['PRODUCT_ID' => (string) $this->productData['productId'], 'user_id' => $this->_user->id])->one();
 
         if (! $productModel) {
             $productModel                = new Product();
@@ -768,7 +768,7 @@ class IdiosellProduct
             return true;
         }
 
-        $productModel->PRODUCT_ID            = $this->productData['productId'];
+        $productModel->PRODUCT_ID            = (string) $this->productData['productId'];
 
         $productModel->URL = $productUrl;
 
