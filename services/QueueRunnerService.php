@@ -92,7 +92,10 @@ class QueueRunnerService
 
             echo "RUN with what: " . var_export($what, true) . PHP_EOL;
 
+            $timeStart = microtime(true);
             $generated = $xml_generator->generate($what);
+            $timeEnd   = microtime(true);
+            echo sprintf("--- TIME: %.3fs ---", $timeEnd - $timeStart) . PHP_EOL;
 
             if (!$generated) {
                 throw new Exception('Cannot generate ' . $type . ' feed. Cannot save file');

@@ -72,12 +72,17 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
         return new \app\models\queries\UserQuery(get_called_class());
     }
 
+    private $_configInstance = null;
+
     /**
      * @return UserConfig
      */
     public function getConfig()
     {
-        return new UserConfig($this->id);
+        if ($this->_configInstance === null) {
+            $this->_configInstance = new UserConfig($this->id);
+        }
+        return $this->_configInstance;
     }
 
     public function getToken()
