@@ -53,23 +53,42 @@ class UserConfig extends \yii\db\ActiveRecord
         ];
     }
 
+    private $_cache = null;
+
     public function __construct($id_user = 0, $config = [])
     {
         $this->id_user = $id_user;
         parent::__construct($config);
     }
 
+    private function loadCache()
+    {
+        if ($this->_cache !== null) {
+            return;
+        }
+        $this->_cache = [];
+        $configs = self::find()->where(['id_user' => $this->id_user])->all();
+        foreach ($configs as $config) {
+            $this->_cache[$config->key] = $config->value;
+        }
+    }
+
     public function set($key, $value)
     {
         if (($config = self::find()->where(['id_user' => $this->id_user, 'key' => $key])->one()) !== null) {
             $config->value = $value;
-            return $config->save(false);
+            $result = $config->save(false);
+        } else {
+            $this->key = $key;
+            $this->value = $value;
+            $result = $this->save(false);
         }
 
-        $this->key = $key;
-        $this->value = $value;
+        if ($this->_cache !== null) {
+            $this->_cache[$key] = $value;
+        }
 
-        return $this->save(false);
+        return $result;
     }
 
     public function clearConfigs()
@@ -84,11 +103,8 @@ class UserConfig extends \yii\db\ActiveRecord
 
     public function get($key)
     {
-        if (($config = self::find()->where(['id_user' => $this->id_user, 'key' => $key])->one()) !== null) {
-            return $config->value;
-        }
-
-        return null;
+        $this->loadCache();
+        return $this->_cache[$key] ?? null;
     }
 
     public function getStockIdsArray()
