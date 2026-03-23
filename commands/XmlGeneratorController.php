@@ -528,6 +528,10 @@ class XmlGeneratorController extends Controller
     {
         return $this->loopQueue(XmlFeed::CATEGORY, [], $limitSeconds);
     }
+    public function actionLoopCountries(int $limitSeconds = 540)
+    {
+        return $this->loopQueue('countries', [], $limitSeconds);
+    }
 
     private function loopQueue(string $type, array $config = [], int $limitSeconds = 540): int
     {
