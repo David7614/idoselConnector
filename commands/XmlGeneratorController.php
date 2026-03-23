@@ -519,6 +519,16 @@ class XmlGeneratorController extends Controller
         return $this->loopQueue('phonesubscribers', [], $limitSeconds);
     }
 
+    public function actionLoopTags(int $limitSeconds = 540)
+    {
+        return $this->loopQueue(XmlFeed::TAGS, [], $limitSeconds);
+    }
+
+    public function actionLoopCategories(int $limitSeconds = 540)
+    {
+        return $this->loopQueue(XmlFeed::CATEGORY, [], $limitSeconds);
+    }
+
     private function loopQueue(string $type, array $config = [], int $limitSeconds = 540): int
     {
         $start   = time();
