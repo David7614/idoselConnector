@@ -34,5 +34,5 @@ return [
     'dsn'      => 'mysql:host=localhost;dbname=samba_idosell',
     'username' => 'root',
     'password' => 'ABCabc123',
-    'charset'  => 'utf8',
+    'charset'  => 'utf8mb4',
 ];
