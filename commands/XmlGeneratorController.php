@@ -297,74 +297,7 @@ class XmlGeneratorController extends Controller
     }
     public function actionGenerateCountries($forceId = 0)
     {
-        $type  = 'countries';
-        $queue = Queue::findLastForType($type);
-
-        if ($queue == null) {
-            echo "nothing to do for type " . $type . PHP_EOL;
-            return ExitCode::OK;
-        }
-
-        echo "QUEUE ID " . $queue->id . PHP_EOL;
-        $queue->setRunningStatus();
-
-        $user = $queue->getCurrentUser();
-        echo "USER " . $user->id . " (" . $user->username . ")" . PHP_EOL;
-
-        $connection    = new Connection($user);
-        $customersList = Customers::find()->where(['user_id' => $user->id, 'country' => ''])
-            ->andWhere(['!=', 'email', ''])
-            ->limit(100)->all();
-
-        if (! $customersList) {
-            echo "no customers without country — done" . PHP_EOL;
-            $queue->setExecutedStatus();
-            $queue->setCountErrors(0);
-            return ExitCode::OK;
-        }
-
-        echo "customers to process: " . count($customersList) . PHP_EOL;
-
-        $gate    = 'http://' . $user->username . '/api/?gate=clients/getDeliveryAddress/169/soap/wsdl&lang=pol';
-        $client  = new IdioselClient($gate, $connection->getToken()->getToken());
-        $updated = 0;
-        $noData  = 0;
-
-        foreach ($customersList as $customer) {
-            $queue->page++;
-            echo "[" . $queue->page . "] ID=" . $customer->id . " email=" . $customer->email . PHP_EOL;
-
-            $request = new SoapRequest();
-            $request->addParam('clientLogin', $customer->email);
-            $response  = $client->getDeliveryAddress($request->getRequest());
-            $lastIndex = count($response->clientDeliveryAddressesResults) - 1;
-
-            if ($lastIndex < 0) {
-                echo "  -> no address data" . PHP_EOL;
-                $customer->country = 'no data';
-                $customer->save();
-                if ($errors = $customer->getErrors()) {
-                    echo "  -> save errors: " . json_encode($errors) . PHP_EOL;
-                }
-                $noData++;
-                continue;
-            }
-
-            $country           = $response->clientDeliveryAddressesResults[$lastIndex]->clientDeliveryAddressCountry;
-            $customer->country = $country;
-            $customer->save();
-
-            if ($errors = $customer->getErrors()) {
-                echo "  -> save errors: " . json_encode($errors) . PHP_EOL;
-            } else {
-                echo "  -> country=" . $country . PHP_EOL;
-                $updated++;
-            }
-        }
-
-        echo "DONE — updated=$updated no_data=$noData" . PHP_EOL;
-        $queue->setPendingStatus();
-        return ExitCode::OK;
+        return $this->establishQueue(XmlFeed::COUNTRIES, ['forceId' => $forceId]);
     }
 
     public function actionTomekOrders()

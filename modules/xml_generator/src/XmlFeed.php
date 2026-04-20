@@ -23,6 +23,7 @@ class XmlFeed implements FeedGenerator
     const CATEGORY           = 'category';
     const TAGS               = 'tags';
     const SUBSCRIBERS_IMPORT = 'subscribersimport';
+    const COUNTRIES          = 'countries';
 
     /**
      * @var string
@@ -80,6 +81,9 @@ class XmlFeed implements FeedGenerator
                 break;
             case 'phonesubscribers':
                 $feed_object = new PhonesubscribersFeed();
+                break;
+            case self::COUNTRIES:
+                $feed_object = new CountriesFeed();
                 break;
             default:
                 throw new \Exception('Cannot create feed. Invaild feed type');
