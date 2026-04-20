@@ -548,4 +548,34 @@ class Queue extends \yii\db\ActiveRecord
 
         return $isDisallowedEmail;
     }
+
+
+    public static function cleanupOldQueues(): void
+    {
+        Queue::removeOldErrors(168); // usuwanie starych błędnych kolejek po tygodniu
+        Queue::removeOldCompleted(48); // usuwanie starych zakończonych kolejek po 2 dniach
+        Queue::removeOldRunning(168); // usuwanie starych zablokowanych kolejek po tygodniu
+    }
+
+    public static function removeOldErrors(int $hours): void
+    {
+        $threshold = date('Y-m-d H:i:s', strtotime("-{$hours} hours"));
+        self::deleteAll(['and', ['integrated' => self::ERROR], ['<', 'next_integration_date', $threshold]]);
+        echo "removeOldErrors: threshold={$threshold}" . PHP_EOL;
+    }
+
+    public static function removeOldCompleted(int $hours): void
+    {
+        $threshold = date('Y-m-d H:i:s', strtotime("-{$hours} hours"));
+        self::deleteAll(['and', ['integrated' => self::EXECUTED], ['<', 'next_integration_date', $threshold]]);
+        echo "removeOldCompleted: threshold={$threshold}" . PHP_EOL;
+    }
+
+    public static function removeOldRunning(int $hours): void
+    {
+        $threshold = date('Y-m-d H:i:s', strtotime("-{$hours} hours"));
+        self::deleteAll(['and', ['integrated' => self::RUNNING], ['<', 'next_integration_date', $threshold]]);
+        echo "removeOldRunning: threshold={$threshold}" . PHP_EOL;
+    }
+
 }

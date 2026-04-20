@@ -292,6 +292,8 @@ class AdminController extends Controller
             echo PHP_EOL;
         }
 
+        Queue::cleanupOldQueues();
+
         ob_end_flush();
         flush();
 

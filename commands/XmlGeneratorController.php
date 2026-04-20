@@ -37,6 +37,11 @@ class XmlGeneratorController extends Controller
         Queue::prepareQueue('countries');
         Queue::prepareQueue('subscribers');
         Queue::prepareQueue('phonesubscribers');
+
+        Queue::cleanupOldQueues(); // usuwanie staroci
+
+        
+
     }
 
     private function testWholesale()
