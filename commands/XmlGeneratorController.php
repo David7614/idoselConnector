@@ -298,60 +298,73 @@ class XmlGeneratorController extends Controller
     public function actionGenerateCountries($forceId = 0)
     {
         $type  = 'countries';
-        $what  = (! isset($this->what) || $this->what == null) ? $this->what : null;
-        $queue = Queue::findLastForType($type, ['forceId' => $forceId]);
+        $queue = Queue::findLastForType($type);
 
         if ($queue == null) {
             echo "nothing to do for type " . $type . PHP_EOL;
             return ExitCode::OK;
         }
-        $queue->setRunningStatus(); // back to pending
-        echo "QUEUE ID " . $queue->id . PHP_EOL;
-        $user = $queue->getCurrentUser();
-        if ($user->shop_type == 'shoper') {
-            $queue->setExecutedStatus();
-            $queue->setCountErrors(0);
-            return true;
-            die("Shoper off");
-        }
-        echo $user->id;
-        $connection = new Connection($user);
 
+        echo "QUEUE ID " . $queue->id . PHP_EOL;
+        $queue->setRunningStatus();
+
+        $user = $queue->getCurrentUser();
+        echo "USER " . $user->id . " (" . $user->username . ")" . PHP_EOL;
+
+        $connection    = new Connection($user);
         $customersList = Customers::find()->where(['user_id' => $user->id, 'country' => ''])
             ->andWhere(['!=', 'email', ''])
             ->limit(100)->all();
 
         if (! $customersList) {
+            echo "no customers without country — done" . PHP_EOL;
             $queue->setExecutedStatus();
             $queue->setCountErrors(0);
-            return true;
+            return ExitCode::OK;
         }
 
-        $gate   = 'http://' . $user->username . '/api/?gate=clients/getDeliveryAddress/169/soap/wsdl&lang=pol';
-        $client = new IdioselClient($gate, $connection->getToken()->getToken());
+        echo "customers to process: " . count($customersList) . PHP_EOL;
+
+        $gate    = 'http://' . $user->username . '/api/?gate=clients/getDeliveryAddress/169/soap/wsdl&lang=pol';
+        $client  = new IdioselClient($gate, $connection->getToken()->getToken());
+        $updated = 0;
+        $noData  = 0;
+
         foreach ($customersList as $customer) {
-            echo "ID " . $customer->id . PHP_EOL;
-            // var_dump($customer);
             $queue->page++;
-            echo $customer->email . PHP_EOL;
+            echo "[" . $queue->page . "] ID=" . $customer->id . " email=" . $customer->email . PHP_EOL;
+
             $request = new SoapRequest();
             $request->addParam('clientLogin', $customer->email);
-            $response = $client->getDeliveryAddress($request->getRequest());
-            // echo count($response->clientDeliveryAddressesResults);
+            $response  = $client->getDeliveryAddress($request->getRequest());
             $lastIndex = count($response->clientDeliveryAddressesResults) - 1;
+
             if ($lastIndex < 0) {
-                echo "no data " . PHP_EOL;
+                echo "  -> no address data" . PHP_EOL;
                 $customer->country = 'no data';
                 $customer->save();
-                var_dump($customer->getErrors());
+                if ($errors = $customer->getErrors()) {
+                    echo "  -> save errors: " . json_encode($errors) . PHP_EOL;
+                }
+                $noData++;
                 continue;
             }
-            var_dump($response->clientDeliveryAddressesResults[$lastIndex]->clientDeliveryAddressCountry);
-            $customer->country = $response->clientDeliveryAddressesResults[$lastIndex]->clientDeliveryAddressCountry;
+
+            $country           = $response->clientDeliveryAddressesResults[$lastIndex]->clientDeliveryAddressCountry;
+            $customer->country = $country;
             $customer->save();
-            var_dump($customer->getErrors());
+
+            if ($errors = $customer->getErrors()) {
+                echo "  -> save errors: " . json_encode($errors) . PHP_EOL;
+            } else {
+                echo "  -> country=" . $country . PHP_EOL;
+                $updated++;
+            }
         }
+
+        echo "DONE — updated=$updated no_data=$noData" . PHP_EOL;
         $queue->setPendingStatus();
+        return ExitCode::OK;
     }
 
     public function actionTomekOrders()
