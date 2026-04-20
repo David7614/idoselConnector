@@ -106,8 +106,14 @@ class IdiosellProduct
     private function getProductUrl($lang = null)
     {
         $product     = $this->productData;
+
+        // var_dump($product['productIndividualUrlsData']); // w tym api jest w dokumentacji ale nie jest zwracane
+
         $productName = $this->getTitle();
-        $productSlug = str_replace(Product::getReplaceFrom(), Product::getReplaceTo(), $productName);
+        $productSlug = htmlspecialchars_decode($productName); // zdekodowanie jak są jakieś
+        $productSlug = strip_tags($productSlug); // usunięcie speciali
+        $productSlug = htmlspecialchars($productSlug); // zakodowanie
+        $productSlug = str_replace(Product::getReplaceFrom(), Product::getReplaceTo(), $productSlug);
         $productSlug = str_replace('--', '-', $productSlug);
         $productSlug = str_replace('--', '-', $productSlug);
 
@@ -179,15 +185,10 @@ class IdiosellProduct
     }
     private function getTitle()
     {
-        // echo "GET TITLE CALL ".PHP_EOL;
         if ($this->productName) {
-            // echo "TITLE EXIST ".PHP_EOL;
             return $this->productName;
         }
-        // echo "TITLE NOT EXIST".PHP_EOL;
         $product = $this->productData;
-
-
         if ($individualTitle=$this->getIndividualTitle())
         {
             return $individualTitle;
@@ -512,7 +513,7 @@ class IdiosellProduct
                     if ((in_array($productStockQuantity['stockId'], $allowedStockIds)) || count($allowedStockIds) == 0) {
                         foreach ($productStockQuantity['productSizesData'] as $stockData) {
                             $variant['PRODUCT_ID']            = $product['productId'];
-                            $variant['TITLE']                 = substr($this->getTitle() . htmlspecialchars($stockData['sizePanelName']), 0, 249);
+                            $variant['TITLE']                 = mb_substr($this->getTitle() . htmlspecialchars($stockData['sizePanelName']), 0, 249);
                             $variant['IMAGE']                 = $product['productIcon']['productIconLargeUrl'];
                             $variant['PRICE_BEFORE_DISCOUNT'] = isset($product['productRetailPrice']) ? $product['productRetailPrice'] : 0;
                             $variant['DESCRIPTION']           = $this->getDescription();
@@ -719,23 +720,7 @@ class IdiosellProduct
             $productUrl = $this->getProductUrl();
         }
 
-        #if (!$force && $productModel->URL !== $productUrl) {
-        #    $force = true;
-        #}
 
-        #if (! $force && $productModel->PRICE != $this->getPrice()) {
-        #    $force = true;
-        #}
-        #if (! $force && $productModel->PRICE_BEFORE_DISCOUNT != $this->getPriceBeforeDiscount()) {
-        #    $force = true;
-        #}
-        #if (! $force && $productModel->PRICE_BUY != $this->getPriceBuy()) {
-        #    $force = true;
-        #}
-        #if (! $force && $productModel->PRICE_WHOLESALE != $this->getPriceWholesale()) {
-        #    $force = true;
-        #}
-	#
         $variants    = $this->getVariants();
 
         $stockSaved = (int) $this->stock;
@@ -743,40 +728,22 @@ class IdiosellProduct
 
         if ($this->_user->config->get('get_quantity_from')) {
             $stockSaved = (int) $this->stockInSales;
-            #echo "!";
-            #var_dump($this->stock);
-            #echo ":";
-            #var_dump($this->stockInSales);
-            #var_dump($this->productData['productStocksData']);
-            #echo "!" . PHP_EOL;
         }
 
-        #if (! $force && $productModel->STOCK != $stockSaved) {
-        #    $force = true;
-        #}
-        #if ($productModel->PRICES != '-') {
-        #    if (! $force && unserialize($productModel->PRICES) != $this->getPrices()) {
-        #        $force = true;
-        #    }
-        #} else {
-        #    $force = true;
-        #}
-        #if (! $force && $productModel->parent_id != $this->getParentId()) {
-        #    $force = true;
-        #}
 	
         $shouldForce = $this->shouldForce($force, $productModel, $productUrl, $stockSaved);
 
         if ($hash == $productModel->params_hash && !$shouldForce) { // chceck if changed since last save
-            echo "hash same " . PHP_EOL;
+            echo "[product] ".$this->productData['productId']." hash same " . PHP_EOL;
             return true;
         }
+        
 
         $productModel->PRODUCT_ID            = (string) $this->productData['productId'];
 
         $productModel->URL = $productUrl;
 
-        $productModel->TITLE                 = substr($this->getTitle(), 0, 249);
+        $productModel->TITLE                 = mb_substr($this->getTitle(), 0, 249);
 
         $productModel->PRICE                 = $this->getPrice();
         $productModel->PRICE_WHOLESALE       = $this->getPriceWholesale();

@@ -291,8 +291,9 @@ class ProductFeed extends XmlFeed
 
             // $this->_queue->setMaxPages($response->resultsNumberPage);
             $products = new \SimpleXMLElement('<PRODUCTS/>');
-            echo $this->_queue->page . PHP_EOL;
-            echo $this->_queue->max_page . PHP_EOL;
+
+            echo "[product] " . "page " . $this->_queue->page . " of " . $this->_queue->max_page . PHP_EOL;
+
             if ($this->_queue->page >= $this->_queue->max_page) {
                 // IntegrationData::setData('last_products_integration_date', (date('Y-m-d'), $this->_user->id));
                 // IntegrationData::setIsNew('PRODUCTS', 0, $this->_user->id);
@@ -316,25 +317,14 @@ class ProductFeed extends XmlFeed
             $productIds=[];
 
             foreach ($response['results'] as $product) {
-                var_dump($product['productId']);
                 $productIds[]=$product['productId'];
-                // var_dump($product);
-
-                // if ($selectedShopId=$this->_user->config->get('customer_set_shop_id')){
-                // die ("TESTY");
-                // }
                 $product['from_api_page'] = $this->_queue->page;
                 $idiosellProduct          = new \app\models\IdiosellProduct($product, $this->_user);
                 if (! $idiosellProduct->prepareFromApi()) {
                     $this->_queue->setErrorStatus('Błąd zapisu produktu');
                     return 0;
                 }
-                // die("!!");
-                // if ($product['productId'] == '4892'){
-                //     echo "***************".PHP_EOL;
-                //     // var_dump($product);
-                //     die("!!!!!!!!!!!!!!");
-                // }
+                
             }
             $this->fillOmnibusPrices($productIds);
             $this->_queue->increasePage();
