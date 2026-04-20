@@ -433,7 +433,7 @@ class Queue extends \yii\db\ActiveRecord
             $preventUsers = [];
 
 
-            var_dump($queue_items);
+            // var_dump($queue_items);
             foreach ($queue_items as $itm) {
                 $preventUsers[] = $itm->current_integrate_user;
             }
