@@ -34,44 +34,44 @@ class QueueRunnerService
         $queue = $this->determineQueue($type, $config);
 
         if ($queue === null) {
-            echo "nothing to do for type " . $type . PHP_EOL;
+            echo "[{$type}] No queue found" . PHP_EOL;
             return self::QUEUE_EMPTY;
         }
 
-        echo '- - - Establish Queue - ID: ' . $queue->id . PHP_EOL;
+        echo "[{$type}] Queue #{$queue->id} status={$queue->integrated} page={$queue->page}/{$queue->max_page}" . PHP_EOL;
 
         $user       = $queue->getCurrentUser();
         $parameters = $queue->additionalParameters;
 
-        if ($queue->integrated === Queue::RUNNING && $config['forceId'] == 0) {
-            echo " job still in progress " . PHP_EOL;
-            echo "from " . $queue->executed_at . PHP_EOL;
-            if ($queue->executed_at) {
-                $date          = new \DateTime($queue->executed_at);
-                $date2         = new \DateTime(date('Y-m-d H:i:s'));
-                $diffInSeconds = $date2->getTimestamp() - $date->getTimestamp();
-                echo "in seconds: " . $diffInSeconds . PHP_EOL;
-                if ($diffInSeconds > 3600) {
-                    echo 'over hour - resetting' . PHP_EOL;
-                    $queue->setPendingStatus();
-                }
+        if ($queue->integrated === Queue::RUNNING && $config['forceId'] === 0) {
+            $currentDate = new DateTime(date('Y-m-d H:i:s'));
+            $excutedDate = new DateTime($queue->executed_at);
+            $diffInSeconds = $currentDate->getTimestamp() - $excutedDate->getTimestamp();
+
+            echo "[{$type}] Already RUNNING for {$diffInSeconds}s — skipping" . PHP_EOL;
+
+            if ($diffInSeconds > 3600) {
+                echo "[{$type}] Stale RUNNING (>1h), resetting to PENDING" . PHP_EOL;
+                $queue->setPendingStatus();
             }
+
             return ExitCode::OK;
         }
 
         if (!$queue->checkQueueConstraints()) {
-            echo " job should not run " . PHP_EOL;
-            $queue->setDisabledStatus('job disabled');
+            echo "[{$type}] checkQueueConstraints failed — job disabled" . PHP_EOL;
+            $queue->setErrorStatus('job disabled');
             return ExitCode::OK;
         }
 
         if (!$user) {
             $queue->delete();
+            echo "[{$type}] User not found for queue #{$queue->id} — deleting queue" . PHP_EOL;
             return ExitCode::UNSPECIFIED_ERROR;
         }
 
         if (AppConfig::isTypeStopped($type)) {
-            echo "Feed type '$type' is globally stopped — skipping." . PHP_EOL;
+            echo "[{$type}] is globally stopped — skipping." . PHP_EOL;
             return ExitCode::OK;
         }
 
@@ -89,16 +89,16 @@ class QueueRunnerService
 
         try {
             $parameters = $queue->additionalParameters;
-            $what       = isset($parameters['objects_done']) ? null : 'objects';
+            $processType = isset($parameters['objects_done']) ? null : 'objects';
 
-            echo "RUN with what: " . var_export($what, true) . PHP_EOL;
+            echo "[{$type}] processType={$processType}" . PHP_EOL;
 
             $timeStart = microtime(true);
-            $generated = $xml_generator->generate($what);
+            $generated = $xml_generator->generate($processType);
+            echo "[{$type}] generate() returned: {$generated}" . PHP_EOL;
             $timeEnd   = microtime(true);
             $elapsed   = $timeEnd - $timeStart;
             echo sprintf("--- TIME: %.3fs ---", $elapsed) . PHP_EOL;
-
             QueueExecutionLog::record(
                 $queue->id,
                 $user->id,
@@ -119,26 +119,25 @@ class QueueRunnerService
             }
 
             if ($generated === 10) {
+                echo "[{$type}] FINISHED — setting executed status" . PHP_EOL;
                 $queue->setExecutedStatus();
                 $queue->setCountErrors(0);
-                echo "DONE - feed complete." . PHP_EOL;
                 return ExitCode::OK;
             }
-
+            echo "[{$type}] Partial — setting pending for next run" . PHP_EOL;
             $queue->setPendingStatus();
             $queue->setCountErrors(0);
 
             return ExitCode::OK;
 
         } catch (FeedDisabledException $e) {
-            echo "FEED DISABLED — cancelling queue and removing future entries." . PHP_EOL;
+            echo "[{$type}] FEED DISABLED — cancelling queue and removing future entries." . PHP_EOL;
             $queue->setDisabledStatus($e->getMessage());
             Queue::deleteFutureQueuesForUser($queue->current_integrate_user, $type);
             return ExitCode::OK;
 
         } catch (Exception $e) {
-            echo "ERROR::" . PHP_EOL;
-            echo $e->getMessage() . PHP_EOL;
+            echo "[{$type}] EXCEPTION: " . $e->getMessage() . PHP_EOL;
 
             $queue->raiseCountErrors();
             if ($queue->getCountErrors() < 30) {
