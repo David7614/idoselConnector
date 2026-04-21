@@ -8,9 +8,15 @@ use app\models\Queue;
 use yii\helpers\Html;
 use yii\helpers\Url;
 
-$userName = fn($userId) => isset($users[$userId])
-    ? Html::a(Html::encode($users[$userId]->username), Url::to(['admin/view', 'id' => $userId]), ['title' => 'Kolejka użytkownika'])
-    : "<span style='color:#aaa'>#{$userId}</span>";
+$userName = function($userId) use ($users) {
+    if (!isset($users[$userId])) return "<span style='color:#aaa'>#{$userId}</span>";
+    $u    = $users[$userId];
+    $name = Html::encode($u->username);
+    if (!empty($u->fronturl) && $u->fronturl !== $u->username) {
+        $name .= ' <span style="color:#aaa; font-size:11px;">(' . Html::encode($u->fronturl) . ')</span>';
+    }
+    return Html::a($name, Url::to(['admin/view', 'id' => $userId]), ['title' => 'Kolejka użytkownika']);
+};
 
 $timeDiff = function (?string $date) use ($now): string {
     if (!$date) return '—';
@@ -249,18 +255,27 @@ $statusLabel = [
 <?php if ($recentStarted): ?>
 <table class="q-table">
     <thead><tr>
-        <th style="color:#bbb;font-weight:400;">#</th><th>Użytkownik</th><th>Typ</th><th>Status</th><th>Uruchomione</th><th>Postęp</th><th>Akcja</th>
+        <th style="color:#bbb;font-weight:400;">#</th><th>Użytkownik</th><th>Typ</th><th>Status</th><th>Faza</th><th>Uruchomione</th><th>Postęp</th><th>Akcja</th>
     </tr></thead>
     <tbody>
     <?php foreach ($recentStarted as $item):
-        $sl       = $statusLabel[$item->integrated] ?? ['label' => $item->integrated, 'color' => '#888'];
-        $progress = $item->max_page > 0 ? round($item->page / $item->max_page * 100) . '%' : '—';
+        $sl           = $statusLabel[$item->integrated] ?? ['label' => $item->integrated, 'color' => '#888'];
+        $progress     = $item->max_page > 0 ? round($item->page / $item->max_page * 100) . '%' : '—';
+        $params       = $item->additionalParameters;
+        $objectsDone  = !empty($params['objects_done']);
     ?>
     <tr>
         <td style="color:#bbb;font-size:11px;"><?= $item->id ?></td>
         <td><?= $userName($item->current_integrate_user) ?></td>
         <td><span class="type-chip"><?= Html::encode($typeLabel[$item->integration_type] ?? $item->integration_type) ?></span></td>
         <td><span style="color:<?= $sl['color'] ?>; font-weight:500;"><?= $sl['label'] ?></span></td>
+        <td>
+            <?php if ($objectsDone): ?>
+                <span style="color:#1e88e5; font-size:12px;" title="objects_done=true">XML</span>
+            <?php else: ?>
+                <span style="color:#888; font-size:12px;" title="objects_done not set">objects</span>
+            <?php endif ?>
+        </td>
         <td title="<?= Html::encode($item->executed_at) ?>"><?= $timeDiff($item->executed_at) ?></td>
         <td><?= $progress ?> <?= $item->max_page > 0 ? "<small style='color:#999'>({$item->page}/{$item->max_page})</small>" : '' ?></td>
         <td><?= Html::a('Kolejka', Url::to(['admin/view', 'id' => $item->current_integrate_user]), ['class' => 'btn btn-xs btn-default']) ?></td>
