@@ -157,7 +157,7 @@ $healthOk    = !$hasErrors && !$hasOverdue;
 <?php if ($running): ?>
 <table class="q-table">
     <thead><tr>
-        <th style="color:#bbb;font-weight:400;">#</th><th>Użytkownik</th><th>Typ</th><th>Postęp</th><th>Uruchomione</th><th>Czas trwania</th><th>Akcja</th>
+        <th style="color:#bbb;font-weight:400;">#</th><th>Użytkownik</th><th>Typ</th><th>Faza</th><th>Postęp</th><th>Uruchomione</th><th>Czas trwania</th><th>Akcja</th>
     </tr></thead>
     <tbody>
     <?php foreach ($running as $item):
@@ -166,11 +166,13 @@ $healthOk    = !$hasErrors && !$hasOverdue;
         $isStuck     = $runningSecs > 3600;
         $isStuck15   = $runningSecs > 900;
         $rowBg       = $isStuck ? 'style="background:#fff3e0;"' : ($isStuck15 ? 'style="background:#fffdf0;"' : '');
+        $objDone     = !empty($item->additionalParameters['objects_done']);
     ?>
     <tr <?= $rowBg ?>>
         <td style="color:#bbb;font-size:11px;"><?= $item->id ?></td>
         <td><?= $userName($item->current_integrate_user) ?></td>
         <td><span class="type-chip run"><?= Html::encode($typeLabel[$item->integration_type] ?? $item->integration_type) ?></span></td>
+        <td><span style="color:<?= $objDone ? '#1e88e5' : '#888' ?>; font-size:12px;"><?= $objDone ? 'XML' : 'objects' ?></span></td>
         <td><?= $progress ?> <?= $item->max_page > 0 ? "<small style='color:#999'>({$item->page}/{$item->max_page})</small>" : '' ?></td>
         <td title="<?= Html::encode($item->executed_at) ?>"><?= $timeDiff($item->executed_at) ?></td>
         <td>
@@ -214,14 +216,17 @@ $healthOk    = !$hasErrors && !$hasOverdue;
 <?php if ($recentHour): ?>
 <table class="q-table">
     <thead><tr>
-        <th style="color:#bbb;font-weight:400;">#</th><th>Użytkownik</th><th>Typ</th><th>Zakończono</th><th>Postęp</th><th>Akcja</th>
+        <th style="color:#bbb;font-weight:400;">#</th><th>Użytkownik</th><th>Typ</th><th>Faza</th><th>Zakończono</th><th>Postęp</th><th>Akcja</th>
     </tr></thead>
     <tbody>
-    <?php foreach ($recentHour as $item): ?>
+    <?php foreach ($recentHour as $item):
+        $objDone = !empty($item->additionalParameters['objects_done']);
+    ?>
     <tr>
         <td style="color:#bbb;font-size:11px;"><?= $item->id ?></td>
         <td><?= $userName($item->current_integrate_user) ?></td>
         <td><span class="type-chip ok"><?= Html::encode($typeLabel[$item->integration_type] ?? $item->integration_type) ?></span></td>
+        <td><span style="color:<?= $objDone ? '#1e88e5' : '#888' ?>; font-size:12px;"><?= $objDone ? 'XML' : 'objects' ?></span></td>
         <td title="<?= Html::encode($item->finished_at) ?>"><?= $timeDiff($item->finished_at) ?></td>
         <td><?= $item->max_page > 0 ? "<small style='color:#999'>{$item->page}/{$item->max_page} str.</small>" : '—' ?></td>
         <td><?= Html::a('Kolejka', Url::to(['admin/view', 'id' => $item->current_integrate_user]), ['class' => 'btn btn-xs btn-default']) ?></td>
@@ -300,17 +305,19 @@ $statusLabel = [
 <?php if ($errors): ?>
 <table class="q-table">
     <thead><tr>
-        <th style="color:#bbb;font-weight:400;">#</th><th>Użytkownik</th><th>Typ</th><th>Ostatnia próba</th><th>Komunikat błędu</th><th>Akcja</th>
+        <th style="color:#bbb;font-weight:400;">#</th><th>Użytkownik</th><th>Typ</th><th>Faza</th><th>Ostatnia próba</th><th>Komunikat błędu</th><th>Akcja</th>
     </tr></thead>
     <tbody>
     <?php foreach ($errors as $item):
-        $params = $item->additionalParameters;
-        $errMsg = $params['error_msg'] ?? '—';
+        $params  = $item->additionalParameters;
+        $errMsg  = $params['error_msg'] ?? '—';
+        $objDone = !empty($params['objects_done']);
     ?>
     <tr>
         <td style="color:#bbb;font-size:11px;"><?= $item->id ?></td>
         <td><?= $userName($item->current_integrate_user) ?></td>
         <td><span class="type-chip err"><?= Html::encode($typeLabel[$item->integration_type] ?? $item->integration_type) ?></span></td>
+        <td><span style="color:<?= $objDone ? '#1e88e5' : '#888' ?>; font-size:12px;"><?= $objDone ? 'XML' : 'objects' ?></span></td>
         <td title="<?= Html::encode($item->finished_at) ?>"><?= $timeDiff($item->finished_at) ?></td>
         <td style="color:#c62828; max-width:360px;"><?= Html::encode($errMsg) ?></td>
         <td>
@@ -438,7 +445,7 @@ $statusLabel = [
         }
     ?>
     <tr class="<?= $isProblem ? 'problem-row' : '' ?>">
-        <td><?= Html::a(Html::encode($u->username), Url::to(['admin/view', 'id' => $uid])) ?></td>
+        <td><?= $userName($uid) ?></td>
         <td>
             <?php if ($doneTypes): ?>
                 <?php foreach (array_keys($doneTypes) as $t): ?>
