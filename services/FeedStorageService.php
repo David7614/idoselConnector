@@ -99,6 +99,71 @@ class FeedStorageService
         }
     }
 
+    /**
+     * Upload a single page chunk. Key format: {baseKey}.chunk.{05d-padded-index}
+     */
+    public function putChunk(string $baseKey, int $chunk, string $content): void
+    {
+        $this->s3->putObject([
+            'Bucket' => $this->bucket,
+            'Key'    => sprintf('%s.chunk.%05d', $baseKey, $chunk),
+            'Body'   => $content,
+        ]);
+    }
+
+    /**
+     * List, concat and delete all chunks for a base key.
+     * Logs a warning if found count differs from $expectedCount.
+     */
+    public function collectAndDeleteChunks(string $baseKey, int $expectedCount = -1): string
+    {
+        $prefix = $baseKey . '.chunk.';
+        $params = ['Bucket' => $this->bucket, 'Prefix' => $prefix];
+        $keys   = [];
+
+        do {
+            $result = $this->s3->listObjectsV2($params);
+            foreach ($result['Contents'] ?? [] as $obj) {
+                $keys[] = $obj['Key'];
+            }
+            $params['ContinuationToken'] = $result['NextContinuationToken'] ?? null;
+        } while (!empty($result['IsTruncated']));
+
+        sort($keys);
+
+        if ($expectedCount > 0 && count($keys) !== $expectedCount) {
+            echo "WARNING: expected {$expectedCount} chunks, found " . count($keys) . " — feed may be incomplete" . PHP_EOL;
+            for ($i = 0; $i < $expectedCount; $i++) {
+                $expected = sprintf('%s.chunk.%05d', $baseKey, $i);
+                if (!in_array($expected, $keys)) {
+                    echo "  missing chunk: {$expected}" . PHP_EOL;
+                }
+            }
+        }
+
+        $buffer = '';
+        foreach ($keys as $key) {
+            $obj     = $this->s3->getObject(['Bucket' => $this->bucket, 'Key' => $key]);
+            $buffer .= (string) $obj['Body'];
+            $this->s3->deleteObject(['Bucket' => $this->bucket, 'Key' => $key]);
+        }
+
+        return $buffer;
+    }
+
+    /**
+     * Check whether any chunks exist for a base key (used instead of exists() for temp files).
+     */
+    public function chunksExist(string $baseKey): bool
+    {
+        $result = $this->s3->listObjectsV2([
+            'Bucket'  => $this->bucket,
+            'Prefix'  => $baseKey . '.chunk.',
+            'MaxKeys' => 1,
+        ]);
+        return !empty($result['Contents']);
+    }
+
     public function get(string $key): string
     {
         $result = $this->s3->getObject([

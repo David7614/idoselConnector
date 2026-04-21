@@ -30,9 +30,9 @@ class ProductFeed extends XmlFeed
         }
 
 
-        echo "*** ";
-        var_dump($this->isFinished());
-        echo "*** ";
+        // echo "*** ";
+        // var_dump($this->isFinished());
+        // echo "*** ";
 
         if ($what == 'objects') {
             if (! $this->_user->getApiKey()) {
@@ -89,14 +89,14 @@ class ProductFeed extends XmlFeed
 
         if (!$this->isFinished()) {
             return $this->prepareProductXmlViaStorage($storage, $tempKey, $fileKey);
-        } elseif (!$storage->exists($tempKey)) {
-            echo "temp missing in storage - resetting xml phase" . PHP_EOL;
+        } elseif (!$storage->chunksExist($tempKey)) {
+            echo "temp chunks missing in storage - resetting xml phase" . PHP_EOL;
             $this->_queue->page     = 0;
             $this->_queue->max_page = 0;
             $this->_queue->save();
             return $this->prepareProductXmlViaStorage($storage, $tempKey, $fileKey);
         } else {
-            return $this->createProductsXmlViaStorage($storage, $fileKey, $tempKey);
+            return $this->createProductsXmlViaStorage($storage, $fileKey, $tempKey, (int) $this->_queue->max_page);
         }
     }
 
@@ -134,30 +134,31 @@ class ProductFeed extends XmlFeed
             }
         }
 
-        $existingContent = $storage->exists($tempKey) ? $storage->get($tempKey) : '';
-        $storage->put($tempKey, $existingContent . $products_str);
+        if (!empty($products_str)) {
+            $storage->putChunk($tempKey, $page, $products_str);
+        }
 
         $page++;
         $this->_queue->page = $page;
         $this->_queue->save();
 
         if ($page > (int) $integrationDataMaxPage) {
-            echo "FINISHED ";
-            return $this->createProductsXmlViaStorage($storage, $fileKey, $tempKey);
+            echo "FINISHED" . PHP_EOL;
+            return $this->createProductsXmlViaStorage($storage, $fileKey, $tempKey, (int) $integrationDataMaxPage);
         }
 
         return 1;
     }
 
-    private function createProductsXmlViaStorage(FeedStorageService $storage, string $fileKey, string $tempKey): int
+    private function createProductsXmlViaStorage(FeedStorageService $storage, string $fileKey, string $tempKey, int $expectedChunks): int
     {
-        echo "FINALIZING XML (storage)" . PHP_EOL;
-        $tempContent = $storage->get($tempKey);
-        $products    = new \SimpleXMLElement('<PRODUCTS/>');
-        $products->addChild('PRODUCT');
-        $finalXml = str_replace('<PRODUCT/>', $tempContent, $products->asXML());
+        echo "FINALIZING XML (storage) — expected chunks: {$expectedChunks}" . PHP_EOL;
+
+        $content  = $storage->collectAndDeleteChunks($tempKey, $expectedChunks);
+        $finalXml = '<?xml version="1.0" encoding="UTF-8"?><PRODUCTS>' . $content . '</PRODUCTS>';
+
         $storage->put($fileKey, $finalXml, 'application/xml');
-        $storage->delete($tempKey);
+
         echo "XML uploaded to storage: " . $fileKey . PHP_EOL;
         return 10;
     }
