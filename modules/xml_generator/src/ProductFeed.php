@@ -364,9 +364,10 @@ class ProductFeed extends XmlFeed
         $result=$this->_client->get('/api/admin/v5/products/omnibusPrices', $request);
         foreach ($result['products'] as $ident => $product)
         {
+            if (!is_array($product)) continue;
             $productId = str_replace('id:', '', $ident);
             $omnibusPrice = null;
-            foreach ($product['shops'] as $shop)
+            foreach ($product['shops'] ?? [] as $shop)
             {
                 if ($shop['shop_id'] == $selectedShopId) {
                     $omnibusPrice = $shop['omnibusPriceRetail'];
