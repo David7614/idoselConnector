@@ -44,8 +44,8 @@ class QueueRunnerService
         $parameters = $queue->additionalParameters;
 
         if ($queue->integrated === Queue::RUNNING && $config['forceId'] === 0) {
-            $currentDate = new DateTime(date('Y-m-d H:i:s'));
-            $excutedDate = new DateTime($queue->executed_at);
+            $currentDate = new \DateTime(date('Y-m-d H:i:s'));
+            $excutedDate = new \DateTime($queue->executed_at);
             $diffInSeconds = $currentDate->getTimestamp() - $excutedDate->getTimestamp();
 
             echo "[{$type}] Already RUNNING for {$diffInSeconds}s — skipping" . PHP_EOL;
