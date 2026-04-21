@@ -565,6 +565,12 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
         $this->config->set('customer_shop_url', $url);
     }
 
+    private function getPlainUrl(){
+        if (isset($this->fronturl) && $this->fronturl !='')
+            return $this->fronturl;
+        return $this->username;
+    }
+
     public function getShopUrl()
     {
         return $this->config->get('customer_shop_url');
