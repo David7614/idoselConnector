@@ -72,14 +72,14 @@ class OrderFeed extends XmlFeed
 
         if (!$this->isFinished()) {
             return $this->createOrAddTempOrderXmlViaStorage($storage, $tempKey, $fileKey);
-        } elseif (!$storage->exists($tempKey)) {
-            $this->debug('Temp missing in storage — resetting XML phase');
+        } elseif (!$storage->chunksExist($tempKey)) {
+            $this->debug('Temp chunks missing in storage — resetting XML phase');
             $this->_queue->page     = 0;
             $this->_queue->max_page = 0;
             $this->_queue->save();
             return $this->createOrAddTempOrderXmlViaStorage($storage, $tempKey, $fileKey);
         } else {
-            return $this->createOrderXmlViaStorage($storage, $fileKey, $tempKey);
+            return $this->createOrderXmlViaStorage($storage, $fileKey, $tempKey, (int) $this->_queue->max_page);
         }
     }
 
@@ -110,7 +110,15 @@ class OrderFeed extends XmlFeed
 
         $this->debug(sprintf('XML via storage — page %d / %d', $page, $integrationDataMaxPage));
 
-        $existingContent = $storage->exists($tempKey) ? $storage->get($tempKey) : '';
+        if ($page > 0 && !$storage->chunkExists($tempKey, $page - 1)) {
+            $this->debug('chunk ' . ($page - 1) . ' missing — resetting xml phase');
+            $storage->deleteChunks($tempKey);
+            $this->_queue->page     = 0;
+            $this->_queue->max_page = 0;
+            $this->_queue->save();
+            return 1;
+        }
+
         $buffer = '';
 
         $orders_db = $ordersQuery->limit($page_size)->offset($page * $page_size)->all();
@@ -178,27 +186,28 @@ class OrderFeed extends XmlFeed
             }
         }
 
+        if (!empty($buffer)) {
+            $storage->putChunk($tempKey, $page, $buffer);
+        }
+
         $page++;
         $this->_queue->page = $page;
         $this->_queue->save();
 
-        $storage->put($tempKey, $existingContent . $buffer);
-
         if ($page > (int) $integrationDataMaxPage) {
             $this->debug('All pages done — finalizing XML');
-            return $this->createOrderXmlViaStorage($storage, $fileKey, $tempKey);
+            return $this->createOrderXmlViaStorage($storage, $fileKey, $tempKey, (int) $integrationDataMaxPage);
         }
 
         return 1;
     }
 
-    private function createOrderXmlViaStorage(FeedStorageService $storage, string $fileKey, string $tempKey): int
+    private function createOrderXmlViaStorage(FeedStorageService $storage, string $fileKey, string $tempKey, int $expectedChunks): int
     {
-        $this->debug('Finalizing XML (storage)');
-        $tempContent = $storage->get($tempKey);
-        $finalXml    = '<?xml version="1.0"?><ORDERS>' . $tempContent . '</ORDERS>';
+        $this->debug("Finalizing XML (storage) — expected chunks: {$expectedChunks}");
+        $content  = $storage->collectAndDeleteChunks($tempKey, $expectedChunks);
+        $finalXml = '<?xml version="1.0" encoding="UTF-8"?><ORDERS>' . $content . '</ORDERS>';
         $storage->put($fileKey, $finalXml, 'application/xml');
-        $storage->delete($tempKey);
         $this->debug('XML uploaded to storage: ' . $fileKey);
         return 10;
     }

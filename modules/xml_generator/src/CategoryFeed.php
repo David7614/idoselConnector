@@ -76,14 +76,14 @@ class CategoryFeed extends XmlFeed
 
         if (!$this->isFinished()) {
             return $this->createOrAddCategoryTempXmlViaStorage($storage, $tempKey, $fileKey);
-        } elseif (!$storage->exists($tempKey)) {
-            echo "temp missing in storage - resetting xml phase" . PHP_EOL;
+        } elseif (!$storage->chunksExist($tempKey)) {
+            echo "temp chunks missing in storage - resetting xml phase" . PHP_EOL;
             $this->_queue->page     = 0;
             $this->_queue->max_page = 0;
             $this->_queue->save();
             return $this->createOrAddCategoryTempXmlViaStorage($storage, $tempKey, $fileKey);
         } else {
-            return $this->createCategoryXmlViaStorage($storage, $fileKey, $tempKey);
+            return $this->createCategoryXmlViaStorage($storage, $fileKey, $tempKey, (int) $this->_queue->max_page);
         }
     }
 
@@ -145,13 +145,25 @@ class CategoryFeed extends XmlFeed
                 }
             }
 
-            $existingContent = $storage->exists($tempKey) ? $storage->get($tempKey) : '';
-            $storage->put($tempKey, $existingContent . $buffer);
+            $chunkIndex = $this->_queue->page;
+
+            if ($chunkIndex > 0 && !$storage->chunkExists($tempKey, $chunkIndex - 1)) {
+                echo "chunk " . ($chunkIndex - 1) . " missing — resetting xml phase" . PHP_EOL;
+                $storage->deleteChunks($tempKey);
+                $this->_queue->page     = 0;
+                $this->_queue->max_page = 0;
+                $this->_queue->save();
+                return 1;
+            }
+
+            if (!empty($buffer)) {
+                $storage->putChunk($tempKey, $chunkIndex, $buffer);
+            }
 
             $this->_queue->increasePage();
 
             if ($this->_queue->page >= $this->_queue->max_page) {
-                return $this->createCategoryXmlViaStorage($storage, $fileKey, $tempKey);
+                return $this->createCategoryXmlViaStorage($storage, $fileKey, $tempKey, (int) $this->_queue->max_page);
             }
 
             return true;
@@ -163,15 +175,12 @@ class CategoryFeed extends XmlFeed
         }
     }
 
-    private function createCategoryXmlViaStorage(FeedStorageService $storage, string $fileKey, string $tempKey): int
+    private function createCategoryXmlViaStorage(FeedStorageService $storage, string $fileKey, string $tempKey, int $expectedChunks): int
     {
-        echo "FINALIZING XML (storage)" . PHP_EOL;
-        $tempContent = $storage->get($tempKey);
-        $category    = new \SimpleXMLElement('<CATEGORIES/>');
-        $category->addChild('ITEM');
-        $finalXml = str_replace('<ITEM/>', $tempContent, $category->asXml());
+        echo "FINALIZING XML (storage) — expected chunks: {$expectedChunks}" . PHP_EOL;
+        $content  = $storage->collectAndDeleteChunks($tempKey, $expectedChunks);
+        $finalXml = '<?xml version="1.0" encoding="UTF-8"?><CATEGORIES>' . $content . '</CATEGORIES>';
         $storage->put($fileKey, $finalXml, 'application/xml');
-        $storage->delete($tempKey);
         echo "XML uploaded to storage: " . $fileKey . PHP_EOL;
         return 10;
     }

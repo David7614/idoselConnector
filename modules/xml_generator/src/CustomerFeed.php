@@ -84,14 +84,14 @@ class CustomerFeed extends XmlFeed
 
         if (!$this->isFinished()) {
             return $this->createOrAddTempCustomerXmlViaStorage($storage, $tempKey);
-        } elseif (!$storage->exists($tempKey)) {
-            echo "temp missing in storage - resetting xml phase" . PHP_EOL;
+        } elseif (!$storage->chunksExist($tempKey)) {
+            echo "temp chunks missing in storage - resetting xml phase" . PHP_EOL;
             $this->_queue->page     = 0;
             $this->_queue->max_page = 0;
             $this->_queue->save();
             return $this->createOrAddTempCustomerXmlViaStorage($storage, $tempKey);
         } else {
-            return $this->createCustomerXmlViaStorage($storage, $fileKey, $tempKey);
+            return $this->createCustomerXmlViaStorage($storage, $fileKey, $tempKey, (int) $this->_queue->max_page);
         }
     }
 
@@ -122,6 +122,15 @@ class CustomerFeed extends XmlFeed
 
         echo " PAGE " . $page . " of " . $integrationDataMaxPage . PHP_EOL;
 
+        if ($page > 0 && !$storage->chunkExists($tempKey, $page - 1)) {
+            echo "chunk " . ($page - 1) . " missing — resetting xml phase" . PHP_EOL;
+            $storage->deleteChunks($tempKey);
+            $this->_queue->page     = 0;
+            $this->_queue->max_page = 0;
+            $this->_queue->save();
+            return 1;
+        }
+
         $fields_to_integrate = [];
         if ($this->_user->config->get('customer_feed_registration'))  { $fields_to_integrate[] = 'customer_feed_registration'; }
         if ($this->_user->config->get('customer_feed_first_name'))    { $fields_to_integrate[] = 'customer_feed_first_name'; }
@@ -132,8 +141,6 @@ class CustomerFeed extends XmlFeed
 
         $customers_db = $customers_query->limit($page_size)->offset($page * $page_size)->all();
 
-        // Download existing temp content once, collect new rows in buffer
-        $existingContent = $storage->exists($tempKey) ? $storage->get($tempKey) : '';
         $buffer = '';
 
         try {
@@ -208,8 +215,9 @@ class CustomerFeed extends XmlFeed
             throw $e;
         }
 
-        // Single upload: existing content + new rows
-        $storage->put($tempKey, $existingContent . $buffer);
+        if (!empty($buffer)) {
+            $storage->putChunk($tempKey, $page, $buffer);
+        }
 
         $page++;
         $this->_queue->page = $page;
@@ -218,14 +226,12 @@ class CustomerFeed extends XmlFeed
         return 1;
     }
 
-    private function createCustomerXmlViaStorage(FeedStorageService $storage, string $fileKey, string $tempKey): int
+    private function createCustomerXmlViaStorage(FeedStorageService $storage, string $fileKey, string $tempKey, int $expectedChunks): int
     {
-        echo "FINALIZING XML (storage)" . PHP_EOL;
+        echo "FINALIZING XML (storage) — expected chunks: {$expectedChunks}" . PHP_EOL;
 
-        $tempContent = $storage->get($tempKey);
-        $wrapper     = new \SimpleXMLElement('<CUSTOMERS/>');
-        $wrapper->addChild('CUSTOMER');
-        $finalXml = str_replace('<CUSTOMER/>', $tempContent, $wrapper->asXML());
+        $content  = $storage->collectAndDeleteChunks($tempKey, $expectedChunks);
+        $finalXml = '<?xml version="1.0" encoding="UTF-8"?><CUSTOMERS>' . $content . '</CUSTOMERS>';
 
         $storage->put($fileKey, $finalXml, 'application/xml');
         $storage->delete($tempKey);
