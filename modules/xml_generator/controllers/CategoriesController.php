@@ -48,11 +48,9 @@ class CategoriesController extends Controller
                     die;
                 }
 
-                $content = $storage->get($key);
                 header('Content-type: application/xml; charset=utf-8');
                 header('Content-Disposition: attachment; filename="categories.xml"');
-                header('Content-Length: ' . strlen($content));
-                echo $content;
+                $storage->stream($key);
                 die;
             } catch (\Exception $e) {
                 return $e->getMessage();

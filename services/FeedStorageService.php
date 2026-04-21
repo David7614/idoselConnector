@@ -108,6 +108,29 @@ class FeedStorageService
         return (string) $result['Body'];
     }
 
+    /**
+     * Stream object body directly to output in chunks — avoids loading entire file into memory.
+     * Call after setting response headers. Returns Content-Length if available.
+     */
+    public function stream(string $key, int $chunkSize = 1048576): ?int
+    {
+        $result = $this->s3->getObject([
+            'Bucket' => $this->bucket,
+            'Key'    => $key,
+        ]);
+
+        $contentLength = $result['ContentLength'] ?? null;
+        $body          = $result['Body'];
+
+        $body->rewind();
+        while (! $body->eof()) {
+            echo $body->read($chunkSize);
+            flush();
+        }
+
+        return $contentLength ? (int) $contentLength : null;
+    }
+
     public function put(string $key, string $content, string $contentType = 'application/octet-stream'): void
     {
         $this->s3->putObject([
