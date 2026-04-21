@@ -123,6 +123,15 @@ class ProductFeed extends XmlFeed
 
         echo " PAGE " . $page . " of " . $integrationDataMaxPage . PHP_EOL;
 
+        if ($page > 0 && !$storage->chunkExists($tempKey, $page - 1)) {
+            echo "chunk " . ($page - 1) . " missing — resetting xml phase" . PHP_EOL;
+            $storage->deleteChunks($tempKey);
+            $this->_queue->page     = 0;
+            $this->_queue->max_page = 0;
+            $this->_queue->save();
+            return 1;
+        }
+
         $res          = $query->limit($page_size)->offset($page * $page_size)->all();
         $products_str = '';
         foreach ($res as $product) {

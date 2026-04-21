@@ -164,6 +164,25 @@ class FeedStorageService
         return !empty($result['Contents']);
     }
 
+    public function chunkExists(string $baseKey, int $chunk): bool
+    {
+        return $this->s3->doesObjectExist($this->bucket, sprintf('%s.chunk.%05d', $baseKey, $chunk));
+    }
+
+    public function deleteChunks(string $baseKey): void
+    {
+        $prefix = $baseKey . '.chunk.';
+        $params = ['Bucket' => $this->bucket, 'Prefix' => $prefix];
+
+        do {
+            $result = $this->s3->listObjectsV2($params);
+            foreach ($result['Contents'] ?? [] as $obj) {
+                $this->s3->deleteObject(['Bucket' => $this->bucket, 'Key' => $obj['Key']]);
+            }
+            $params['ContinuationToken'] = $result['NextContinuationToken'] ?? null;
+        } while (!empty($result['IsTruncated']));
+    }
+
     public function get(string $key): string
     {
         $result = $this->s3->getObject([
