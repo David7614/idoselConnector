@@ -79,7 +79,7 @@ class OrderFeed extends XmlFeed
             $this->_queue->save();
             return $this->createOrAddTempOrderXmlViaStorage($storage, $tempKey, $fileKey);
         } else {
-            return $this->createOrderXmlViaStorage($storage, $fileKey, $tempKey, (int) $this->_queue->max_page);
+            return $this->createOrderXmlViaStorage($storage, $fileKey, $tempKey, (int) $this->_queue->page);
         }
     }
 
@@ -186,9 +186,7 @@ class OrderFeed extends XmlFeed
             }
         }
 
-        if (!empty($buffer)) {
-            $storage->putChunk($tempKey, $page, $buffer);
-        }
+        $storage->putChunk($tempKey, $page, $buffer);
 
         $page++;
         $this->_queue->page = $page;
@@ -196,7 +194,7 @@ class OrderFeed extends XmlFeed
 
         if ($page > (int) $integrationDataMaxPage) {
             $this->debug('All pages done — finalizing XML');
-            return $this->createOrderXmlViaStorage($storage, $fileKey, $tempKey, (int) $integrationDataMaxPage);
+            return $this->createOrderXmlViaStorage($storage, $fileKey, $tempKey, $page);
         }
 
         return 1;

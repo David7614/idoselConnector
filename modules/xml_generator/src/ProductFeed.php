@@ -143,9 +143,7 @@ class ProductFeed extends XmlFeed
             }
         }
 
-        if (!empty($products_str)) {
-            $storage->putChunk($tempKey, $page, $products_str);
-        }
+        $storage->putChunk($tempKey, $page, $products_str);
 
         $page++;
         $this->_queue->page = $page;
@@ -153,7 +151,7 @@ class ProductFeed extends XmlFeed
 
         if ($page > (int) $integrationDataMaxPage) {
             echo "FINISHED" . PHP_EOL;
-            return $this->createProductsXmlViaStorage($storage, $fileKey, $tempKey, (int) $integrationDataMaxPage);
+            return $this->createProductsXmlViaStorage($storage, $fileKey, $tempKey, $page);
         }
 
         return 1;

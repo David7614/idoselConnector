@@ -91,7 +91,7 @@ class CustomerFeed extends XmlFeed
             $this->_queue->save();
             return $this->createOrAddTempCustomerXmlViaStorage($storage, $tempKey);
         } else {
-            return $this->createCustomerXmlViaStorage($storage, $fileKey, $tempKey, (int) $this->_queue->max_page);
+            return $this->createCustomerXmlViaStorage($storage, $fileKey, $tempKey, (int) $this->_queue->page);
         }
     }
 
@@ -215,9 +215,7 @@ class CustomerFeed extends XmlFeed
             throw $e;
         }
 
-        if (!empty($buffer)) {
-            $storage->putChunk($tempKey, $page, $buffer);
-        }
+        $storage->putChunk($tempKey, $page, $buffer);
 
         $page++;
         $this->_queue->page = $page;

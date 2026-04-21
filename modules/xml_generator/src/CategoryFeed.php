@@ -83,7 +83,7 @@ class CategoryFeed extends XmlFeed
             $this->_queue->save();
             return $this->createOrAddCategoryTempXmlViaStorage($storage, $tempKey, $fileKey);
         } else {
-            return $this->createCategoryXmlViaStorage($storage, $fileKey, $tempKey, (int) $this->_queue->max_page);
+            return $this->createCategoryXmlViaStorage($storage, $fileKey, $tempKey, (int) $this->_queue->page);
         }
     }
 
@@ -156,14 +156,12 @@ class CategoryFeed extends XmlFeed
                 return 1;
             }
 
-            if (!empty($buffer)) {
-                $storage->putChunk($tempKey, $chunkIndex, $buffer);
-            }
+            $storage->putChunk($tempKey, $chunkIndex, $buffer);
 
             $this->_queue->increasePage();
 
             if ($this->_queue->page >= $this->_queue->max_page) {
-                return $this->createCategoryXmlViaStorage($storage, $fileKey, $tempKey, (int) $this->_queue->max_page);
+                return $this->createCategoryXmlViaStorage($storage, $fileKey, $tempKey, (int) $this->_queue->page);
             }
 
             return true;
