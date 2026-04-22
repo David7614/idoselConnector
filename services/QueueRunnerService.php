@@ -138,6 +138,12 @@ class QueueRunnerService
 
         } catch (Exception $e) {
             echo "[{$type}] EXCEPTION: " . $e->getMessage() . PHP_EOL;
+            echo "  " . $e->getFile() . ":" . $e->getLine() . PHP_EOL;
+            foreach ($e->getTrace() as $i => $frame) {
+                $loc  = ($frame['file'] ?? '?') . ':' . ($frame['line'] ?? '?');
+                $call = ($frame['class'] ?? '') . ($frame['type'] ?? '') . $frame['function'] . '()';
+                echo "  #{$i} {$loc} — {$call}" . PHP_EOL;
+            }
 
             $queue->raiseCountErrors();
             if ($queue->getCountErrors() < 30) {

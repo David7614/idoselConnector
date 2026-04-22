@@ -213,11 +213,11 @@ class SettingsService
 
     private function getUrlByShopId($shopId, $shopsData)
     {
-        $shops = ArrayHelper::map($shopsData, 'shop_id', 'shop_name');
-
-        if ($shopId === '0') {
+        if ($shopId === null || $shopId === '0') {
             return null;
         }
+
+        $shops = ArrayHelper::map($shopsData, 'shop_id', 'shop_name');
 
         if (!isset($shops[$shopId])) {
             return null;

@@ -219,7 +219,7 @@ class ProductFeed extends XmlFeed
 
     private function createOrAddTempProductXml($temp): int
     {
-        echo "FUNC createOrAddTempProductXml" . PHP_EOL;
+        echo "[product] FUNC createOrAddTempProductXml" . PHP_EOL;
 
         $this->request_parameters['params']['returnProducts'] = 'active';
         if ($selectedShopId = $this->_user->config->get('customer_set_shop_id')) {
@@ -245,7 +245,7 @@ class ProductFeed extends XmlFeed
         $this->checkQueueConstraints();
 
         // $apiClient = $this->_client;
-        echo "start " . PHP_EOL;
+        echo "[product] start " . PHP_EOL;
 
         /*
 			        if ($this->_queue->id==147923){
