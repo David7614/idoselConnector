@@ -51,7 +51,7 @@ class IdiosellApp
         return $url;
     }
 
-    public function confirmInstall($user){
+    public static function confirmInstall($user){
         $client = new Client([
             'baseUrl' => 'https://apps.idosell.com/api/',
         ]);
