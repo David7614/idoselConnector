@@ -264,11 +264,14 @@ class SiteController extends Controller
 
 
         if (isset($get['userid']) && $get['userid'] == 233){
+            
             echo "<pre>";
-            print_r($res);
-            // // print_r($response->shops);
-            // print_r($response->stocks);
-            // print_r($filesInfo);
+            var_dump($res);
+            echo "</pre>";
+            echo "<hr>";
+            $res=$user->checkApiReady();
+            echo "<pre>";
+            var_dump($res);
             echo "</pre>";
             die ("STOP TEST");
         }
