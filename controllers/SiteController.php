@@ -255,23 +255,7 @@ class SiteController extends Controller
         $urls['customers']  = Url::home(true) . 'xml/' . $user->uuid . '/customers.xml';
         $urls['orders']     = Url::home(true) . 'xml/' . $user->uuid . '/orders.xml';
         $urls['categories'] = Url::home(true) . 'xml/' . $user->uuid . '/categories.xml';
-        // if (!isset($connection) && !$connection){
-        //$connection = new Connection($user);
-        // }
-        //$gate   = 'http://' . $user->username . '/api/?gate=systemconfig/get/162/soap/wsdl&lang=eng';
-        //$client = new ApiClient($user->username, $user->getApiKey());
-        //$res    = $client->sendRequest('/api/admin/v3/system/config');
 
-
-        if (isset($get['userid']) && $get['userid'] == 233){
-            
-            echo "<pre>";
-            var_dump($user->username);
-            var_dump($user->getApiKey());
-            var_dump($res);
-            echo "</pre>";
-            die ("STOP TEST");
-        }
 
         return $this->render('panel', [
             'urls'      => $urls,
