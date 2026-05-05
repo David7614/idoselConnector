@@ -158,8 +158,36 @@ th.sorted           { background:#ddeeff; }
                     <span style="color:#bbb;">brak zakończonych</span>
                 <?php endif ?>
             </div>
+            <div style="margin-top:8px; padding-top:7px; border-top:1px solid #eee;">
+                <form method="post" action="<?= Url::to(['admin/hard-reset-type']) ?>"
+                      onsubmit="return confirm('TWARDY RESET: <?= Html::encode(strtoupper($type)) ?>\n\nUsunie dane integracji (daty, flagi) i zresetuje kolejki do strony 0.\nSystem pobierze ponownie WSZYSTKIE dane z API.\n\nCzy na pewno chcesz wykonać reset?')">
+                    <?= Html::hiddenInput(Yii::$app->request->csrfParam, Yii::$app->request->csrfToken) ?>
+                    <input type="hidden" name="userId" value="<?= $user->id ?>">
+                    <input type="hidden" name="type"   value="<?= Html::encode($type) ?>">
+                    <button type="submit" class="btn btn-xs btn-danger" title="Wymuś ponowne pobranie wszystkich danych z API">
+                        &#9888; Twardy reset
+                    </button>
+                </form>
+                <?php if (!empty($hardResetDates[$type])): ?>
+                    <div style="font-size:10px; color:#a00; margin-top:3px;" title="<?= Html::encode($hardResetDates[$type]) ?>">
+                        ostatni reset: <?= Html::encode(date('d.m.Y H:i', strtotime($hardResetDates[$type]))) ?>
+                    </div>
+                <?php endif ?>
+            </div>
         </div>
         <?php endforeach ?>
+    </div>
+
+    <!-- Ostatnie uruchomienia -->
+    <div style="margin-bottom:20px;">
+        <div style="display:flex; align-items:center; gap:8px; margin-bottom:8px; padding-bottom:6px; border-bottom:2px solid #eee;">
+            <span style="font-size:15px; font-weight:600;"><span class="dot" style="display:inline-block;width:9px;height:9px;border-radius:50%;background:#546e7a;margin-right:5px;vertical-align:middle;"></span>Ostatnie uruchomienia</span>
+            <button id="vrs-refresh" class="btn btn-xs btn-link" title="Odśwież" style="padding:0 4px;">↻</button>
+            <button id="vrs-toggle" class="btn btn-xs btn-link" title="Auto-refresh" style="padding:0 4px; font-size:12px;">⏸</button>
+            <span id="vrs-countdown" style="font-size:11px; color:#aaa;"></span>
+            <span id="vrs-spinner" style="display:none; font-size:11px; color:#aaa;">ładowanie…</span>
+        </div>
+        <div id="vrs-content"></div>
     </div>
 
     <!-- Pasek aktywnego filtra -->
@@ -281,3 +309,52 @@ th.sorted           { background:#ddeeff; }
 
     <?php endif ?>
 </div>
+
+<script>
+(function () {
+    const endpoint  = <?= json_encode(Url::to(['admin/view-recent-started', 'userId' => $user->id])) ?>;
+    const INTERVAL  = 30;
+    const content   = document.getElementById('vrs-content');
+    const spinner   = document.getElementById('vrs-spinner');
+    const countdown = document.getElementById('vrs-countdown');
+    const toggleBtn = document.getElementById('vrs-toggle');
+    const refreshBtn = document.getElementById('vrs-refresh');
+
+    let active = true;
+    let secondsLeft = INTERVAL;
+
+    function load() {
+        spinner.style.display = 'inline';
+        countdown.textContent = '';
+        fetch(endpoint, { headers: { 'X-Requested-With': 'XMLHttpRequest' } })
+            .then(r => r.json())
+            .then(data => { content.innerHTML = data.html || ''; secondsLeft = INTERVAL; })
+            .catch(() => {})
+            .finally(() => { spinner.style.display = 'none'; });
+    }
+
+    function updateBtn() {
+        toggleBtn.textContent = active ? '⏸' : '▶';
+        toggleBtn.title = active ? 'Zatrzymaj auto-refresh' : 'Wznów auto-refresh';
+        toggleBtn.style.color = active ? '#888' : '#1e88e5';
+    }
+
+    setInterval(() => {
+        if (!active) { countdown.textContent = ''; return; }
+        secondsLeft--;
+        countdown.textContent = 'za ' + secondsLeft + 's';
+        if (secondsLeft <= 0) { secondsLeft = INTERVAL; load(); }
+    }, 1000);
+
+    toggleBtn.addEventListener('click', () => {
+        active = !active;
+        if (active) { secondsLeft = INTERVAL; }
+        updateBtn();
+    });
+
+    refreshBtn.addEventListener('click', load);
+
+    load();
+    updateBtn();
+})();
+</script>
