@@ -266,11 +266,8 @@ class SiteController extends Controller
         if (isset($get['userid']) && $get['userid'] == 233){
             
             echo "<pre>";
-            var_dump($res);
-            echo "</pre>";
-            echo "<hr>";
-            $res=$user->checkApiReady();
-            echo "<pre>";
+            var_dump($user->username);
+            var_dump($user->getApiKey());
             var_dump($res);
             echo "</pre>";
             die ("STOP TEST");
