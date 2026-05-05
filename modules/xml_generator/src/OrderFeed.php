@@ -435,7 +435,14 @@ class OrderFeed extends XmlFeed
             }
 
             if (isset($response['errors']) && !empty($response['errors']['faultString'])) {
-                throw new \Exception('API fault: ' . $response['errors']['faultString']);
+                $fault = $response['errors']['faultString'];
+                if (stripos($fault, 'pusty wynik') !== false || stripos($fault, 'empty') !== false) {
+                    $this->debug('API returned empty result — treating as end of data (page ' . $this->_queue->page . '/' . $this->_queue->max_page . ')');
+                    IntegrationData::setIsNew('ORDER', false, $this->_user->id);
+                    IntegrationData::setData('INITIAL_ORDERS_DONE', 1, $this->_user->id);
+                    return 10;
+                }
+                throw new \Exception('API fault: ' . $fault);
             }
 
             $order_statuses_map = [
