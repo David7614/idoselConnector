@@ -93,6 +93,9 @@ class IdoselSubscriptions extends \yii\db\ActiveRecord
         $customer_item = [];
 
         $customer_item['customer_id'] = $this->getCustomerIdent();
+        if (!isset($this->customer_email) || !$this->customer_email){ // failsafe na puste loginy
+            $this->customer_email=$this->customer_login;
+        } 
         $customer_item['email'] = htmlspecialchars($this->customer_email);
         $customer_item['login'] = htmlspecialchars($this->customer_login);
         // echo $this->getCorrectDbDate($customer->shops[0]->date_modification).PHP_EOL;
