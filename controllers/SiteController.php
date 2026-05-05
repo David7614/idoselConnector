@@ -262,12 +262,16 @@ class SiteController extends Controller
         //$client = new ApiClient($user->username, $user->getApiKey());
         //$res    = $client->sendRequest('/api/admin/v3/system/config');
 
-        // echo "<pre>";
-        // print_r($response->languages);
-        // // print_r($response->shops);
-        // print_r($response->stocks);
-        // print_r($filesInfo);
-        // echo "</pre>";
+
+        if (isset($get['userid']) && $get['userid'] == 233){
+            echo "<pre>";
+            print_r($res);
+            // // print_r($response->shops);
+            // print_r($response->stocks);
+            // print_r($filesInfo);
+            echo "</pre>";
+            die ("STOP TEST");
+        }
 
         return $this->render('panel', [
             'urls'      => $urls,
