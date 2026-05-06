@@ -30,10 +30,10 @@ class AdminController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only'  => ['index', 'view', 'run-queue-output', 'restart-queue-output', 'update', 'queues', 'queues-sections', 'save-queues-autorefresh', 'save-queues-collapsed', 'refresh-feed-counts', 'prepare-queue-output', 'app-settings', 'admins'],
+                'only'  => ['index', 'view', 'run-queue-output', 'restart-queue-output', 'update', 'queues', 'queues-sections', 'save-queues-autorefresh', 'save-queues-collapsed', 'refresh-feed-counts', 'prepare-queue-output', 'app-settings', 'admins', 'hard-reset-type', 'view-recent-started'],
                 'rules' => [
                     [
-                        'actions' => ['index', 'view', 'run-queue-output', 'restart-queue-output', 'update', 'queues', 'queues-sections', 'save-queues-autorefresh', 'save-queues-collapsed', 'refresh-feed-counts', 'prepare-queue-output', 'app-settings', 'admins'],
+                        'actions' => ['index', 'view', 'run-queue-output', 'restart-queue-output', 'update', 'queues', 'queues-sections', 'save-queues-autorefresh', 'save-queues-collapsed', 'refresh-feed-counts', 'prepare-queue-output', 'app-settings', 'admins', 'hard-reset-type', 'view-recent-started'],
                         'allow'   => true,
                         'roles'   => ['admin'],
                     ],
@@ -774,12 +774,18 @@ class AdminController extends Controller
             }
         }
 
+        $hardResetDates = [];
+        foreach (['order', 'customer', 'product', 'category', 'subscribers', 'phonesubscribers', 'tags', 'countries'] as $t) {
+            $hardResetDates[$t] = $user->getUserDataValue('hard_reset_' . $t);
+        }
+
         return $this->render('view', [
-            'user'         => $user,
-            'allItems'     => $allItems,
-            'queueItems'   => $query->all(),
-            'filterType'   => $filterType,
-            'filterStatus' => $filterStatus,
+            'user'           => $user,
+            'allItems'       => $allItems,
+            'queueItems'     => $query->all(),
+            'filterType'     => $filterType,
+            'filterStatus'   => $filterStatus,
+            'hardResetDates' => $hardResetDates,
         ]);
     }
 
@@ -819,6 +825,84 @@ class AdminController extends Controller
         $user->setUserDataValue('feed_counts', json_encode($counts));
 
         return ['ok' => true, 'userId' => $userId, 'counts' => $counts];
+    }
+
+    public function actionViewRecentStarted($userId)
+    {
+        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+
+        $items = Queue::find()
+            ->where(['current_integrate_user' => (int)$userId])
+            ->andWhere(['is not', 'executed_at', null])
+            ->orderBy(['executed_at' => SORT_DESC])
+            ->limit(20)
+            ->all();
+
+        return [
+            'html' => $this->renderPartial('_view_recent_started', [
+                'items'  => $items,
+                'userId' => (int)$userId,
+            ]),
+        ];
+    }
+
+    public function actionHardResetType()
+    {
+        $userId = (int) Yii::$app->request->post('userId');
+        $type   = Yii::$app->request->post('type');
+
+        $user = User::findOne($userId);
+        if (!$user || !$type) {
+            Yii::$app->session->addFlash('error', 'Nieprawidłowe parametry resetu.');
+            return $this->redirect(['admin/view', 'id' => $userId]);
+        }
+
+        // 1. Usuń integration_data powiązane z tym typem
+        $integrationDataKeys = [
+            'order'            => ['last_orders_integration_date', 'IS_NEW_ORDER', 'INITIAL_ORDERS_DONE'],
+            'customer'         => ['last_customer_integration_date', 'IS_NEW_CUSTOMER', 'INITIAL_CUSTOMERS_DONE'],
+            'product'          => ['last_products_integration_date', 'INITIAL_PRODUCTS_DONE'],
+            'category'         => [],
+            'subscribers'      => ['LAST_SUBSCRIBER_INTEGRATION_DATE', 'INITIAL_SUBSCRIBERS_DONE'],
+            'phonesubscribers' => ['LAST_PHONESUBSCRIBER_INTEGRATION_DATE', 'INITIAL_PHONESUBSCRIBERS_DONE'],
+            'tags'             => [],
+            'countries'        => [],
+        ];
+
+        foreach ($integrationDataKeys[$type] ?? [] as $key) {
+            IntegrationData::deleteAll(['task' => $key, 'customer_id' => $userId]);
+        }
+
+        // 2. Nowa kolejka danych z datą z przeszłości (wczoraj)
+        $pastDate = date('Y-m-d H:i:s', strtotime('-1 day'));
+
+        $dataQueue                          = new Queue();
+        $dataQueue->current_integrate_user  = $userId;
+        $dataQueue->integration_type        = $type;
+        $dataQueue->integrated              = Queue::PENDING;
+        $dataQueue->next_integration_date   = $pastDate;
+        $dataQueue->page                    = 0;
+        $dataQueue->max_page                = 0;
+        $dataQueue->parameters              = '';
+        $dataQueue->save(false);
+
+        // 3. Nowa kolejka XML 10 minut po kolejce danych
+        $pastDateXml = date('Y-m-d H:i:s', strtotime($pastDate . ' + 10 minutes'));
+
+        $xmlQueue                         = new Queue();
+        $xmlQueue->current_integrate_user = $userId;
+        $xmlQueue->integration_type       = $type;
+        $xmlQueue->integrated             = Queue::PENDING;
+        $xmlQueue->next_integration_date  = $pastDateXml;
+        $xmlQueue->page                   = 0;
+        $xmlQueue->max_page               = 0;
+        $xmlQueue->setAdditionalParameters(['objects_done' => 1]);
+        $xmlQueue->save(false);
+
+        $user->setUserDataValue('hard_reset_' . $type, date('Y-m-d H:i:s'));
+
+        Yii::$app->session->addFlash('success', 'Twardy reset kolejki „' . $type . '" wykonany.');
+        return $this->redirect(['admin/view', 'id' => $userId]);
     }
 
     public function actionIndex()
