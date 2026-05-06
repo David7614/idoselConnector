@@ -151,7 +151,7 @@ class SiteController extends Controller
             }
 
             $smartpoint = Yii::$app->request->post('smartpoint');
-            var_dump($user->getConfig()->set('smartpoint', $smartpoint));
+            $user->getConfig()->set('smartpoint', $smartpoint);
 
             $selected_language = Yii::$app->request->post('selected_language');
             var_dump($user->getConfig()->set('selected_language', $selected_language));
@@ -210,7 +210,9 @@ class SiteController extends Controller
 
             $settingsService = new SettingsService();
             $settingsService->saveShopUrl($customer_set_shop_id, $user, $res['shops']);
-
+            if ($user->id == 233){
+                die ("!!!!!!");
+            }
             return $this->redirect(Url::toRoute(['site/panel']));
         }
 
