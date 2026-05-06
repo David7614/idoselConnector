@@ -79,9 +79,11 @@ class UserConfig extends \yii\db\ActiveRecord
             $config->value = $value;
             $result = $config->save(false);
         } else {
-            $this->key = $key;
-            $this->value = $value;
-            $result = $this->save(false);
+            $newConfig = new self();
+            $newConfig->id_user = $this->id_user;
+            $newConfig->key = $key;
+            $newConfig->value = $value;
+            $result = $newConfig->save(false);
         }
 
         if ($this->_cache !== null) {

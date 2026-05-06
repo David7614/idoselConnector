@@ -210,9 +210,9 @@ class SiteController extends Controller
 
             $settingsService = new SettingsService();
             $settingsService->saveShopUrl($customer_set_shop_id, $user, $res['shops']);
-            if ($user->id == 233){
-                die ("!!!!!!");
-            }
+            // if ($user->id == 233){
+            //     die ("!!!!!!");
+            // }
             return $this->redirect(Url::toRoute(['site/panel']));
         }
 
