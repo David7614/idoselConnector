@@ -208,7 +208,7 @@ class SiteController extends Controller
             }
 
             $settingsService = new SettingsService();
-            $settingsService->saveShopUrl($customer_set_shop_id, $user, $res['shops']);
+            $settingsService->saveShopUrl($customer_set_shop_id, $user, $configFromApi['shops']);
             // if ($user->id == 233){
             //     die ("!!!!!!");
             // }
