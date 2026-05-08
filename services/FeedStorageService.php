@@ -193,6 +193,29 @@ class FeedStorageService
     }
 
     /**
+     * Count occurrences of $needle in a stored object without loading it fully into memory.
+     * Handles needle spanning chunk boundaries via overlap buffer.
+     */
+    public function countOccurrences(string $key, string $needle, int $chunkSize = 524288): int
+    {
+        $result  = $this->s3->getObject(['Bucket' => $this->bucket, 'Key' => $key]);
+        $body    = $result['Body'];
+        $body->rewind();
+
+        $count   = 0;
+        $overlap = strlen($needle) - 1;
+        $tail    = '';
+
+        while (!$body->eof()) {
+            $chunk  = $tail . $body->read($chunkSize);
+            $count += substr_count($chunk, $needle);
+            $tail   = $overlap > 0 ? substr($chunk, -$overlap) : '';
+        }
+
+        return $count;
+    }
+
+    /**
      * Stream object body directly to output in chunks — avoids loading entire file into memory.
      * Call after setting response headers. Returns Content-Length if available.
      */

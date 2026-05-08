@@ -210,16 +210,25 @@ class AdminController extends Controller
                 if (!$storage->exists($storageKey)) {
                     $filesInfo[$key]['status'] = 'Nie gotowy';
                 } else {
-                    $xml = $storage->get($storageKey);
-                    $filesInfo[$key]['elements'] = substr_count($xml, '<' . $tag . '>');
+                    $filesInfo[$key]['elements'] = $storage->countOccurrences($storageKey, '<' . $tag . '>');
                 }
             } else {
                 $fileName = $localPaths[$key];
                 if (!is_file($fileName)) {
                     $filesInfo[$key]['status'] = 'Nie gotowy';
                 } else {
-                    $xml = file_get_contents($fileName);
-                    $filesInfo[$key]['elements'] = substr_count($xml, '<' . $tag . '>');
+                    $needle  = '<' . $tag . '>';
+                    $overlap = strlen($needle) - 1;
+                    $count   = 0;
+                    $tail    = '';
+                    $fh      = fopen($fileName, 'rb');
+                    while (!feof($fh)) {
+                        $chunk  = $tail . fread($fh, 524288);
+                        $count += substr_count($chunk, $needle);
+                        $tail   = $overlap > 0 ? substr($chunk, -$overlap) : '';
+                    }
+                    fclose($fh);
+                    $filesInfo[$key]['elements'] = $count;
                 }
             }
         }
