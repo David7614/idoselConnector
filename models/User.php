@@ -390,12 +390,6 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
         return $apiKey;
     }
 
-    public function checkApiReady()
-    {
-        $client = new ApiClient($this->username, $this->getApiKey());
-        return $client->sendRequest('/api/admin/v3/system/config');
-    }
-
     //  public function getUserConfigs()
     // {
     //     return $this->hasMany(UserConfig::className(), ['id_user' => 'id']);
@@ -597,4 +591,33 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
         }
         return false;
     }
+
+    public function checkApiReady()
+    {
+        $client = new ApiClient($this->username, $this->getApiKey());
+        return $client->sendRequest('/api/admin/v3/system/config');
+    }
+
+    public function getConfigurationVariables(){
+        $res=$this->checkApiReady();
+        if ($res){            
+            if (isset($res['languages'])){
+                $this->getConfig()->set('confvars_languages', $res['languages']);
+            }      
+            if (isset($res['shops'])){
+                $this->getConfig()->set('confvars_shops', $res['shops']);
+            } 
+            if (isset($res['stocks'])){
+                $this->getConfig()->set('confvars_stocks', $res['stocks']);
+            }
+
+            return $res;
+        }
+        $res=[];
+        $res['languages']=$this->getConfig()->get('confvars_languages');
+        $res['shops']=$this->getConfig()->get('confvars_shops');
+        $res['stocks']=$this->getConfig()->get('confvars_stocks');
+        return $res;
+    }
+
 }

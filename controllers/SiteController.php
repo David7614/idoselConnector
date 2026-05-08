@@ -138,8 +138,7 @@ class SiteController extends Controller
 
         $user = User::findIdentity(Yii::$app->user->id);
 
-        $client = new ApiClient($user->username, $user->getApiKey());
-        $res = $client->sendRequest('/api/admin/v3/system/config');
+        $configFromApi=$user->getConfigurationVariables();
 
         if (Yii::$app->request->isPost) {
             $oldTrackpoint=$user->getConfig()->get('trackpoint');
@@ -262,9 +261,9 @@ class SiteController extends Controller
         return $this->render('panel', [
             'urls'      => $urls,
             'user'      => $user,
-            'languages' => $res['languages'],
-            'shops'     => $res['shops'],
-            'stocks'    => $res['stocks'],
+            'languages' => $configFromApi['languages'],
+            'shops'     => $configFromApi['shops'],
+            'stocks'    => $configFromApi['stocks'],
             'filesInfo' => $filesInfo,
         ]);
     }

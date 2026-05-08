@@ -75,6 +75,8 @@ class UserConfig extends \yii\db\ActiveRecord
 
     public function set($key, $value)
     {
+        $value = json_encode($value);
+
         if (($config = self::find()->where(['id_user' => $this->id_user, 'key' => $key])->one()) !== null) {
             $config->value = $value;
             $result = $config->save(false);
@@ -106,7 +108,12 @@ class UserConfig extends \yii\db\ActiveRecord
     public function get($key)
     {
         $this->loadCache();
-        return $this->_cache[$key] ?? null;
+        $value = $this->_cache[$key] ?? null;
+        if ($value === null) {
+            return null;
+        }
+        $decoded = json_decode($value, true);
+        return json_last_error() === JSON_ERROR_NONE ? $decoded : $value;
     }
 
     public function getStockIdsArray()

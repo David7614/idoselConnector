@@ -107,10 +107,9 @@ class AdminController extends Controller
         if (! $user->apiEnabled()) {
             return $this->redirect(Url::toRoute(['/admin/set-api-key'] + Yii::$app->request->get()));
         }
-        $client = new ApiClient($user->username, $user->getApiKey());
-        $res    = $client->sendRequest('/api/admin/v3/system/config');
+        $configFromApi=$user->getConfigurationVariables();
 
-        if (! $res) {
+        if (! $configFromApi) {
             return $this->redirect(Url::toRoute(['/admin/set-api-key'] + Yii::$app->request->get()));
         }
 
@@ -174,7 +173,7 @@ class AdminController extends Controller
             $user->setCustomerShoipId($customerShopId);
 
             $settingsService = new SettingsService();
-            $settingsService->saveShopUrl($customerShopId, $user, $res['shops']);
+            $settingsService->saveShopUrl($customerShopId, $user, $configFromApi['shops']);
 
             return $this->redirect(Url::toRoute(['admin/dashboard', 'id' => $user->id]));
         }
@@ -233,9 +232,9 @@ class AdminController extends Controller
 
         return $this->render('update', [
             'user'      => $user,
-            'languages' => $res['languages'],
-            'shops'     => $res['shops'],
-            'stocks'    => $res['stocks'],
+            'languages' => $configFromApi['languages'],
+            'shops'     => $configFromApi['shops'],
+            'stocks'    => $configFromApi['stocks'],
             'urls'      => $urls,
             'filesInfo' => $filesInfo,
         ]);

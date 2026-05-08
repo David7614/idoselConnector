@@ -60,9 +60,11 @@ $allUrl    = Url::current(['active' => 'all']);
                 'attribute' => 'username',
                 'label'     => 'Domena',
                 'value'     => function ($model) {
-                    return $model->fronturl
+                    $shopUrl = $model->config->get('customer_shop_url');
+                    $suffix  = $shopUrl ? ' <span style="color:#999;font-size:11px;">(' . Html::encode($shopUrl) . ')</span>' : '';
+                    return ($model->fronturl
                         ? Html::a(Html::encode($model->username), 'http://' . $model->username, ['target' => '_blank', 'style' => 'color:inherit'])
-                        : Html::encode($model->username);
+                        : Html::encode($model->username)) . $suffix;
                 },
                 'format' => 'raw',
             ],
