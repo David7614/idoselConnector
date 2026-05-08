@@ -814,19 +814,30 @@ class AdminController extends Controller
             : null;
 
         foreach ($tagMap as $type => $tag) {
+            $needle = '<' . $tag . '>';
             if ($storage) {
                 $key = $type . '/' . $user->uuid . '/' . $type . '.xml';
-                if ($storage->exists($key)) {
-                    $counts[$type] = substr_count($storage->get($key), '<' . $tag . '>');
-                } else {
-                    $counts[$type] = null;
-                }
+                $counts[$type] = $storage->exists($key)
+                    ? $storage->countOccurrences($key, $needle)
+                    : null;
             } else {
                 $base = \app\modules\xml_generator\src\XmlFeed::getFeedsBasePath();
                 $file = $base . '/' . $type . '/' . $user->uuid . '/' . $type . '.xml';
-                $counts[$type] = file_exists($file)
-                    ? substr_count(file_get_contents($file), '<' . $tag . '>')
-                    : null;
+                if (!file_exists($file)) {
+                    $counts[$type] = null;
+                } else {
+                    $overlap = strlen($needle) - 1;
+                    $count   = 0;
+                    $tail    = '';
+                    $fh      = fopen($file, 'rb');
+                    while (!feof($fh)) {
+                        $chunk  = $tail . fread($fh, 524288);
+                        $count += substr_count($chunk, $needle);
+                        $tail   = $overlap > 0 ? substr($chunk, -$overlap) : '';
+                    }
+                    fclose($fh);
+                    $counts[$type] = $count;
+                }
             }
         }
 
