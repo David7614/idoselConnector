@@ -70,7 +70,7 @@ class CountriesFeed extends XmlFeed
             // echo "[{$this->_queue->page}] ID={$customer->id} email={$customer->email}" . PHP_EOL;
             $country = $clientCountriesByLogin[$customer->email] ?? 'no data';
             $customer->country = $country;
-            $customer->save();
+            $customer->save(false);
 
             if ($errors = $customer->getErrors()) {
                 echo "  -> save errors: " . json_encode($errors) . PHP_EOL;
