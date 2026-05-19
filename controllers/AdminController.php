@@ -3,7 +3,12 @@ namespace app\controllers;
 
 use app\services\QueueRunnerService;
 use app\services\SettingsService;
+use app\models\Customers;
+use app\models\IdoselSubscriptions;
 use app\models\IntegrationData;
+use app\models\Orders;
+use app\models\Ordersv2;
+use app\models\Product;
 use app\models\User;
 use app\models\AppConfig;
 use app\models\Queue;
@@ -890,6 +895,28 @@ class AdminController extends Controller
 
         foreach ($integrationDataKeys[$type] ?? [] as $key) {
             IntegrationData::deleteAll(['task' => $key, 'customer_id' => $userId]);
+        }
+
+        // 1b. Usuń dane z tabeli powiązanej z typem
+        $deleted = 0;
+        switch ($type) {
+            case 'order':
+                $deleted += Orders::deleteAll(['user_id' => $userId]);
+                $deleted += Ordersv2::deleteAll(['user_id' => $userId]);
+                break;
+            case 'customer':
+                $deleted += Customers::deleteAll(['user_id' => $userId]);
+                break;
+            case 'product':
+                $deleted += Product::deleteAll(['user_id' => $userId]);
+                break;
+            case 'subscribers':
+            case 'phonesubscribers':
+                $deleted += IdoselSubscriptions::deleteAll(['user_id' => $userId]);
+                break;
+        }
+        if ($deleted > 0) {
+            Yii::$app->session->addFlash('success', "Usunięto {$deleted} rekordów z tabeli danych ({$type}).");
         }
 
         // 2. Nowa kolejka danych z datą z przeszłości (wczoraj)

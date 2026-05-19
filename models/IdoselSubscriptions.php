@@ -161,7 +161,7 @@ class IdoselSubscriptions extends \yii\db\ActiveRecord
 
     public static function getLanguage($subscriber, $user)
     {
-        if ($user->config->get('customer_language') !== '1') {
+        if ($user->config->get('customer_language') != 1) {
             return null;
         }
 

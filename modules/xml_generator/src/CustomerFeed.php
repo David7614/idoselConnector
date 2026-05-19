@@ -419,7 +419,7 @@ class CustomerFeed extends XmlFeed
 
     private function getLanguage($customer)
     {
-        if ($this->_user->config->get('customer_language') !== '1') {
+        if ($this->_user->config->get('customer_language') != 1) { // wyłączone to olać
             return null;
         }
 
@@ -432,7 +432,7 @@ class CustomerFeed extends XmlFeed
 
     private function getParameterCountry($customer)
     {
-        if ($this->_user->config->get('customer_country') !== '1') {
+        if ($this->_user->config->get('customer_country') != 1) {
             return null;
         }
 

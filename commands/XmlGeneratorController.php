@@ -552,6 +552,29 @@ class XmlGeneratorController extends Controller
         echo "Odpal jeszcze raz żeby sprawdzić czy plik przetrwa." . PHP_EOL;
     }
 
+    public function actionManualCustomer(int $userId, string $customerId)
+    {
+        $user = User::findOne($userId);
+        if (!$user) {
+            echo "User not found: $userId" . PHP_EOL;
+            return ExitCode::UNSPECIFIED_ERROR;
+        }
+        if (!$user->getApiKey()) {
+            echo "User has no API key configured" . PHP_EOL;
+            return ExitCode::UNSPECIFIED_ERROR;
+        }
+
+        $client   = new \app\modules\idosellv3\models\ApiClient($user->username, $user->getApiKey());
+        $response = $client->get('/api/admin/v5/clients/clients', [
+            'clientsIds'   => (int) $customerId,
+            'resultsLimit' => 1,
+            'resultsPage'  => 0,
+        ]);
+
+        echo json_encode($response, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE) . PHP_EOL;
+        return ExitCode::OK;
+    }
+
     private function establishQueue(string $type, array $config = []): int
     {
         return (new QueueRunnerService())->run($type, $config);
