@@ -534,7 +534,7 @@ class Queue extends \yii\db\ActiveRecord
      * @return bool
      */
     public static function isDisallowedEmail($email) {
-        $disallowedDomains = ["@allegromail", "@members.ebay", "@marketplace", "@zalando", "@pp-orders.zalan.do", "@mail.erli.pl"];
+        $disallowedDomains = ["@allegromail", "@members.ebay", "@marketplace", "@zalando", "@pp-orders.zalan.do", "@mail.erli.pl", "@kaufland-marktplatz.de"];
         $isDisallowedEmail = false;
 
         if ($email) {
