@@ -5,6 +5,8 @@ class ApiClient
 {
     private $accessToken;
     private $baseUrl;
+    private $lastHttpCode;
+    private $lastResponseBody;
 
     public function __construct($baseUrl, $accessToken)
     {
@@ -91,6 +93,9 @@ class ApiClient
         $response = curl_exec($ch);
         $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 
+        $this->lastHttpCode     = $httpCode;
+        $this->lastResponseBody = is_string($response) ? $response : curl_error($ch);
+
         // Check if request was successful
         if ($httpCode >= 200 && $httpCode < 300) {
             return json_decode($response, true);
@@ -99,23 +104,37 @@ class ApiClient
         }
     }
 
+    /**
+     * Krótki opis ostatniej nieudanej odpowiedzi - bez tego każdy błąd
+     * (także 500 po stronie IdoSell) wygląda jak zły klucz api.
+     */
+    private function lastErrorSuffix(){
+        $body = trim((string) $this->lastResponseBody);
+        if (mb_strlen($body) > 300) {
+            $body = mb_substr($body, 0, 300) . '...';
+        }
+        return ' [HTTP ' . $this->lastHttpCode . ($body !== '' ? ': ' . $body : '') . ']';
+    }
+
     public function testApiCredentials(){
         $errors=[];
         $res    = $this->sendRequest('/api/admin/v3/system/config');
         if (!$res){
-            $errors[]='Nie udało się wysłać testowego zapytania do bramki system/config - błędny klucz api lub brak uprawnień do System';
+            $errors[]='Nie udało się wysłać testowego zapytania do bramki system/config - błędny klucz api lub brak uprawnień do System'.$this->lastErrorSuffix();
         }
         $res    = $this->sendRequest('/api/admin/v4/clients/clients');
         if (!$res){
-            $errors[]='Nie udało się wysłać testowego zapytania do bramki clients/clients - błędny klucz api lub brak uprawnień do CRM';
+            $errors[]='Nie udało się wysłać testowego zapytania do bramki clients/clients - błędny klucz api lub brak uprawnień do CRM'.$this->lastErrorSuffix();
         }
-        $res    = $this->post('/api/admin/v4/orders/orders/get', []);
+        $probeParams = ['params' => ['resultsLimit' => 1, 'resultsPage' => 0]];
+
+        $res    = $this->post('/api/admin/v4/orders/orders/get', $probeParams);
         if (!$res){
-            $errors[]='Nie udało się wysłać testowego zapytania do bramki orders/orders/get - błędny klucz api lub brak uprawnień do OMS';
+            $errors[]='Nie udało się wysłać testowego zapytania do bramki orders/orders/get - błędny klucz api lub brak uprawnień do OMS'.$this->lastErrorSuffix();
         }
-        $res    = $this->post('/api/admin/v4/products/products/get', []);
+        $res    = $this->post('/api/admin/v4/products/products/get', $probeParams);
         if (!$res){
-            $errors[]='Nie udało się wysłać testowego zapytania do bramki products/products/get - błędny klucz api lub brak uprawnień do PIM';
+            $errors[]='Nie udało się wysłać testowego zapytania do bramki products/products/get - błędny klucz api lub brak uprawnień do PIM'.$this->lastErrorSuffix();
         }
 
         if (empty($errors)){
