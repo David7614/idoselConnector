@@ -2,6 +2,7 @@
 
 namespace app\modules\xml_generator\src;
 
+use app\models\AppConfig;
 use app\models\Customers;
 use app\models\IntegrationData;
 use app\models\IdoselSubscriptions;
