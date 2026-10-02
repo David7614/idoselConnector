@@ -170,7 +170,8 @@ class PhonesubscribersFeed extends XmlFeed
 //            $viewData->errorMessage = 'Error while executing API Orders: ' . $e->getMessage();
             echo 'Error while executing API PHONE Subscribers: ' . $e->getMessage();
             echo PHP_EOL;
-            die ("!!!");
+            // Nie zabijaj procesu (die) - to zostawialo kolejke w RUNNING na zawsze.
+            $this->_queue->setErrorStatus('phonesubscribers objects: ' . $e->getMessage());
             return false;
         }
     }
@@ -327,7 +328,8 @@ class PhonesubscribersFeed extends XmlFeed
             echo "ERROR WITH DATA ".PHP_EOL;
 //            $viewData->errorMessage = 'Error while executing API Orders: ' . $e->getMessage();
             echo $e->getMessage();
-            die ("!!!");
+            // Nie zabijaj procesu (die) - zostawialo kolejke w RUNNING.
+            $this->_queue->setErrorStatus('phonesubscribers xml: ' . $e->getMessage());
             return false;
         
         }

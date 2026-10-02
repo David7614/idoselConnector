@@ -88,6 +88,10 @@ class ApiClient
         // Set cURL options
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        // Timeouty - bez nich zawieszone API wiesi proces w nieskonczonosc
+        // (jedna z przyczyn kolejek wiszacych w RUNNING).
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 15);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 180);
 
         // Execute the request
         $response = curl_exec($ch);

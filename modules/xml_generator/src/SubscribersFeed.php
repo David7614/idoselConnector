@@ -177,7 +177,9 @@ class SubscribersFeed extends XmlFeed
 //            $viewData->errorMessage = 'Error while executing API Orders: ' . $e->getMessage();
             echo 'Error while executing API Subscribers: ' . $e->getMessage();
             echo PHP_EOL;
-            die ("!!!");
+            // Nie zabijaj procesu (die) - to zostawialo kolejke w RUNNING na zawsze.
+            // Ustaw ERROR z trescia bledu i wyjdz normalnie.
+            $this->_queue->setErrorStatus('subscribers objects: ' . $e->getMessage());
             return false;
         }
     }
@@ -334,7 +336,8 @@ class SubscribersFeed extends XmlFeed
             echo "ERROR WITH DATA ".PHP_EOL;
 //            $viewData->errorMessage = 'Error while executing API Orders: ' . $e->getMessage();
             echo $e->getMessage();
-            die ("!!!");
+            // Nie zabijaj procesu (die) - zostawialo kolejke w RUNNING.
+            $this->_queue->setErrorStatus('subscribers xml: ' . $e->getMessage());
             return false;
         
         }
