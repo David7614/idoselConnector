@@ -157,7 +157,8 @@ class ApiTestController extends Controller
             'curl_error' => curl_error($ch),
             'body'       => is_string($response) ? $response : '',
         ];
-        curl_close($ch);
+        // curl_close() pominiete celowo: od PHP 8.0 bez efektu, w 8.5 deprecated
+        // (Yii ErrorHandler zamienia deprecation w wyjatek).
         return $result;
     }
 
