@@ -174,11 +174,8 @@ class AdminController extends Controller
             Yii::$app->session->addFlash('success', 'Ustawienia g��owne zapisane');
 
             $customerShopId = Yii::$app->request->post('customer_set_shop_id');
-
-            $user->setCustomerShoipId($customerShopId);
-
-            $settingsService = new SettingsService();
-            $settingsService->saveShopUrl($customerShopId, $user, $configFromApi['shops']);
+            // setter sam ustawia shop_id i przelicza customer_shop_url wg confvars_shops
+            $user->setCustomerShoipId($customerShopId ?: 0);
 
             return $this->redirect(Url::toRoute(['admin/dashboard', 'id' => $user->id]));
         }

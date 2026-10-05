@@ -4,6 +4,7 @@ namespace app\models;
 use app\modules\idosellv3\models\ApiClient;
 use app\modules\xml_generator\src\XmlFeed;
 use app\services\FeedStorageService;
+use app\services\SettingsService;
 use Yii;
 use yii\helpers\Url;
 use yii\web\IdentityInterface;
@@ -532,6 +533,9 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
         }
 
         $this->config->set('customer_set_shop_id', $newId);
+        // Przelicz URL sklepu wg wybranego shop_id (zrodlo: confvars_shops z configu,
+        // zawsze dostepne - nie zalezy od swiezej odpowiedzi API).
+        (new SettingsService())->saveShopUrl($newId, $this, $this->config->get('confvars_shops') ?? []);
         $this->resetProductQueue();
         $this->updateFrontname();
     }

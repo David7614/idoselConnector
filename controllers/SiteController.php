@@ -200,18 +200,9 @@ class SiteController extends Controller
             Yii::$app->session->addFlash('success', 'Ustawienia głowne zapisane');
 
             $customer_set_shop_id = Yii::$app->request->post('customer_set_shop_id');
+            // setter sam ustawia shop_id i przelicza customer_shop_url wg confvars_shops
+            $user->setCustomerShoipId($customer_set_shop_id ?: 0);
 
-            if ($customer_set_shop_id) {
-                $user->config->set('customer_set_shop_id', $customer_set_shop_id);
-            } else {
-                $user->config->set('customer_set_shop_id', 0);
-            }
-
-            $settingsService = new SettingsService();
-            $settingsService->saveShopUrl($customer_set_shop_id, $user, $configFromApi['shops']);
-            // if ($user->id == 233){
-            //     die ("!!!!!!");
-            // }
             return $this->redirect(Url::toRoute(['site/panel']));
         }
 
