@@ -56,6 +56,68 @@ class FeedStorageService
         return new self($s3, $bucket);
     }
 
+    /**
+     * Status i liczba elementow feedow (products/customer/order/category) - wspolne
+     * dla site/panel i admin/dashboard, zeby oba panele liczyly tak samo.
+     * Uwzglednia storage (MinIO/S3) gdy skonfigurowany, inaczej pliki lokalne.
+     *
+     * @param \app\models\User $user
+     * @return array<string, array{status:string, elements:int}>
+     */
+    public static function buildFilesInfo($user): array
+    {
+        $feedMeta = [
+            'products' => ['product',  'PRODUCT'],
+            'customer' => ['customer', 'CUSTOMER'],
+            'order'    => ['order',    'ORDER'],
+            'category' => ['category', 'ITEM'],
+        ];
+
+        $xml = new \app\modules\xml_generator\src\XmlFeed();
+        $xml->setUser($user);
+
+        $useStorage = self::isConfigured();
+        $storage    = $useStorage ? self::create() : null;
+
+        $filesInfo = [];
+        foreach ($feedMeta as $key => [$storageType, $tag]) {
+            $filesInfo[$key] = ['status' => 'gotowy', 'elements' => 0];
+            $needle = '<' . $tag . '>';
+
+            if ($useStorage) {
+                $storageKey = $storageType . '/' . $user->uuid . '/' . $storageType . '.xml';
+                if (!$storage->exists($storageKey)) {
+                    $filesInfo[$key]['status'] = 'Nie gotowy';
+                } else {
+                    $filesInfo[$key]['elements'] = $storage->countOccurrences($storageKey, $needle);
+                }
+                continue;
+            }
+
+            $xml->setType($storageType);
+            $fileName = $xml->getFile(true, false);
+            if (!is_file($fileName)) {
+                $filesInfo[$key]['status'] = 'Nie gotowy';
+                continue;
+            }
+
+            // Zliczanie chunkami - plik produktow potrafi miec dziesiatki MB.
+            $overlap = strlen($needle) - 1;
+            $count   = 0;
+            $tail    = '';
+            $fh      = fopen($fileName, 'rb');
+            while (!feof($fh)) {
+                $chunk  = $tail . fread($fh, 524288);
+                $count += substr_count($chunk, $needle);
+                $tail   = $overlap > 0 ? substr($chunk, -$overlap) : '';
+            }
+            fclose($fh);
+            $filesInfo[$key]['elements'] = $count;
+        }
+
+        return $filesInfo;
+    }
+
     public function exists(string $key): bool
     {
         return $this->s3->doesObjectExist($this->bucket, $key);

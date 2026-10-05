@@ -181,59 +181,8 @@ class AdminController extends Controller
         }
 
         // key => [storageType, xml tag]
-        $feedMeta = [
-            'products' => ['product',  'PRODUCT'],
-            'customer' => ['customer', 'CUSTOMER'],
-            'order'    => ['order',    'ORDER'],
-            'category' => ['category', 'ITEM'],
-        ];
-
-        $xml_generator = new XmlFeed();
-        $xml_generator->setType('product');
-        $xml_generator->setUser($user);
-        $localPaths             = [];
-        $localPaths['products'] = $xml_generator->getFile(true, false);
-        $xml_generator->setType('customer');
-        $localPaths['customer'] = $xml_generator->getFile(true, false);
-        $xml_generator->setType('order');
-        $localPaths['order']    = $xml_generator->getFile(true, false);
-        $xml_generator->setType('category');
-        $localPaths['category'] = $xml_generator->getFile(true, false);
-
-        $filesInfo  = [];
-        $useStorage = \app\services\FeedStorageService::isConfigured();
-        $storage    = $useStorage ? \app\services\FeedStorageService::create() : null;
-
-        foreach ($feedMeta as $key => [$storageType, $tag]) {
-            $filesInfo[$key] = ['status' => 'gotowy', 'elements' => 0];
-
-            if ($useStorage) {
-                $storageKey = $storageType . '/' . $user->uuid . '/' . $storageType . '.xml';
-                if (!$storage->exists($storageKey)) {
-                    $filesInfo[$key]['status'] = 'Nie gotowy';
-                } else {
-                    $filesInfo[$key]['elements'] = $storage->countOccurrences($storageKey, '<' . $tag . '>');
-                }
-            } else {
-                $fileName = $localPaths[$key];
-                if (!is_file($fileName)) {
-                    $filesInfo[$key]['status'] = 'Nie gotowy';
-                } else {
-                    $needle  = '<' . $tag . '>';
-                    $overlap = strlen($needle) - 1;
-                    $count   = 0;
-                    $tail    = '';
-                    $fh      = fopen($fileName, 'rb');
-                    while (!feof($fh)) {
-                        $chunk  = $tail . fread($fh, 524288);
-                        $count += substr_count($chunk, $needle);
-                        $tail   = $overlap > 0 ? substr($chunk, -$overlap) : '';
-                    }
-                    fclose($fh);
-                    $filesInfo[$key]['elements'] = $count;
-                }
-            }
-        }
+        // Status feedow - wspolna logika z site/panel (storage-aware).
+        $filesInfo = \app\services\FeedStorageService::buildFilesInfo($user);
 
         $urls               = [];
         $urls['products']   = Url::home(true) . 'xml/' . $user->uuid . '/products.xml';
